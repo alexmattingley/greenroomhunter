@@ -1,11 +1,13 @@
 import React from 'react';
 
-function Location() {
+const Location = (props) => {
+  const { match: { params: { location } } } = props;
   return (
     <div>
-      Location Page
+      Location:
+      {location}
     </div>
   );
-}
+};
 
 export default Location;

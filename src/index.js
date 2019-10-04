@@ -1,19 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { Route, Link, BrowserRouter as Router } from 'react-router-dom'
+import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import Home from './pages/home.jsx';
 import About from './pages/about.jsx';
 import Contact from './pages/contact.jsx';
 import Location from './pages/location.jsx';
+import NotFound from './pages/notFound.jsx';
 import * as serviceWorker from './serviceWorker';
 
 const routing = (
   <Router>
-    <div>
+    <Switch>
       <Route exact path="/" component={Home} />
       <Route path="/about" component={About} />
       <Route path="/contact" component={Contact} />
-    </div>
+      <Route path="/location/:location" component={Location} />
+      <Route component={NotFound} />
+    </Switch>
   </Router>
 );
 
