@@ -1,5 +1,4 @@
 import React from 'react';
-import ReactDOM from 'react-dom'
 import { Link, BrowserRouter as Router } from 'react-router-dom'
 import Navigation from '../components/Navigation.jsx';
 
