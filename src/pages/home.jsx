@@ -12,6 +12,7 @@ function Home() {
       <div>Locations</div>
       <ul>
         <li>San Diego</li>
+        <li>Santa Barbara</li>
       </ul>
     </div>
   );
