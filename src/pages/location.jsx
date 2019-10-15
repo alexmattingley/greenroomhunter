@@ -1,5 +1,6 @@
 import React from 'react';
 import locationData from '../location-data/location-data.json';
+import WindyMap from '../components/WindyMap';
 
 
 class Location extends React.Component {
@@ -9,15 +10,15 @@ class Location extends React.Component {
   }
 
   componentDidMount() {
-    this.callAPI();
+    this.callBackend();
   }
 
-  callAPI() {
+  callBackend() {
     const { match: { params: { location } } } = this.props;
-    const data = locationData[location];
+    const locationObj = locationData[location];
     fetch('http://localhost:9000/location-api', {
       method: 'POST', // or 'PUT'
-      body: JSON.stringify(data), // data can be `string` or {object}!
+      body: JSON.stringify(locationObj), // data can be `string` or {object}!
       headers: {
         'Content-Type': 'application/json',
       },
@@ -27,14 +28,15 @@ class Location extends React.Component {
   }
 
   render() {
+    console.log(this.state.apiResponse);
     const { match: { params: { location } } } = this.props;
-    const locationName = locationData[location].name;
+    const locationObject = locationData[location];
+    const { name } = locationObject;
     return (
       <div>
         Location:
-        {locationName}
-        state:
-        something
+        {name}
+        <WindyMap locationData={locationObject} />
       </div>
     );
   }
