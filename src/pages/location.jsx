@@ -1,12 +1,13 @@
 import React from 'react';
 import locationData from '../location-data/location-data.json';
 import WindyMap from '../components/WindyMap';
+import BuoyBlock from '../components/Buoys/BuoyContainer';
 
 
 class Location extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { apiResponse: '' };
+    this.state = { apiData: '' };
   }
 
   componentDidMount() {
@@ -24,11 +25,11 @@ class Location extends React.Component {
       },
     })
       .then((res) => res.json())
-      .then((res) => this.setState({ apiResponse: res }));
+      .then((res) => this.setState({ apiData: res }));
   }
 
   render() {
-    console.log(this.state.apiResponse);
+    const { apiData: { buoyData, tideData } } = this.state;
     const { match: { params: { location } } } = this.props;
     const locationObject = locationData[location];
     const { name } = locationObject;
@@ -36,6 +37,7 @@ class Location extends React.Component {
       <div>
         Location:
         {name}
+        <BuoyBlock locationData={locationObject} buoyData={buoyData} />
         <WindyMap locationData={locationObject} />
       </div>
     );

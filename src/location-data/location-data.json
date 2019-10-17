@@ -1,7 +1,11 @@
 {
   "santa-barbara": {
     "name": "Santa Barbara",
-    "buoys": [46218, 46054, 46025],
+    "buoys": {
+      "Harvest Buoy": 46218,
+      "West Santa Barbara Buoy": 46054,
+      "San Pedro Buoy": 46222
+    },
     "tideStation": {
       "id": 9411340,
       "location": "Santa Barbara Harbor"
