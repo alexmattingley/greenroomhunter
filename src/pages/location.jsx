@@ -1,7 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import locationData from '../location-data/location-data.json';
 import WindyMap from '../components/WindyMap';
 import BuoyBlock from '../components/Buoys/BuoyContainer';
+import TideBlock from '../components/Tide/TideContainer';
 
 
 class Location extends React.Component {
@@ -39,9 +41,18 @@ class Location extends React.Component {
         {name}
         <BuoyBlock locationData={locationObject} buoyData={buoyData} />
         <WindyMap locationData={locationObject} />
+        <TideBlock tideData={tideData}/>
       </div>
     );
   }
 }
+
+Location.propTypes = {
+  match: PropTypes.shape({
+    params: PropTypes.shape({
+      location: PropTypes.string.isRequired,
+    }).isRequired,
+  }).isRequired,
+};
 
 export default Location;

@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from 'chart.js';
 import { BuoyChartContainer } from './index.styled.js';
 
-class BuoyBlock extends React.Component {
+class BuoyChart extends React.Component {
   constructor(props) {
     super(props);
     this.buoyChartRef = React.createRef();
@@ -65,11 +65,10 @@ class BuoyBlock extends React.Component {
   }
 
   render() {
-    const { buoyData } = this.props;
-      return (
-        <BuoyChartContainer ref={this.buoyChartRef} />
-      );
+    return (
+      <BuoyChartContainer ref={this.buoyChartRef} />
+    );
   }
 }
 
-export default BuoyBlock;
+export default BuoyChart;

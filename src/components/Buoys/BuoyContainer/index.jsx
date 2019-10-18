@@ -6,12 +6,13 @@ class BuoyBlock extends React.Component {
     const { buoyData } = this.props;
     if (buoyData) {
       return buoyData.map((itm) => {
+        const { stationId, indivBuoyData } = itm;
         return (
-          <div>
+          <div key={stationId}>
             <div>
               Text for the BuoyBlock
             </div>
-            <BuoyChart buoyData={itm}/>
+            <BuoyChart buoyData={indivBuoyData} />
           </div>
         );
       })
