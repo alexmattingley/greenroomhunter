@@ -1,17 +1,27 @@
+const moment = require('moment');
+
 function parseTideData(rawData) {
-  const parsedData = rawData.predictions.map((elem, index, array) => {
-    // only calculate high or low if its not the first or last value in the array
+  // Filter out any duplicates so we can calculate high and low tides
+  const parsedData = rawData.predictions.filter((elem, index, array) => {
+    if (array[index + 1] && elem.v === array[index + 1].v) {
+      return false;
+    }
+    return true;
+  // Find high and lows of chart
+  }).map((elem, index, array) => {
+    const tideValue = elem;
+    tideValue.t = moment(tideValue.t).format('MMM DD, LT');
     if (index !== 0 && index !== array.length - 1) {
       // True if value is high tide
-      if (elem.v < array[index - 1].v && elem.v < array[index + 1].v) {
-        return Object.assign(elem, { point: 'high' });
+      if (tideValue.v < array[index - 1].v && tideValue.v < array[index + 1].v) {
+        return Object.assign(tideValue, { point: 'low' });
       }
       // True is if its low tide
-      if (elem.v > array[index - 1].v && elem.v > array[index + 1].v) {
-        return Object.assign(elem, { point: 'low' });
+      if (tideValue.v > array[index - 1].v && tideValue.v > array[index + 1].v) {
+        return Object.assign(tideValue, { point: 'high' });
       }
     }
-    return elem;
+    return tideValue;
   });
   return parsedData;
 }

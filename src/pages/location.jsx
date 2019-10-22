@@ -41,7 +41,7 @@ class Location extends React.Component {
         {name}
         <BuoyBlock locationData={locationObject} buoyData={buoyData} />
         <WindyMap locationData={locationObject} />
-        <TideBlock tideData={tideData}/>
+        <TideBlock locationData={locationObject} tideData={tideData} />
       </div>
     );
   }
