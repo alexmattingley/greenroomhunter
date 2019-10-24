@@ -2,7 +2,7 @@ const moment = require('moment');
 
 function parseTideData(rawData) {
   // Filter out any duplicates so we can calculate high and low tides
-  const parsedData = rawData.predictions.filter((elem, index, array) => {
+  const parsedData = rawData.filter((elem, index, array) => {
     if (array[index + 1] && elem.v === array[index + 1].v) {
       return false;
     }
@@ -11,6 +11,7 @@ function parseTideData(rawData) {
   }).map((elem, index, array) => {
     const tideValue = elem;
     tideValue.t = moment(tideValue.t).format('MMM DD, LT');
+    // Don't do anything if its the first or the last reading
     if (index !== 0 && index !== array.length - 1) {
       // True if value is high tide
       if (tideValue.v < array[index - 1].v && tideValue.v < array[index + 1].v) {

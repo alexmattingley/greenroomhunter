@@ -6,7 +6,7 @@ const getInvidBuoyData = async (buoyNum) => {
     const json = await response.text();
     return json;
   } catch (error) {
-    return error;
+    throw new Error(error);
   }
 };
 

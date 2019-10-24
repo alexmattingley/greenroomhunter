@@ -13,7 +13,7 @@ function generateTideChartData(tideData) {
     // No matter what, push every value to the chart
     dataForChart.time.push(itm.t);
     dataForChart.height.push(itm.v);
-    // Calculate where the day changes from the first day to the second so we can have a dividing line
+    // Calculate where the day changes from the first to second day
     const [, day] = itm.t.split(' ');
     if (currentDay !== day) {
       currentDay = day;

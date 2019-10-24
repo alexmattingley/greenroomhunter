@@ -9,7 +9,7 @@ import TideBlock from '../components/Tide/TideContainer';
 class Location extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { apiData: '' };
+    this.state = { tideData: null, buoyData: null };
   }
 
   componentDidMount() {
@@ -27,11 +27,16 @@ class Location extends React.Component {
       },
     })
       .then((res) => res.json())
-      .then((res) => this.setState({ apiData: res }));
+      .then((res) => this.setState(
+        {
+          tideData: res.tideData,
+          buoyData: res.buoyData,
+        },
+      ));
   }
 
   render() {
-    const { apiData: { buoyData, tideData } } = this.state;
+    const { buoyData, tideData } = this.state;
     const { match: { params: { location } } } = this.props;
     const locationObject = locationData[location];
     const { name } = locationObject;

@@ -1,13 +1,15 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+
 
 function TideTable(props) {
-  const { tideData } = props;
-  const tideRowArr = tideData.reduce((acc, curr) => {
+  const { tideData: { data } } = props;
+  const tideRowArr = data.reduce((acc, curr) => {
     if (curr.point) {
       acc.push(
-        <div>
+        <div key={curr.t}>
           {curr.point}: {curr.t} {curr.v}
-        </div>
+        </div>,
       );
     }
     return acc;
@@ -18,5 +20,16 @@ function TideTable(props) {
     </div>
   );
 }
+
+
+TideTable.propTypes = {
+  tideData: PropTypes.shape({
+    data: PropTypes.array,
+  }),
+};
+
+TideTable.defaultProps = {
+  tideData: null,
+};
 
 export default TideTable;

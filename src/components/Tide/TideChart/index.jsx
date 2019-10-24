@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'chart.js';
+import PropTypes from 'prop-types';
 import generateTideChartData from './generateTideData.js';
 
 class TideChart extends React.Component {
@@ -9,19 +10,23 @@ class TideChart extends React.Component {
   }
 
   componentDidMount() {
-    const { tideData } = this.props;
+    const { tideData: { data } } = this.props;
     const ctx = this.tideChartRef.current.getContext('2d');
-    const chart = new Chart(ctx, generateTideChartData(tideData));
+    const chart = new Chart(ctx, generateTideChartData(data));
   }
 
   render() {
-    const { tideData } = this.props;
     return (
-      <canvas ref={this.tideChartRef}>
-        tide block
-      </canvas>
+      <canvas ref={this.tideChartRef} />
     );
   }
 }
+
+TideChart.propTypes = {
+  tideData: PropTypes.shape({
+    success: PropTypes.bool,
+    data: PropTypes.array,
+  }).isRequired,
+};
 
 export default TideChart;

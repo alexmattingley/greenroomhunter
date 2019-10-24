@@ -8,9 +8,11 @@ const fetchTideData = async (stationId) => {
   try {
     const response = await fetch(`http://tidesandcurrents.noaa.gov/api/datagetter?begin_date=${beginDate}&end_date=${endDate}&product=predictions&station=${stationId}&datum=MLLW&units=english&time_zone=lst_ldt&application=Web_Services&format=json`);
     const json = await response.json();
-    return json;
+    return json.predictions.map(
+      (elem) => Object.assign(elem, { v: parseFloat(elem.v) }),
+    );
   } catch (error) {
-    return error;
+    throw new Error(error);
   }
 };
 

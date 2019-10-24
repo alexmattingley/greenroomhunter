@@ -10,8 +10,20 @@ const router = express.Router();
 router.post('/', async (req, res) => {
   const { buoys, tideStation: { id } } = req.body;
   const buoyData = await mapBuoyData(buoys);
-  const rawTideData = await fetchTideData(id);
-  const tideData = parseTideData(rawTideData);
+  let tideData;
+  try {
+    const rawTideData = await fetchTideData(id);
+    tideData = {
+      success: true,
+      data: parseTideData(rawTideData),
+    };
+  } catch (error) {
+    tideData = {
+      success: false,
+      error: error.message,
+      data: [],
+    };
+  }
   res.send(
     {
       buoyData,

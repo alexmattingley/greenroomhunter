@@ -22,5 +22,6 @@ module.exports = {
   ],
   rules: {
     "import/extensions": ["off", "always"],
+    "react/jsx-one-expression-per-line": "off"
   },
 };
