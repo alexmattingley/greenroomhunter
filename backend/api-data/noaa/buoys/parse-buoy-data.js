@@ -1,6 +1,6 @@
 const getInvidBuoyData = require('./fetch-buoy-data.js');
 
-function parseBuoyData(str, stationId) {
+function parseBuoyData(str) {
   // Split array based on table data for the past 2 days
   const strArr = str.split('\n').slice(2, 98);
   const recentBuoyData = strArr.map((idx) => {
@@ -26,9 +26,13 @@ function parseBuoyData(str, stationId) {
 
 async function mapBuoyData(buoys) {
   const buoyData = Object.values(buoys).map(async (stationId) => {
-    const rawData = await getInvidBuoyData(stationId);
-    const indivBuoyData = parseBuoyData(rawData);
-    return { indivBuoyData, stationId };
+    try {
+      const rawData = await getInvidBuoyData(stationId);
+      const indivBuoyData = parseBuoyData(rawData);
+      return { indivBuoyData, stationId };
+    } catch (error) {
+      throw new Error(error);
+    }
   });
   return Promise.all(buoyData);
 }

@@ -21,7 +21,7 @@ function TideContainer(props) {
   if (tideData && !tideData.success) {
     return (
       <div>
-        Whoops! It looks like we are having trouble getting the buoy information
+        Whoops! It looks like we are having trouble getting the tide information
       </div>
     );
   }
