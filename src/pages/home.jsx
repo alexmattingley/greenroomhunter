@@ -19,16 +19,10 @@ const Home = () => (
         <Link to="/location/los-angeles">Los Angeles</Link>
       </li>
       <li>
-        <Link to="/location/north-oc">North Orange County</Link>
+        <Link to="/location/orange-county">Orange County</Link>
       </li>
       <li>
-        <Link to="/location/south-oc">South Orange County</Link>
-      </li>
-      <li>
-        <Link to="/location/north-sd">North San Diego</Link>
-      </li>
-      <li>
-        <Link to="/location/south-sd">South San Diego</Link>
+        <Link to="/location/san-diego">San Diego</Link>
       </li>
     </ul>
   </div>
