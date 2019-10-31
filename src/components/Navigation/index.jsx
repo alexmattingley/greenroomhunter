@@ -15,8 +15,9 @@ export const NavContainer = styled.div`
   width: 100%;
   margin: 0 auto;
   padding: 15px;
-  background-color: ${colors.lightGreen};
-  position: fixed;
+  background-color: transparent;
+  position: absolute;
+  z-index: 5;
 
   @media only screen and (min-width: ${lg}) {
     padding-left: 50px;

@@ -1,30 +1,15 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Navigation from '../components/Navigation.jsx';
+import Navigation from '../components/Navigation/index.jsx';
+import Hero from '../components/Hero/index.jsx';
+import LocationsList from '../components/LocationList/index.jsx';
 
 
 const Home = () => (
   <div>
-    <Navigation />
-    Home Page
+    <Navigation currentPage="Home" />
+    <Hero />
     <div>Locations</div>
-    <ul>
-      <li>
-        <Link to="/location/santa-barbara">Santa Barbara</Link>
-      </li>
-      <li>
-        <Link to="/location/ventura">Ventura</Link>
-      </li>
-      <li>
-        <Link to="/location/los-angeles">Los Angeles</Link>
-      </li>
-      <li>
-        <Link to="/location/orange-county">Orange County</Link>
-      </li>
-      <li>
-        <Link to="/location/san-diego">San Diego</Link>
-      </li>
-    </ul>
+    <LocationsList />
   </div>
 );
 

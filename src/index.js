@@ -1,8 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
-import { Normalize } from 'styled-normalize';
-import { createGlobalStyle } from 'styled-components'
+import CssBaseline from '@material-ui/core/CssBaseline';
 import { AppContainer } from './components/Container/index.styled.js';
 import Home from './pages/home.jsx';
 import About from './pages/about.jsx';
@@ -11,30 +10,21 @@ import Location from './pages/location.jsx';
 import NotFound from './pages/notFound.jsx';
 import * as serviceWorker from './serviceWorker';
 
-const GlobalStyle = createGlobalStyle`
-  body {
-    font-family: 'Montserrat', sans-serif;
-  }
-  h1, h2, h3, h4, h5, h6 {
-    font-family: 'Roboto', sans-serif;
-  }
-`;
 
 const routing = (
   <>
-    <GlobalStyle />
-    <Normalize />
-    <AppContainer>
-      <Router>
-        <Switch>
-          <Route exact path="/" component={Home} />
-          <Route path="/about" component={About} />
-          <Route path="/contact" component={Contact} />
-          <Route path="/location/:location" component={Location} />
-          <Route component={NotFound} />
-        </Switch>
-      </Router>
-    </AppContainer>
+    <CssBaseline />
+      <AppContainer>
+        <Router>
+          <Switch>
+            <Route exact path="/" component={Home} />
+            <Route path="/about" component={About} />
+            <Route path="/contact" component={Contact} />
+            <Route path="/location/:location" component={Location} />
+            <Route component={NotFound} />
+          </Switch>
+        </Router>
+      </AppContainer>
   </>
 );
 

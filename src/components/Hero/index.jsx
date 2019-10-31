@@ -7,18 +7,36 @@ import buoyGraph from '../../images/buoy-graph.png';
 
 export const HeroContainer = styled.div`
   background-color: ${colors.lightGreen};
+  position: relative;
+  height: 100vh;
+  width: 100%;
+  box-sizing: border-box;
+`;
+
+export const HeroBgContainer = styled.div`
+  background-color: ${colors.lightGreen};
+  position: absolute;
+  z-index: 0;
   background-size: cover;
   height: 100vh;
   width: 100%;
   box-sizing: border-box;
 `;
 
+
 const HeroColorCover = styled.div`
-  background: url(${buoyGraph});
-  opacity: 0.3;
+  background-image: url(${buoyGraph});
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: bottom;
+  opacity: .4;
   height: 100vh;
   width: 100%;
   position: relative;
+
+  @media only screen and (min-width: ${breakpts.lg}) {
+    background-size: contain;
+  }
 `;
 
 export const HeroLogo = styled.img`
@@ -49,10 +67,11 @@ export const HeroTagLine = styled.h1`
 
 export default () => (
   <HeroContainer>
-    <HeroColorCover>
-      <HeroTagLine>
-        Buoy, Wind and Tide Data tailored for surfers
-      </HeroTagLine>
-    </HeroColorCover>
+    <HeroBgContainer>
+      <HeroColorCover />
+    </HeroBgContainer>
+    <HeroTagLine>
+      Buoy, Wind and Tide Data tailored for surfers
+    </HeroTagLine>
   </HeroContainer>
 );
