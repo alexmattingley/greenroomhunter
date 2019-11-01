@@ -10,3 +10,7 @@ export const LocationsLi = styled.li`
   display: block;
   list-style-type: none;
 `;
+
+export const LocationImage = styled.img`
+
+`;

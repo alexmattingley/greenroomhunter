@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import {
   colors, breakpts, generateStylesForSize,
 } from 'data/styles-data.js';
-import buoyGraph from '../../images/buoy-graph.png';
+import buoyGraph from 'images/buoy-graph.png';
 
 export const HeroContainer = styled.div`
   background-color: ${colors.lightGreen};

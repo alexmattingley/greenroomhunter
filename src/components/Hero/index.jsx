@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  HeroContainer, HeroBgContainer, HeroColorCover, HeroTagLine
+  HeroContainer, HeroBgContainer, HeroColorCover, HeroTagLine,
 } from './index.styled.js';
 
 
