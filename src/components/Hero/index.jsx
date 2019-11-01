@@ -17,7 +17,6 @@ export const HeroBgContainer = styled.div`
   background-color: ${colors.lightGreen};
   position: absolute;
   z-index: 0;
-  background-size: cover;
   height: 100vh;
   width: 100%;
   box-sizing: border-box;
@@ -29,14 +28,10 @@ const HeroColorCover = styled.div`
   background-size: cover;
   background-repeat: no-repeat;
   background-position: bottom;
-  opacity: .4;
+  opacity: 0.4;
   height: 100vh;
   width: 100%;
   position: relative;
-
-  @media only screen and (min-width: ${breakpts.lg}) {
-    background-size: contain;
-  }
 `;
 
 export const HeroLogo = styled.img`
@@ -51,10 +46,8 @@ export const HeroTagLine = styled.h1`
   color: ${colors.almostWhite};
   ${generateStylesForSize('t1', 'mobile')}
   max-width: 564px;
-  margin-top: 0;
-  margin-left: 20px;
+  margin: 0 20px 50px 20px;
   text-align: left;
-  margin-bottom: 50px;
   position: absolute;
   left: 0;
   bottom: 0;

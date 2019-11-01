@@ -55,7 +55,7 @@ export const typescales = {
       'font-size': '26px',
       'line-height': '30px',
     },
-  }
+  },
 };
 
 export function generateStylesForSize(tVal, size = 'mobile') {
