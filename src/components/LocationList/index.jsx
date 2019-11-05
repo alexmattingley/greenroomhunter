@@ -1,24 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import locationData from 'data/location-data.js';
-import { LocationsUl, LocationsLi, LocationImage } from './index.styled.js';
+import {
+  LocationsUl,
+  LocationsLi,
+  LocationImage,
+  LocationName,
+  ContentContainer,
+  LocationsHeader,
+  LocationsBlock,
+  LocationsLink,
+} from './index.styled.js';
 
 function generateList() {
   return Object.entries(locationData).map(([key, value]) => {
     return (
       <LocationsLi>
-        <Link to={`/location/${key}`}>
+        <LocationsLink to={`/location/${key}`}>
           <LocationImage src={value.locationThumbImg} />
-          <div>{value.name}</div>
-        </Link>
+          <LocationName>{value.name}</LocationName>
+        </LocationsLink>
       </LocationsLi>
-  )});
+    );
+  });
 }
 
 const LocationList = () => (
-  <LocationsUl>
-    {generateList()}
-  </LocationsUl>
+  <LocationsBlock>
+    <ContentContainer>
+      <LocationsHeader>Locations</LocationsHeader>
+      <LocationsUl>
+        {generateList()}
+      </LocationsUl>
+    </ContentContainer>
+  </LocationsBlock>
 );
 
 export default LocationList;

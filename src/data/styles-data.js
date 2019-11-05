@@ -48,12 +48,12 @@ export const typescales = {
   },
   t4: {
     mobile: {
-      'font-size': '16px',
-      'line-height': '18px',
+      'font-size': '19px',
+      'line-height': '22px',
     },
     desktop: {
-      'font-size': '26px',
-      'line-height': '30px',
+      'font-size': '21px',
+      'line-height': '24px',
     },
   },
 };

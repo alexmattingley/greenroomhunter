@@ -8,7 +8,6 @@ const Home = () => (
   <div>
     <Navigation currentPage="Home" />
     <Hero />
-    <div>Locations</div>
     <LocationsList />
   </div>
 );
