@@ -4,6 +4,7 @@ export const colors = {
   lightGreen: '#3aafa9',
   lightblue: '#def2f1',
   almostWhite: '#feffff',
+  almostWhiteMild: 'rgba(254,255,255,0.9)',
 };
 
 export const breakpts = {
@@ -12,7 +13,7 @@ export const breakpts = {
   sm: '768px',
   md: '992px',
   lg: '1200px',
-  xl: '1900px',
+  xl: '1600px',
 };
 
 export const typescales = {
@@ -58,6 +59,7 @@ export const typescales = {
   },
 };
 
+// Helper function for generating font styles.
 export function generateStylesForSize(tVal, size = 'mobile') {
   let styles = '';
   Object.entries(typescales[tVal][size]).forEach(([key, val]) => {
@@ -66,3 +68,9 @@ export function generateStylesForSize(tVal, size = 'mobile') {
   });
   return styles;
 }
+
+// Home page Specific styles for spacing
+export const homePageSpacing = {
+  leftMargin: 57,
+  itmSpacing: 20,
+};

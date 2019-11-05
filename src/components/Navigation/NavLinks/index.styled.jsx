@@ -18,7 +18,6 @@ export const NavList = styled.li`
   ${generateStylesForSize('t4', 'mobile')}
   font-weight: 500;
   @media (min-width: ${lg}) {
-    padding-left: 10px;
     ${generateStylesForSize('t4', 'desktop')}
   }
 `;
@@ -49,4 +48,9 @@ export const NavSlash = styled.li`
   padding-left: 10px;
   color: ${colors.almostBlack};
   list-style: none;
+  ${generateStylesForSize('t4', 'mobile')}
+  font-weight: 500;
+  @media (min-width: ${lg}) {
+    ${generateStylesForSize('t4', 'desktop')}
+  }
 `;

@@ -1,28 +1,26 @@
 import styled from 'styled-components';
 import { Link } from 'react-router-dom';
 import {
-  colors, breakpts, generateStylesForSize,
+  colors, breakpts, generateStylesForSize, homePageSpacing,
 } from 'data/styles-data.js';
+
+const { itmSpacing, leftMargin } = homePageSpacing;
+
+const itmContainerLeftover = leftMargin - itmSpacing;
 
 export const ContentContainer = styled.div`
   background-color: ${colors.almostBlack};
   color: ${colors.almostWhite};
-  margin-right: auto;
-  margin-left: auto;
-
-  @media only screen and (min-width: ${breakpts.md}) {
-    max-width: 892px;
-  }
-
-  @media only screen and (min-width: ${breakpts.lg}) {
-    max-width: 1200px;
-  }
 `;
 
 export const LocationsHeader = styled.h2`
   margin: 0;
-  padding: 30px 15px 15px 15px;
+  padding: 30px ${itmSpacing}px 15px ${itmSpacing}px;
   ${generateStylesForSize('t2', 'mobile')}
+
+  @media only screen and (min-width: ${breakpts.lg}) {
+    padding-left: ${leftMargin}px;
+  }
 `;
 
 export const LocationsUl = styled.ul`
@@ -31,17 +29,28 @@ export const LocationsUl = styled.ul`
   width: 100%;
   display: flex;
   flex-wrap: wrap;
+
+  @media only screen and (min-width: ${breakpts.lg}) {
+    padding-left: ${itmContainerLeftover}px;
+    padding-right: ${itmContainerLeftover}px;
+  }
 `;
 
 export const LocationsLi = styled.li`
   width: 100%;
-  padding: 15px;
+  padding: ${itmSpacing}px;
   list-style-type: none;
+
   @media only screen and (min-width: ${breakpts.xs}) {
     width: ${(1 / 2) * 100}%;
   }
+
   @media only screen and (min-width: ${breakpts.md}) {
     width: ${(1 / 3) * 100}%;
+  }
+
+  @media only screen and (min-width: ${breakpts.xl}) {
+    width: ${(1 / 5) * 100}%;
   }
 `;
 
@@ -71,8 +80,8 @@ export const LocationName = styled.h6`
 
   @media only screen and (min-width: ${breakpts.md}) {
     text-align: left;
-    padding-right: 20px;
-    padding-left: 20px;
+    padding-right: ${itmSpacing}px;
+    padding-left: ${itmSpacing}px;
   }
 
   @media only screen and (min-width: ${breakpts.lg}) {
@@ -83,7 +92,7 @@ export const LocationName = styled.h6`
 export const LocationsBlock = styled.div`
   width: 100%;
   background-color: ${colors.almostBlack};
-`
+`;
 
 export const LocationsLink = styled(Link)`
   text-decoration: none;

@@ -8,12 +8,12 @@ const { lg } = breakpts;
 export default styled.div`
   ${(props) => {
     if (props.whiteNav) {
-      return `background-color: ${colors.almostWhite}`;
+      return `background-color: ${colors.almostWhiteMild};`;
     }
     return 'background-color: transparent';
   }}
   transition-property: 'background-color';
-  transition-duration: .5s;
+  transition-duration: 0.5s;
   display: flex;
   justify-content: space-between;
   flex-wrap: wrap;
