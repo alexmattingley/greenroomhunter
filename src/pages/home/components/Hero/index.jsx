@@ -6,8 +6,7 @@ import {
 
 export default () => (
   <HeroContainer>
-    <HeroBgContainer>
-    </HeroBgContainer>
+    <HeroBgContainer />
     <HeroTagLine>
       Buoy, Wind and Tide Data tailored for surfers
     </HeroTagLine>

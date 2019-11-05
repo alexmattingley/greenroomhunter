@@ -140,7 +140,7 @@ export default {
     ],
   },
   'san-diego': {
-    name: 'San diego',
+    name: 'San Diego',
     locationThumbImg: jettyImg,
     buoys: {
       'Harvest Buoy': 46218,

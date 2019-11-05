@@ -40,6 +40,11 @@ export const LocationsLi = styled.li`
   width: 100%;
   padding: ${itmSpacing}px;
   list-style-type: none;
+  transition: all 0.5s;
+
+  :hover {
+    background-color: ${colors.lightGreen};
+  }
 
   @media only screen and (min-width: ${breakpts.xs}) {
     width: ${(1 / 2) * 100}%;

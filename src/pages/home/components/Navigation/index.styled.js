@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {
   colors, breakpts,
-} from '../../data/styles-data.js';
+} from 'data/styles-data.js';
 
 const { lg } = breakpts;
 

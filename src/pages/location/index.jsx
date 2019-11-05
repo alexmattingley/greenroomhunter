@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import locationData from '../data/location-data.js';
-import WindyMap from '../components/WindyMap';
-import BuoyBlock from '../components/Buoys/BuoyContainer';
-import TideBlock from '../components/Tide/TideContainer';
+import locationData from 'data/location-data.js';
+import WindyMap from './components/WindyMap';
+import BuoyBlock from './components/Buoys/BuoyContainer';
+import TideBlock from './components/Tide/TideContainer';
 
 
 class Location extends React.Component {

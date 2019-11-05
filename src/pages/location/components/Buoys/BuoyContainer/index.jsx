@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import BuoyChart from '../BuoyChart';
+import BuoyChart from '../BuoyChart/index.jsx';
 
 class BuoyBlock extends React.Component {
   render() {

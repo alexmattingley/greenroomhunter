@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import {
   breakpts, generateStylesForSize,
-} from '../../../data/styles-data.js';
+} from 'data/styles-data.js';
 
 const { lg } = breakpts;
 
