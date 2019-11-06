@@ -1,5 +1,6 @@
 import React from 'react';
 import Chart from 'chart.js';
+import PropTypes from 'prop-types';
 import { BuoyChartContainer } from './index.styled.js';
 
 class BuoyChart extends React.Component {
@@ -10,7 +11,7 @@ class BuoyChart extends React.Component {
 
   componentDidMount() {
     const { buoyData } = this.props;
-    const buoyDataRecent = buoyData.slice( 0, 24).reverse();
+    const buoyDataRecent = buoyData.slice(0, 24).reverse();
     const dataForChart = {
       avgPeriod: [],
       peakPeriod: [],
@@ -19,20 +20,13 @@ class BuoyChart extends React.Component {
     };
     buoyDataRecent.forEach((itm) => {
       // If any of these values are not a number, we don't want to include this reading
-      if (
-        parseFloat(itm.avgPeriod)
-        && parseFloat(itm.peakPeriod)
-        && parseFloat(itm.waveHeightFt)
-        && parseFloat(itm.hour)
-        && parseFloat(itm.minute)
-      ) {
-        dataForChart.avgPeriod.push(itm.avgPeriod);
-        dataForChart.peakPeriod.push(itm.peakPeriod);
-        dataForChart.waveHeightFt.push(itm.waveHeightFt);
-        dataForChart.timeTaken.push(`${itm.hour}:${itm.minute}`);
-      }
+      dataForChart.avgPeriod.push(itm.avgPeriod);
+      dataForChart.peakPeriod.push(itm.peakPeriod);
+      dataForChart.waveHeightFt.push(itm.waveHeightFt);
+      dataForChart.timeTaken.push(`${itm.hour}:${itm.minute}`);
     });
     const ctx = this.buoyChartRef.current.getContext('2d');
+    // eslint-disable-next-line no-unused-vars
     const chart = new Chart(ctx, {
       type: 'line',
       data: {
@@ -70,5 +64,9 @@ class BuoyChart extends React.Component {
     );
   }
 }
+
+BuoyChart.propTypes = {
+  buoyData: PropTypes.arrayOf(PropTypes.object).isRequired,
+};
 
 export default BuoyChart;

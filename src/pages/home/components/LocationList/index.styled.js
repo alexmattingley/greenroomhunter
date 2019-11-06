@@ -80,11 +80,9 @@ export const LocationName = styled.h6`
   color: ${colors.almostWhite};
   margin: 0;
   padding: 20px 0 10px 0;
-  text-align: center;
   text-decoration: none;
 
   @media only screen and (min-width: ${breakpts.md}) {
-    text-align: left;
     padding-right: ${itmSpacing}px;
     padding-left: ${itmSpacing}px;
   }

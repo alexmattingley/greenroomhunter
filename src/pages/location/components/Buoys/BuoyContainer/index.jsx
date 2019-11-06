@@ -1,23 +1,30 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import BuoyChart from '../BuoyChart/index.jsx';
+import BuoyText from '../BuoyText/index.jsx';
 
 class BuoyBlock extends React.Component {
   render() {
     const { buoyData } = this.props;
+    // If our data fetch succeeded and returned data
     if (buoyData && buoyData.data && buoyData.success) {
-      return buoyData.data.map((itm) => {
-        const { stationId, indivBuoyData } = itm;
-        return (
-          <div key={stationId}>
-            <div>
-              Text for the BuoyBlock
+      return buoyData.data.reduce((acc, curr) => {
+        const { stationId, indivBuoyData } = curr;
+        const minArrLength = 10;
+        // If our array has less than ten readings, don't render it
+        // there is most likely an issue with the data
+        if (indivBuoyData.length > minArrLength) {
+          acc.push((
+            <div key={stationId}>
+              <BuoyText buoyData={indivBuoyData} />
+              <BuoyChart buoyData={indivBuoyData} />
             </div>
-            <BuoyChart buoyData={indivBuoyData} />
-          </div>
-        );
-      });
+          ));
+        }
+        return acc;
+      }, []);
     }
+    // Some Data was returned but the call was actually a failure
     if (buoyData && !buoyData.success) {
       return (
         <div>

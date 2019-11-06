@@ -1,9 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import locationData from 'data/location-data.js';
+import { LocationContent, LocationHeader } from './index.styled.js';
 import WindyMap from './components/WindyMap';
 import BuoyBlock from './components/Buoys/BuoyContainer';
 import TideBlock from './components/Tide/TideContainer';
+import LocationSideNav from './components/LocationsSideNav/index.jsx';
 
 
 class Location extends React.Component {
@@ -41,13 +43,15 @@ class Location extends React.Component {
     const locationObject = locationData[location];
     const { name } = locationObject;
     return (
-      <div>
-        Location:
-        {name}
-        <BuoyBlock locationData={locationObject} buoyData={buoyData} />
-        <WindyMap locationData={locationObject} />
-        <TideBlock locationData={locationObject} tideData={tideData} />
-      </div>
+      <>
+        <LocationSideNav />
+        <LocationContent>
+          <LocationHeader>{name}</LocationHeader>
+          <BuoyBlock locationData={locationObject} buoyData={buoyData} />
+          <WindyMap locationData={locationObject} />
+          <TideBlock locationData={locationObject} tideData={tideData} />
+        </LocationContent>
+      </>
     );
   }
 }
