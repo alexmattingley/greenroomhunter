@@ -4,9 +4,14 @@ import {
 } from 'data/styles-data.js';
 
 export const BuoyChartContainer = styled.div`
-  padding: 20px;
+
   @media only screen and (min-width: ${breakpts.sm}) {
+    padding: 20px;
     width: 65%;
+  }
+
+  @media only screen and (min-width: ${breakpts.xl}) {
+    width: 75%;
   }
 
 `;

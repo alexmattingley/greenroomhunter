@@ -6,10 +6,12 @@ import {
 export const LocationContent = styled.div`
   background-color: ${colors.almostBlack};
   color: ${colors.almostWhite};
-  padding: 10px;
+  padding: 20px;
 
   @media only screen and (min-width: ${breakpts.md}) {
     position: absolute;
+    min-height: 100%;
+    height: auto;
     left: 20%;
     width: 80%;
   }

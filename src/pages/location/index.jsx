@@ -47,9 +47,15 @@ class Location extends React.Component {
         <LocationSideNav />
         <LocationContent>
           <LocationHeader>{name}</LocationHeader>
-          <BuoyBlock locationData={locationObject} buoyData={buoyData} />
-          <WindyMap locationData={locationObject} />
-          <TideBlock locationData={locationObject} tideData={tideData} />
+          <div id="buoy_block">
+            <BuoyBlock locationData={locationObject} buoyData={buoyData} />
+          </div>
+          <div id="windy_block">
+            <WindyMap locationData={locationObject} />
+          </div>
+          <div id="tide_block">
+            <TideBlock locationData={locationObject} tideData={tideData} />
+          </div>
         </LocationContent>
       </>
     );

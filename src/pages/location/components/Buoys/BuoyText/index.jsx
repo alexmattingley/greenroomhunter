@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { ByContainer, ByTextTitle } from './index.styled.js';
+import { ByContainer, ByTextTitle, ByDefaultP } from './index.styled.js';
 
 const BuoyText = (props) => {
   const { buoyData, stationName } = props;
@@ -15,12 +15,12 @@ const BuoyText = (props) => {
   return (
     <ByContainer>
       <ByTextTitle>{stationName}</ByTextTitle>
-      <p>{fullDate}</p>
-      <p>Wave Height(ft): {waveHeightFt}</p>
-      <p>Average Period: {avgPeriod} seconds</p>
-      <p>Peak Period: {peakPeriod} seconds</p>
-      <p>Dominant Direction: {meanWaveDir}&deg;</p>
-      <p>Water Temp: {waterTemp} &deg;F</p>
+      <ByDefaultP>{fullDate}</ByDefaultP>
+      <ByDefaultP>Wave Height(ft): {waveHeightFt}</ByDefaultP>
+      <ByDefaultP>Average Period: {avgPeriod} seconds</ByDefaultP>
+      <ByDefaultP>Peak Period: {peakPeriod} seconds</ByDefaultP>
+      <ByDefaultP>Dominant Direction: {meanWaveDir}&deg;</ByDefaultP>
+      <ByDefaultP>Water Temp: {waterTemp} &deg;F</ByDefaultP>
     </ByContainer>
   );
 };

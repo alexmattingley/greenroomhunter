@@ -1,5 +1,6 @@
 export const colors = {
   almostBlack: '#17252a',
+  darkGrey: '#273940',
   darkGreen: '#00453B',
   lightGreen: '#3aafa9',
   lightblue: '#def2f1',
@@ -55,6 +56,17 @@ export const typescales = {
     desktop: {
       'font-size': '21px',
       'line-height': '24px',
+    },
+  },
+
+  t5: {
+    mobile: {
+      'font-size': '16px',
+      'line-height': '18px',
+    },
+    desktop: {
+      'font-size': '18px',
+      'line-height': '21px',
     },
   },
 };
