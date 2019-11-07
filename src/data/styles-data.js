@@ -1,6 +1,6 @@
 export const colors = {
   almostBlack: '#17252a',
-  darkGreen: '#2b7a78',
+  darkGreen: '#00453B',
   lightGreen: '#3aafa9',
   lightblue: '#def2f1',
   almostWhite: '#feffff',

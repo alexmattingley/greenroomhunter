@@ -1,6 +1,7 @@
 import React from 'react';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
+import { colors } from 'data/styles-data.js';
 import { BuoyChartContainer } from './index.styled.js';
 
 class BuoyChart extends React.Component {
@@ -10,6 +11,13 @@ class BuoyChart extends React.Component {
   }
 
   componentDidMount() {
+    const waveHeightFill = 'rgba(58,175,169, .8)'; // #009E96
+    const waveHeightBorder = 'rgba(58,175,169, 1)'; // #009E96
+    const peakPeriodFill = 'rgba(103,130,140,.3)'; // #76C6C2
+    const peakPeriodBorder = '#C04ABC'; // #76C6C2
+    const avgPeriodFill = 'transparent'; // #3AAFA9
+    const avgPeriodBorder = '#A4B5BA'; // #3AAFA9
+
     const { buoyData } = this.props;
     const buoyDataRecent = buoyData.slice(0, 24).reverse();
     const dataForChart = {
@@ -34,14 +42,22 @@ class BuoyChart extends React.Component {
           {
             label: 'Average Period',
             data: dataForChart.avgPeriod,
+            backgroundColor: avgPeriodFill,
+            // pointBackgroundColor: colors.almostWhite,
+            borderColor: avgPeriodBorder,
           },
           {
             label: 'Peak Period',
             data: dataForChart.peakPeriod,
+            backgroundColor: peakPeriodFill,
+            // pointBackgroundColor: colors.almostWhite,
+            borderColor: peakPeriodBorder,
           },
           {
             label: 'Wave Height',
             data: dataForChart.waveHeightFt,
+            backgroundColor: waveHeightFill,
+            borderColor: waveHeightBorder,
           },
         ],
         labels: dataForChart.timeTaken,
@@ -50,9 +66,21 @@ class BuoyChart extends React.Component {
         scales: {
           yAxes: [{
             ticks: {
+              fontColor: colors.almostWhite,
               suggestedMin: 0,
             },
           }],
+          xAxes: [{
+            ticks: {
+              fontColor: colors.almostWhite,
+            },
+          }],
+        },
+        legend: {
+          display: true,
+          labels: {
+            fontColor: colors.almostWhite,
+          },
         },
       },
     });
@@ -60,7 +88,9 @@ class BuoyChart extends React.Component {
 
   render() {
     return (
-      <BuoyChartContainer ref={this.buoyChartRef} />
+      <BuoyChartContainer>
+        <canvas ref={this.buoyChartRef} />
+      </BuoyChartContainer>
     );
   }
 }

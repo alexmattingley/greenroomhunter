@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { ByContainer, ByTextTitle } from './index.styled.js';
 
 const BuoyText = (props) => {
-  const { buoyData } = props;
+  const { buoyData, stationName } = props;
   const {
     fullDate,
     avgPeriod,
@@ -12,15 +13,15 @@ const BuoyText = (props) => {
     meanWaveDir,
   } = buoyData[0];
   return (
-    <div>
-      <h3>Current Buoy Reading</h3>
-      <p>Reading Time: {fullDate}</p>
+    <ByContainer>
+      <ByTextTitle>{stationName}</ByTextTitle>
+      <p>{fullDate}</p>
       <p>Wave Height(ft): {waveHeightFt}</p>
       <p>Average Period: {avgPeriod} seconds</p>
       <p>Peak Period: {peakPeriod} seconds</p>
       <p>Dominant Direction: {meanWaveDir}&deg;</p>
       <p>Water Temp: {waterTemp} &deg;F</p>
-    </div>
+    </ByContainer>
   );
 };
 
@@ -33,6 +34,7 @@ BuoyText.propTypes = {
     waveHeightFt: PropTypes.number.isRequired,
     meanWaveDir: PropTypes.number.isRequired,
   })).isRequired,
+  stationName: PropTypes.string.isRequired,
 };
 
 export default BuoyText;

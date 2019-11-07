@@ -14,11 +14,11 @@ function parseBuoyData(str) {
     let hour = filteredArr[3];
     let minute = filteredArr[4];
     const waveHeightMts = parseFloat(filteredArr[8]);
-    const waveHeightFt = parseFloat(waveHeightMts * 3.28084);
+    const waveHeightFt = parseFloat(waveHeightMts * 3.28084).toFixed(2);
     const peakPeriod = parseFloat(filteredArr[9]);
     const avgPeriod = parseFloat(filteredArr[10]);
     const meanWaveDir = parseFloat(filteredArr[11]);
-    const waterTemp = parseFloat(filteredArr[14]);
+    const waterTemp = parseFloat(filteredArr[14] * 1.8 + 32).toFixed(2);
 
     if (!!waveHeightMts && !!waveHeightFt && !!peakPeriod && !!avgPeriod) {
       // 2013-02-08 09:30:26.123
@@ -57,11 +57,11 @@ function parseBuoyData(str) {
 
 
 async function mapBuoyData(buoys) {
-  const buoyData = Object.values(buoys).map(async (stationId) => {
+  const buoyData = Object.entries(buoys).map(async ([stationName, stationId]) => {
     try {
       const rawData = await getInvidBuoyData(stationId);
       const indivBuoyData = parseBuoyData(rawData);
-      return { indivBuoyData, stationId };
+      return { indivBuoyData, stationId, stationName };
     } catch (error) {
       throw new Error(error);
     }
