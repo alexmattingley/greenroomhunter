@@ -7,11 +7,6 @@ export const BuoyChartContainer = styled.div`
 
   @media only screen and (min-width: ${breakpts.sm}) {
     padding: 20px;
-    width: 65%;
+    flex-grow: 1;
   }
-
-  @media only screen and (min-width: ${breakpts.xl}) {
-    width: 75%;
-  }
-
 `;

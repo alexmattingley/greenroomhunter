@@ -12,11 +12,15 @@ export const ByContainer = styled.div`
 
   @media only screen and (min-width: ${breakpts.sm}) {
     margin: 0;
-    width: 35%;
+    width: 290px;
+  }
+
+  @media only screen and (min-width: ${breakpts.lg}) {
+    width: 320px;
   }
 
   @media only screen and (min-width: ${breakpts.xl}) {
-    width: 25%;
+    width: 370px;
   }
 `;
 
