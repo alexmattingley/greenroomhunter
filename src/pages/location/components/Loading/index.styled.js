@@ -1,14 +1,8 @@
 import styled from 'styled-components';
 import {
-  breakpts, generateStylesForSize
+  breakpts, generateStylesForSize,
 } from 'data/styles-data.js';
 import loadingBars from 'images/loading-bars.svg';
-
-export const BuoyContainer = styled.div`
-  @media only screen and (min-width: ${breakpts.sm}) {
-    display: flex;
-  }
-`;
 
 export const LoadingContainer = styled.div`
   display: flex;
@@ -19,6 +13,7 @@ export const LoadingContainer = styled.div`
 export const LoadingText = styled.span`
   text-align: center;
   ${generateStylesForSize('t2', 'mobile')}
+  font-weight: 500;
   margin-left: 15px;
   margin-right: 15px;
 

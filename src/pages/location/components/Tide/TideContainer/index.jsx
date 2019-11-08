@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LoadingIcon, LoadingText, LoadingContainer } from 'pages/location/components/Loading/index.styled.js';
 import TideChart from '../TideChart';
 import TideTable from '../TideTable';
 import { TideTitle, TideBlockContainer, TideDataContainer } from './index.styled.js';
@@ -29,7 +30,11 @@ function TideContainer(props) {
     );
   }
   return (
-    <div>Loading Tide Data</div>
+    <LoadingContainer>
+      <LoadingIcon />
+      <LoadingText>Loading Tides for Today and Tomorrow</LoadingText>
+      <LoadingIcon />
+    </LoadingContainer>
   );
 }
 

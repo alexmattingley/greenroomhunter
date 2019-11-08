@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { LoadingIcon, LoadingText, LoadingContainer } from 'pages/location/components/Loading/index.styled.js';
 import { BuoyContainer } from './index.styled.js';
 import BuoyChart from '../BuoyChart/index.jsx';
 import BuoyText from '../BuoyText/index.jsx';
@@ -34,7 +35,11 @@ class BuoyBlock extends React.Component {
       );
     }
     return (
-      <div>Loading Buoy Data</div>
+      <LoadingContainer>
+        <LoadingIcon />
+        <LoadingText>Loading Current Buoy Data</LoadingText>
+        <LoadingIcon />
+      </LoadingContainer>
     );
   }
 }

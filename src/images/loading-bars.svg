@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 100 100" version="1.1" viewBox="0 0 100 100" xml:space="preserve" xmlns="http://www.w3.org/2000/svg">
+<rect transform="translate(0) rotate(180 3 50)" width="3" height="100" fill="#feffff">
+  <animate attributeName="height" attributeType="XML" dur="1s" repeatCount="indefinite" values="30; 100; 30"/>
+</rect>
+<rect transform="translate(0) rotate(180 20 50)" x="17" width="3" height="100" fill="#feffff">
+  <animate attributeName="height" attributeType="XML" begin="0.1s" dur="1s" repeatCount="indefinite" values="30; 100; 30"/>
+</rect>
+<rect transform="translate(0) rotate(180 40 50)" x="40" width="3" height="100" fill="#feffff">
+  <animate attributeName="height" attributeType="XML" begin="0.3s" dur="1s" repeatCount="indefinite" values="30; 100; 30"/>
+</rect>
+<rect transform="translate(0) rotate(180 58 50)" x="60" width="3" height="100" fill="#feffff">
+  <animate attributeName="height" attributeType="XML" begin="0.5s" dur="1s" repeatCount="indefinite" values="30; 100; 30"/>
+</rect>
+<rect transform="translate(0) rotate(180 76 50)" x="80" width="3" height="100" fill="#feffff">
+  <animate attributeName="height" attributeType="XML" begin="0.1s" dur="1s" repeatCount="indefinite" values="30; 100; 30"/>
+</rect>
+</svg>

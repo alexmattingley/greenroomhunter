@@ -23,3 +23,6 @@ yarn-debug.log*
 yarn-error.log*
 
 backend/node_modules
+
+# Config
+src/pages/location/components/WindyMap/api-key.js
