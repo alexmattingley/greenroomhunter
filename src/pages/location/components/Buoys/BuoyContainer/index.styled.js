@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {
-  colors, breakpts, generateStylesForSize,
+  breakpts,
 } from 'data/styles-data.js';
 
 export const BuoyContainer = styled.div`

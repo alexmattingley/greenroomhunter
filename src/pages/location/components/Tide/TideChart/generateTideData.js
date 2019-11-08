@@ -1,4 +1,5 @@
 import ChartjsPluginAnnotation from 'chartjs-plugin-annotation';
+import { colors } from 'data/styles-data.js';
 
 function generateTideChartData(tideData) {
   const dataForChart = {
@@ -21,11 +22,11 @@ function generateTideChartData(tideData) {
     }
     // If its a high or low tide marker change the color and thickness of the dot
     if (itm.point) {
-      dataForChart.pointBgColor.push('rgba(81, 138, 184, 1)');
-      dataForChart.borderWidth.push(6);
+      dataForChart.pointBgColor.push(colors.lightGreen);
+      dataForChart.borderWidth.push(4);
     } else {
-      dataForChart.pointBgColor.push('rgba(109, 157, 194, .5)');
-      dataForChart.borderWidth.push(3);
+      dataForChart.pointBgColor.push(colors.lightGreenFill);
+      dataForChart.borderWidth.push(2);
     }
   });
 
@@ -38,7 +39,7 @@ function generateTideChartData(tideData) {
           data: dataForChart.height,
           pointBackgroundColor: dataForChart.pointBgColor,
           pointRadius: dataForChart.borderWidth,
-          backgroundColor: 'rgba(109, 157, 194, .5)',
+          backgroundColor: colors.almostTransparentGray,
         },
       ],
       labels: dataForChart.time,
@@ -52,12 +53,12 @@ function generateTideChartData(tideData) {
             mode: 'vertical',
             scaleID: 'x-axis-0',
             value: dataForChart.dayDividerVal,
-            borderColor: 'salmon',
+            borderColor: colors.wickedPink,
             borderWidth: 2,
             label: {
               fontSize: 16,
-              fontColor: 'white',
-              backgroundColor: 'black',
+              fontColor: colors.almostWhite,
+              backgroundColor: colors.almostBlack,
               content: dataForChart.dayDividerVal,
               enabled: true,
             },
@@ -71,6 +72,12 @@ function generateTideChartData(tideData) {
         xAxes: [{
           ticks: {
             callback: () => '',
+          },
+        }],
+        yAxes: [{
+          ticks: {
+            fontColor: colors.almostWhite,
+
           },
         }],
       },

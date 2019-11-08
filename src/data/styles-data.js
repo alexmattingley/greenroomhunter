@@ -6,6 +6,11 @@ export const colors = {
   lightblue: '#def2f1',
   almostWhite: '#feffff',
   almostWhiteMild: 'rgba(254,255,255,0.9)',
+  lightGreenFill: 'rgba(58,175,169,0.8)',
+  gray: '#A4B5BA',
+  almostTransparentGray: 'rgba(103,130,140,0.3)',
+  wickedPink: '#C04ABC',
+  transparent: 'transparent',
 };
 
 export const breakpts = {

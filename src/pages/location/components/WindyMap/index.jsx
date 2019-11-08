@@ -1,43 +1,29 @@
 import React from 'react';
-import { WindyChartContainer } from './index.styled.js';
+import { WindyChartContainer, WindyTitle, WindySubTitle, WindBlock } from './index.styled.js';
 
 class WindyMap extends React.Component {
   componentDidMount() {
     const { locationData: { lat, lon } } = this.props;
     const options = {
-      // Required: API key
-      key: 'rRee3fNI1vLlm34f88k5SJSRAnFm92pZ', // REPLACE WITH YOUR KEY !!!
-
-      // Put additional console output
+      key: 'rRee3fNI1vLlm34f88k5SJSRAnFm92pZ',
       verbose: false,
-
-      // Optional: Initial state of the map
       lat,
       lon,
       zoom: 9,
     };
 
-// Initialize Windy API
+    // Initialize Windy API
     /* global windyInit */
-    windyInit(options, (windyAPI) => {
-        // windyAPI is ready, and contain 'map', 'store',
-        // 'picker' and other usefull stuff
-
-        const { map } = windyAPI;
-        // .map is instance of Leaflet map
-        /* global L */
-        L.popup()
-            .setLatLng([lat, lon])
-            .setContent('Hello World')
-            .openOn(map);
-    });
+    windyInit(options);
   }
 
   render() {
     return (
-      <div>
+      <WindBlock>
+        <WindyTitle>Current Forecasted Wind</WindyTitle>
+        <WindySubTitle>(Map is interactive)</WindySubTitle>
         <WindyChartContainer id="windy" />
-      </div>
+      </WindBlock>
     );
   }
 }

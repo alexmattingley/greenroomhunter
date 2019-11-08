@@ -2,19 +2,22 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import TideChart from '../TideChart';
 import TideTable from '../TideTable';
+import { TideTitle, TideBlockContainer, TideDataContainer } from './index.styled.js';
 
 function TideContainer(props) {
   const { tideData, locationData: { tideStation: { location } } } = props;
   // Render component if tide NOAA call is successful
   if (tideData && tideData.success) {
     return (
-      <div>
-        <div>
+      <TideBlockContainer>
+        <TideTitle>
           Tides for today and tomorrow for {location}
-        </div>
-        <TideChart tideData={tideData} />
-        <TideTable tideData={tideData} />
-      </div>
+        </TideTitle>
+        <TideDataContainer>
+          <TideChart tideData={tideData} />
+          <TideTable tideData={tideData} />
+        </TideDataContainer>
+      </TideBlockContainer>
     );
   }
   // Handle failure if NOAA call fails

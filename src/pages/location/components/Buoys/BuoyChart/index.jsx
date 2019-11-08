@@ -11,12 +11,12 @@ class BuoyChart extends React.Component {
   }
 
   componentDidMount() {
-    const waveHeightFill = 'rgba(58,175,169, .8)'; // #009E96
-    const waveHeightBorder = 'rgba(58,175,169, 1)'; // #009E96
-    const peakPeriodFill = 'rgba(103,130,140,.3)'; // #76C6C2
-    const peakPeriodBorder = '#C04ABC'; // #76C6C2
-    const avgPeriodFill = 'transparent'; // #3AAFA9
-    const avgPeriodBorder = '#A4B5BA'; // #3AAFA9
+    const waveHeightFill = colors.lightGreenFill;
+    const waveHeightBorder = colors.lightGreen;
+    const peakPeriodFill = colors.almostTransparentGray;
+    const peakPeriodBorder = colors.wickedPink;
+    const avgPeriodFill = colors.transparent;
+    const avgPeriodBorder = colors.gray;
 
     const { buoyData } = this.props;
     const buoyDataRecent = buoyData.slice(0, 24).reverse();
@@ -31,7 +31,7 @@ class BuoyChart extends React.Component {
       dataForChart.avgPeriod.push(itm.avgPeriod);
       dataForChart.peakPeriod.push(itm.peakPeriod);
       dataForChart.waveHeightFt.push(itm.waveHeightFt);
-      dataForChart.timeTaken.push(`${itm.hour}:${itm.minute}`);
+      dataForChart.timeTaken.push(itm.fullDate);
     });
     const ctx = this.buoyChartRef.current.getContext('2d');
     // eslint-disable-next-line no-unused-vars
@@ -72,7 +72,7 @@ class BuoyChart extends React.Component {
           }],
           xAxes: [{
             ticks: {
-              fontColor: colors.almostWhite,
+              callback: () => '',
             },
           }],
         },

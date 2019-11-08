@@ -12,25 +12,23 @@ import {
   Icon,
 } from './index.styled.js';
 
-export default (props) => {
-  return (
-    <SideNavContainer>
-      <HomeLink to="/">
-        <Icon icon={lighthouse} width="25px" height="25px" />
-        <HomeLinkText>Home</HomeLinkText>
-      </HomeLink>
-      <PageLinkContainer href="#buoy_block">
-        <Icon icon={waves} width="25px" height="18px" />
-        <PageLinkTxt>Buoys</PageLinkTxt>
-      </PageLinkContainer>
-      <PageLinkContainer href="#windy_block">
-        <Icon icon={windy} width="25px" height="20px" />
-        <PageLinkTxt>Wind</PageLinkTxt>
-      </PageLinkContainer>
-      <PageLinkContainer href="#tide_block">
-        <Icon icon={tide} width="25px" height="20px" />
-        <PageLinkTxt>Tide</PageLinkTxt>
-      </PageLinkContainer>
-    </SideNavContainer>
-  );
-};
+export default () => (
+  <SideNavContainer>
+    <HomeLink to="/">
+      <Icon icon={lighthouse} width="25px" height="25px" />
+      <HomeLinkText>Home</HomeLinkText>
+    </HomeLink>
+    <PageLinkContainer href="#buoy_block">
+      <Icon icon={waves} width="25px" height="18px" />
+      <PageLinkTxt>Buoys</PageLinkTxt>
+    </PageLinkContainer>
+    <PageLinkContainer href="#windy_block">
+      <Icon icon={windy} width="25px" height="20px" />
+      <PageLinkTxt>Wind</PageLinkTxt>
+    </PageLinkContainer>
+    <PageLinkContainer href="#tide_block">
+      <Icon icon={tide} width="25px" height="20px" />
+      <PageLinkTxt>Tide</PageLinkTxt>
+    </PageLinkContainer>
+  </SideNavContainer>
+);

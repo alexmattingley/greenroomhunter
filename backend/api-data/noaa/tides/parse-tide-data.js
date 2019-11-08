@@ -15,11 +15,11 @@ function parseTideData(rawData) {
     if (index !== 0 && index !== array.length - 1) {
       // True if value is high tide
       if (tideValue.v < array[index - 1].v && tideValue.v < array[index + 1].v) {
-        return Object.assign(tideValue, { point: 'low' });
+        return Object.assign(tideValue, { point: 'Low' });
       }
       // True is if its low tide
       if (tideValue.v > array[index - 1].v && tideValue.v > array[index + 1].v) {
-        return Object.assign(tideValue, { point: 'high' });
+        return Object.assign(tideValue, { point: 'High' });
       }
     }
     return tideValue;

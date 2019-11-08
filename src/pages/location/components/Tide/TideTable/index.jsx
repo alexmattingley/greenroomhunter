@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { TideTableContainer, TideTableTitle, TideTableRow } from './index.styled.js';
 
 
 function TideTable(props) {
@@ -7,17 +8,18 @@ function TideTable(props) {
   const tideRowArr = data.reduce((acc, curr) => {
     if (curr.point) {
       acc.push(
-        <div key={curr.t}>
-          {curr.point}: {curr.t} {curr.v}
-        </div>,
+        <TideTableRow key={curr.t} point={curr.point}>
+          {curr.point} Tide: {curr.v} ft {curr.t}
+        </TideTableRow>,
       );
     }
     return acc;
   }, []);
   return (
-    <div>
+    <TideTableContainer>
+      <TideTableTitle>High & Low tide points</TideTableTitle>
       {tideRowArr}
-    </div>
+    </TideTableContainer>
   );
 }
 
