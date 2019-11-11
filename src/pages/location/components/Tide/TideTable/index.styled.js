@@ -17,13 +17,12 @@ export const TideTableContainer = styled.div`
   padding: 20px 0;
 
   @media only screen and (min-width: ${breakpts.sm}) {
-    padding: 0 10px;
+    padding: 0;
     min-width: 340px;
     order: 1;
   }
 
   @media only screen and (min-width: ${breakpts.lg}) {
-    padding: 0 20px;
     min-width: 415px;
   }
 `;

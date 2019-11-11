@@ -4,7 +4,7 @@ import { Route, BrowserRouter as Router, Switch } from 'react-router-dom';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Home from 'pages/home/index.jsx';
 import Location from 'pages/location/index.jsx';
-import About from './pages/about.jsx';
+import About from 'pages/about/index.jsx';
 import Contact from './pages/contact.jsx';
 import NotFound from './pages/notFound.jsx';
 import * as serviceWorker from './serviceWorker';

@@ -74,6 +74,16 @@ export const typescales = {
       'line-height': '21px',
     },
   },
+  t6: {
+    mobile: {
+      'font-size': '16px',
+      'line-height': '24px',
+    },
+    desktop: {
+      'font-size': '18px',
+      'line-height': '28px',
+    },
+  },
 };
 
 // Helper function for generating font styles.

@@ -1,6 +1,6 @@
 import React from 'react';
-import Navigation from './components/Navigation/index.jsx';
 import Hero from './components/Hero/index.jsx';
+import Navigation from './components/Navigation/index.jsx';
 import LocationsList from './components/LocationList/index.jsx';
 
 
