@@ -31,19 +31,6 @@ const NavLinks = (props) => {
           About
         </NavLink>
       </NavList>
-      <NavSlash>
-        /
-      </NavSlash>
-      <NavList>
-        <NavLink
-          page="Contact"
-          currentPage={currentPage}
-          whiteNav={whiteNav}
-          to="/contact"
-        >
-          Contact
-        </NavLink>
-      </NavList>
     </NavLinksContainer>
   );
 };
