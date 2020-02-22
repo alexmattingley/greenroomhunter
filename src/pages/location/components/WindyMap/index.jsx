@@ -17,9 +17,11 @@ class WindyMap extends React.Component {
       zoom: 9,
     };
 
-    // Initialize Windy API
-    /* global windyInit */
-    windyInit(options);
+    if (windyInit) {
+      // Initialize Windy API
+      /* global windyInit */
+      windyInit(options);
+    }
   }
 
   render() {
