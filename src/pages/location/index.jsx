@@ -21,7 +21,8 @@ class Location extends React.Component {
   callBackend() {
     const { match: { params: { location } } } = this.props;
     const locationObj = locationData[location];
-    fetch('http://localhost:9000/location-api', {
+    // TODO DEPENDING ON ENV, PUT MAKE REQUEST TO DIFFERENT LOCATION
+    fetch('https://thawing-gorge-57797.herokuapp.com/location-api', {
       method: 'POST', // or 'PUT'
       body: JSON.stringify(locationObj), // data can be `string` or {object}!
       headers: {
