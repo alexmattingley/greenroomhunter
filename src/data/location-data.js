@@ -8,6 +8,7 @@ export default {
   'santa-barbara': {
     name: 'Santa Barbara',
     locationThumbImg: sandspitImg,
+    CDIP7DayBuoyStnNum: '071',
     buoys: {
       'Harvest Buoy': 46218,
       'West Santa Barbara Buoy': 46054,
@@ -40,6 +41,7 @@ export default {
   ventura: {
     name: 'Ventura',
     locationThumbImg: littleRinconImg,
+    CDIP7DayBuoyStnNum: '071',
     buoys: {
       'Harvest Buoy': 46218,
       'West Santa Barbara Buoy': 46054,
@@ -72,6 +74,7 @@ export default {
   'los-angeles': {
     name: 'Los Angeles',
     locationThumbImg: zumaImg,
+    CDIP7DayBuoyStnNum: '092',
     buoys: {
       'Harvest Buoy': 46218,
       'West Santa Barbara Buoy': 46054,
@@ -105,6 +108,7 @@ export default {
   'orange-county': {
     name: 'Orange County',
     locationThumbImg: lowersImg,
+    CDIP7DayBuoyStnNum: '045',
     buoys: {
       'Harvest Buoy': 46218,
       'San Pedro Buoy': 46222,
@@ -142,6 +146,7 @@ export default {
   'san-diego': {
     name: 'San Diego',
     locationThumbImg: jettyImg,
+    CDIP7DayBuoyStnNum: '191',
     buoys: {
       'Harvest Buoy': 46218,
       'Oceanside Offshore Buoy': 46224,

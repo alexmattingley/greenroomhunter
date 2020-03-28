@@ -5,6 +5,7 @@ import { LocationContent, LocationHeader } from './index.styled.js';
 import WindyMap from './components/WindyMap';
 import BuoyBlock from './components/Buoys/BuoyContainer';
 import TideBlock from './components/Tide/TideContainer';
+import SevenDayBuoy from './components/SevenDayBuoy/index.jsx';
 import LocationSideNav from './components/LocationsSideNav/index.jsx';
 
 
@@ -42,7 +43,7 @@ class Location extends React.Component {
     const { buoyData, tideData } = this.state;
     const { match: { params: { location } } } = this.props;
     const locationObject = locationData[location];
-    const { name } = locationObject;
+    const { name, CDIP7DayBuoyStnNum } = locationObject;
     return (
       <>
         <LocationSideNav />
@@ -56,6 +57,9 @@ class Location extends React.Component {
           </div>
           <div id="tide_block">
             <TideBlock locationData={locationObject} tideData={tideData} />
+          </div>
+          <div id="buoy_prediction_block">
+            <SevenDayBuoy stationNum={CDIP7DayBuoyStnNum} />
           </div>
         </LocationContent>
       </>
