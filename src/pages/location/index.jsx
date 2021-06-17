@@ -24,8 +24,8 @@ class Location extends React.Component {
     const locationObj = locationData[location];
     // TODO DEPENDING ON ENV, PUT MAKE REQUEST TO DIFFERENT LOCATION
     fetch('https://thawing-gorge-57797.herokuapp.com/location-api', {
-      method: 'POST', // or 'PUT'
-      body: JSON.stringify(locationObj), // data can be `string` or {object}!
+      method: 'POST',
+      body: JSON.stringify(locationObj),
       headers: {
         'Content-Type': 'application/json',
       },
