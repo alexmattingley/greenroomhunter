@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import lighthouse from 'images/lighthouse.svg';
 import waves from 'images/waves.svg';
 import {
   colors, breakpts, generateStylesForSize,

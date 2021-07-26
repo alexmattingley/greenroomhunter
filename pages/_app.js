@@ -1,5 +1,6 @@
 import React from 'react';
 import NextApp from 'next/app';
+import Script from 'next/script'
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 export default class App extends NextApp {
@@ -14,6 +15,8 @@ export default class App extends NextApp {
     const { Component, pageProps } = this.props
     return (
       <>
+        <Script strategy="beforeInteractive" src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"></Script>
+        <Script strategy="beforeInteractive" src="https://api.windy.com/assets/map-forecast/libBoot.js"></Script>
         <CssBaseline />
         <Component {...pageProps} />
       </>

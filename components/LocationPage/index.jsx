@@ -21,7 +21,7 @@ function Location(props) {
             <BuoyBlock locationData={locationObject} buoyData={buoyData} />
           </div>
           <div id="windy_block">
-            {/* <WindyMap locationData={locationObject} /> */}
+            <WindyMap locationData={locationObject} />
           </div>
           <div id="tide_block">
             <TideBlock locationData={locationObject} tideData={tideData} />

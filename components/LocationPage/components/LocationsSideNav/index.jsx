@@ -14,7 +14,7 @@ import {
 
 export default () => (
   <SideNavContainer>
-    <HomeLink to="/">
+    <HomeLink href="/">
       <Icon icon={lighthouse} width="25px" height="25px" />
       <HomeLinkText>Home</HomeLinkText>
     </HomeLink>
