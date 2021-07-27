@@ -8,7 +8,7 @@ import TideBlock from './components/Tide/TideContainer';
 import SevenDayBuoy from './components/SevenDayBuoy/index.jsx';
 import LocationSideNav from './components/LocationsSideNav/index.jsx';
 
-function Location(props) {
+export default function Location(props) {
     const { buoyData, tideData, location } = props;
     const locationObject = locationData[location];
     const { name, CDIP7DayBuoyStnNum } = locationObject;
@@ -39,5 +39,3 @@ Location.propTypes = {
   tideData: PropTypes.object.isRequired,
   location: PropTypes.string.isRequired
 };
-
-export default Location;

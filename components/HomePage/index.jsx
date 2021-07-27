@@ -4,12 +4,12 @@ import Navigation from './components/Navigation/index.jsx';
 import LocationsList from './components/LocationList/index.jsx';
 
 
-const Home = () => (
-  <>
-    <Navigation currentPage="Home" />
-    <Hero />
-    <LocationsList />
-  </>
-);
-
-export default Home;
+export default function Home() {
+  return (
+    <>
+      <Navigation currentPage="Home" />
+      <Hero />
+      <LocationsList />
+    </>
+  )
+}
