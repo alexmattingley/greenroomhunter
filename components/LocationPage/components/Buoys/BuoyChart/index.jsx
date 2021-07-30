@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import { colors } from 'data/styles-data.js';
-import { BuoyChartContainer } from './index.styled.js';
+import BuoyChartContainer from './index.styled.js';
 
 class BuoyChart extends React.Component {
   constructor(props) {

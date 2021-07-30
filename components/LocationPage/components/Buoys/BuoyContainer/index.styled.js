@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import {
-  breakpts, generateStylesForSize
+  breakpts, generateStylesForSize,
 } from 'data/styles-data.js';
 import loadingBars from 'images/loading-bars.svg';
 

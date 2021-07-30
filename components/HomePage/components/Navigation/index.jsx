@@ -49,5 +49,4 @@ Navigation.propTypes = {
   currentPage: PropTypes.string.isRequired,
 };
 
-
 export default Navigation;

@@ -1,7 +1,5 @@
 import styled from 'styled-components';
-import {
-  colors, breakpts, generateStylesForSize,
-} from 'data/styles-data.js';
+import { breakpts, generateStylesForSize } from 'data/styles-data.js';
 
 export const WindyChartContainer = styled.div`
   width: 100%;

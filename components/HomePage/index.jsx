@@ -3,7 +3,6 @@ import Hero from './components/Hero/index.jsx';
 import Navigation from './components/Navigation/index.jsx';
 import LocationsList from './components/LocationList/index.jsx';
 
-
 function Home() {
   return (
     <>
@@ -11,7 +10,7 @@ function Home() {
       <Hero />
       <LocationsList />
     </>
-  )
+  );
 }
 
 export default Home;

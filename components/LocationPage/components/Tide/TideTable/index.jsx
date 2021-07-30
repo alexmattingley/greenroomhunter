@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { TideTableContainer, TideTableTitle, TideTableRow } from './index.styled.js';
 
-
 function TideTable(props) {
   const { tideData: { data } } = props;
   const tideRowArr = data.reduce((acc, curr) => {
@@ -23,9 +22,9 @@ function TideTable(props) {
   );
 }
 
-
 TideTable.propTypes = {
   tideData: PropTypes.shape({
+    // eslint-disable-next-line react/forbid-prop-types
     data: PropTypes.array,
   }),
 };

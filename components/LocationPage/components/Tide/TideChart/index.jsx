@@ -2,7 +2,7 @@ import React from 'react';
 import Chart from 'chart.js';
 import PropTypes from 'prop-types';
 import generateTideChartData from './generateTideData.js';
-import { TideChartContainer } from './index.styled.js';
+import TideChartContainer from './index.styled.js';
 
 class TideChart extends React.Component {
   constructor(props) {
@@ -29,6 +29,7 @@ class TideChart extends React.Component {
 TideChart.propTypes = {
   tideData: PropTypes.shape({
     success: PropTypes.bool,
+    // eslint-disable-next-line react/forbid-prop-types
     data: PropTypes.array,
   }).isRequired,
 };

@@ -47,6 +47,7 @@ class BuoyBlock extends React.Component {
 BuoyBlock.propTypes = {
   buoyData: PropTypes.shape({
     success: PropTypes.bool,
+    // eslint-disable-next-line react/forbid-prop-types
     data: PropTypes.array,
   }),
 };
