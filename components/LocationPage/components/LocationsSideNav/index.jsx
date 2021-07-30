@@ -12,7 +12,7 @@ import {
   Icon,
 } from './index.styled.js';
 
-export default function LocationSideNav(){
+export default function LocationSideNav() {
   return (
     <SideNavContainer>
       <HomeLink href="/">

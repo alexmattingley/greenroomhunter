@@ -14,7 +14,7 @@ const NavLinks = (props) => {
           currentPage={currentPage}
           href="/"
         >
-            Home
+          Home
         </NavLink>
       </NavList>
       <NavSlash>

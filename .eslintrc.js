@@ -21,14 +21,14 @@ module.exports = {
     'react',
   ],
   rules: {
-    "import/extensions": ["off", "always"],
-    "react/jsx-one-expression-per-line": "off"
+    'import/extensions': ['off', 'always'],
+    'react/jsx-one-expression-per-line': 'off',
   },
-  "settings": {
-    "import/resolver": {
-      "node": {
-        "paths": ["src"]
-      }
-    }
-  }
+  settings: {
+    'import/resolver': {
+      node: {
+        paths: ['.'],
+      },
+    },
+  },
 };

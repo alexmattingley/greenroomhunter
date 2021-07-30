@@ -1,9 +1,9 @@
+/* eslint-disable jsx-a11y/anchor-has-content */
 import React from 'react';
 import styled from 'styled-components';
 import {
   colors, breakpts, generateStylesForSize,
 } from 'data/styles-data.js';
-
 
 const { lg } = breakpts;
 

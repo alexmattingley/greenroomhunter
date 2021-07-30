@@ -1,9 +1,8 @@
 import React from 'react';
 import Navigation from 'components/Navigation/index.jsx';
 import {
-  ContentBlock, ContentP, ContentH1, ContentH2, PageContainer, FlexContainer
+  ContentBlock, ContentP, ContentH1, ContentH2, PageContainer, FlexContainer,
 } from './index.styled.js';
-
 
 function About() {
   return (

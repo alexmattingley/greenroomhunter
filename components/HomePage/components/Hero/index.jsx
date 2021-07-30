@@ -3,7 +3,6 @@ import {
   HeroContainer, HeroTagLine,
 } from './index.styled.js';
 
-
 export default () => (
   <HeroContainer>
     <HeroTagLine>

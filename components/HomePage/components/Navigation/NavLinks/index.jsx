@@ -15,7 +15,7 @@ const NavLinks = (props) => {
           whiteNav={whiteNav}
           href="/"
         >
-            Home
+          Home
         </NavLink>
       </NavList>
       <NavSlash>

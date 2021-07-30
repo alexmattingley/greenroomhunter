@@ -41,6 +41,7 @@ function TideContainer(props) {
 TideContainer.propTypes = {
   tideData: PropTypes.shape({
     success: PropTypes.bool,
+    // eslint-disable-next-line react/forbid-prop-types
     data: PropTypes.array,
   }),
   locationData: PropTypes.shape({
