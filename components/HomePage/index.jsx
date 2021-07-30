@@ -4,7 +4,7 @@ import Navigation from './components/Navigation/index.jsx';
 import LocationsList from './components/LocationList/index.jsx';
 
 
-export default function Home() {
+function Home() {
   return (
     <>
       <Navigation currentPage="Home" />
@@ -13,3 +13,5 @@ export default function Home() {
     </>
   )
 }
+
+export default Home;
