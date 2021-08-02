@@ -50,30 +50,30 @@ async function fetchBuoyAndTideData(context) {
   };
 }
 
-// Declairing paths. This is required for us to do dynamic routes which use getStaticProps.
-// Otherwise you get this error https://nextjs.org/docs/messages/invalid-getstaticpaths-value
-export async function getStaticPaths() {
-  // We have a set of declared locations in the location information file, this uses those
-  // locations to dynamically generate alist of paths
-  // eg:
-  // [
-  //  { params: { id: 'santa-barbara'} },
-  //  { params: { id: 'ventura' } },
-  //  ...
-  // ]
-  const paths = Object.keys(LocationInfo).map((elem) => ({
-    params: {
-      id: elem,
-    },
-  }));
-  return {
-    paths,
-    fallback: false,
-  };
-}
+// // Declairing paths. This is required for us to do dynamic routes which use getStaticProps.
+// // Otherwise you get this error https://nextjs.org/docs/messages/invalid-getstaticpaths-value
+// export async function getStaticPaths() {
+//   // We have a set of declared locations in the location information file, this uses those
+//   // locations to dynamically generate alist of paths
+//   // eg:
+//   // [
+//   //  { params: { id: 'santa-barbara'} },
+//   //  { params: { id: 'ventura' } },
+//   //  ...
+//   // ]
+//   const paths = Object.keys(LocationInfo).map((elem) => ({
+//     params: {
+//       id: elem,
+//     },
+//   }));
+//   return {
+//     paths,
+//     fallback: false,
+//   };
+// }
 
 // This function is needed to make any api calls which we need for our locations pages.
-export async function getStaticProps(context) {
+export async function getServerSideProps(context) {
   const buoyAndTideData = await fetchBuoyAndTideData(context);
   return buoyAndTideData;
 }
