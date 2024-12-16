@@ -19,7 +19,7 @@
     "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "luxon": "^2.0.1",
-    "moment-timezone": "^0.5.33",
+    "moment-timezone": "^0.5.35",
     "next": "11.0.0",
     "next-images": "^1.8.1",
     "node-fetch": "^2.6.1",
