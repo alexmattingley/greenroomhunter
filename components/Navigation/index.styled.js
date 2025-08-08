@@ -5,8 +5,8 @@ import {
 
 const { lg } = breakpts;
 
-export default styled.div`
-  background-color: transparent;
+export const NavContainerStyled = styled.div`
+ background-color: transparent;
   color: ${colors.almostWhite};
   transition-duration: 0.5s;
   display: flex;
@@ -19,3 +19,5 @@ export default styled.div`
     padding: 15px 50px;
   }
 `;
+
+export default NavContainerStyled;

@@ -5,7 +5,7 @@ import {
 
 const { lg } = breakpts;
 
-export default styled.div`
+const NavigationStyled = styled.div`
   ${(props) => {
     if (props.whiteNav) {
       return `background-color: ${colors.almostWhiteMild};`;
@@ -28,3 +28,5 @@ export default styled.div`
     padding-right: 50px;
   }
 `;
+
+export default NavigationStyled;
