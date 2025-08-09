@@ -12,6 +12,7 @@ const BuoyText = (props) => {
     waveHeightFt,
     meanWaveDir,
   } = buoyData[0];
+
   return (
     <ByContainer>
       <ByTextTitle>{stationName}</ByTextTitle>
@@ -30,7 +31,7 @@ BuoyText.propTypes = {
     fullDate: PropTypes.string.isRequired,
     avgPeriod: PropTypes.number.isRequired,
     peakPeriod: PropTypes.number.isRequired,
-    waterTemp: PropTypes.number.isRequired,
+    waterTemp: PropTypes.number,
     waveHeightFt: PropTypes.number.isRequired,
     meanWaveDir: PropTypes.number.isRequired,
   })).isRequired,

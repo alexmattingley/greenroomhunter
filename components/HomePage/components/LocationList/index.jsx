@@ -13,14 +13,14 @@ import {
 
 function generateList() {
   return Object.entries(locationData).map(([key, value]) => (
-    <LocationsLi key={key}>
-      <LocationImage locationThumbImg={value.locationThumbImg} />
-      <Link href={`/location/${key}`} passHref>
+    <Link href={`/location/${key}`} passHref>
+      <LocationsLi key={key}>
+        <LocationImage locationThumbImg={value.locationThumbImg} />
         <LocationName>
           {value.name}
         </LocationName>
-      </Link>
-    </LocationsLi>
+      </LocationsLi>
+    </Link>
   ));
 }
 
