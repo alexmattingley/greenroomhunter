@@ -3,8 +3,8 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
+    "dev": "NODE_OPTIONS='--openssl-legacy-provider' next dev",
+    "build": "NODE_OPTIONS='--openssl-legacy-provider' next build",
     "start": "next start",
     "lint": "next lint"
   },
@@ -36,6 +36,7 @@
   "devDependencies": {
     "babel-plugin-styled-components": "^1.13.2",
     "eslint": "7.29.0",
-    "eslint-config-next": "11.0.0"
+    "eslint-config-next": "11.0.0",
+    "ioredis": "^5.7.0"
   }
 }

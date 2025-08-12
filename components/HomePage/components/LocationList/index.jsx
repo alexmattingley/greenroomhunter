@@ -13,8 +13,8 @@ import {
 
 function generateList() {
   return Object.entries(locationData).map(([key, value]) => (
-    <Link href={`/location/${key}`} passHref>
-      <LocationsLi key={key}>
+    <Link href={`/location/${key}`} passHref key={key}>
+      <LocationsLi>
         <LocationImage locationThumbImg={value.locationThumbImg} />
         <LocationName>
           {value.name}
