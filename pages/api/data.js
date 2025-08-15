@@ -1,12 +1,11 @@
 import mapBuoyData from 'data/api-data/noaa/buoys/parse-buoy-data';
-import redis from '../../lib/redis';
 import fetchTideData from 'data/api-data/noaa/tides/fetch-tide-data';
 import parseTideData from 'data/api-data/noaa/tides/parse-tide-data';
+import redis from '../../lib/redis';
 
 export default async function handler(req, res) {
   const buoyReqInfo = req.body.buoys;
-  const tideStationId = req.body.tideStationId;
-  const location = req.body.location;
+  const { tideStationId, location } = req.body;
   let buoyData;
   let tideData;
 
@@ -21,7 +20,7 @@ export default async function handler(req, res) {
   try {
     buoyData = {
       success: true,
-      data: await mapBuoyData(buoyReqInfo)
+      data: await mapBuoyData(buoyReqInfo),
     };
   } catch (error) {
     buoyData = {
@@ -45,8 +44,8 @@ export default async function handler(req, res) {
   }
 
   const data = {
-    buoyData, tideData
-  }
+    buoyData, tideData,
+  };
   await redis.set(cacheKey, JSON.stringify(data), 'EX', 3600);
 
   res.status(200).json(data);
