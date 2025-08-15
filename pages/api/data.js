@@ -6,10 +6,14 @@ import parseTideData from 'data/api-data/noaa/tides/parse-tide-data';
 export default async function handler(req, res) {
   const buoyReqInfo = req.body.buoys;
   const tideStationId = req.body.tideStationId;
+  const location = req.body.location;
   let buoyData;
   let tideData;
 
-  const cached = await redis.get('locationData');
+  // Create a unique cache key based on the request parameters
+  const cacheKey = `locationData:${location}`;
+
+  const cached = await redis.get(cacheKey);
   if (cached) {
     return res.status(200).json(JSON.parse(cached));
   }
@@ -43,7 +47,7 @@ export default async function handler(req, res) {
   const data = {
     buoyData, tideData
   }
-  await redis.set('locationData', JSON.stringify(data), 'EX', 3600);
+  await redis.set(cacheKey, JSON.stringify(data), 'EX', 3600);
 
   res.status(200).json(data);
 }

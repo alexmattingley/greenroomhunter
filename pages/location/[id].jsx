@@ -26,6 +26,7 @@ async function fetchBuoyAndTideData(context) {
       body: JSON.stringify({
         buoys,
         tideStationId: id,
+        location,
       }),
     });
     
