@@ -14,6 +14,7 @@ export default async function handler(req, res) {
 
   const cached = await redis.get(cacheKey);
   if (cached) {
+    console.log('Recent data in redis cache, return cached data');
     return res.status(200).json(JSON.parse(cached));
   }
 
@@ -47,6 +48,5 @@ export default async function handler(req, res) {
     buoyData, tideData,
   };
   await redis.set(cacheKey, JSON.stringify(data), 'EX', 3600);
-
   res.status(200).json(data);
 }
