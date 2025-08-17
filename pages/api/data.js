@@ -5,6 +5,7 @@ import redis from '../../lib/redis';
 
 export default async function handler(req, res) {
   const buoyReqInfo = req.body.buoys;
+  console.log('Redis URL is:', process.env.REDIS_URL);
   const { tideStationId, location } = req.body;
   let buoyData;
   let tideData;
