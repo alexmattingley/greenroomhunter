@@ -35,9 +35,9 @@ function About() {
             I wanted to build a site that would be a good reflection of my technical abilities
             as well as give me an opportunity work with some technologies that I enjoy working with.
             I have alot of experience with react and I really enjoy working
-            with react so I decided to use create react app to scaffold the front end.
-            I have some experience with node and I want to work with node more, so I decided
-            to use Nodejs for the api calls on the backend.
+            with react so I decided to use react for the front end.
+            I have some experience with nextjs and I wanted to futher my knowledge of its inner
+            workings, so I decided to use nextjs for the server side.
           </ContentP>
         </ContentBlock>
       </FlexContainer>

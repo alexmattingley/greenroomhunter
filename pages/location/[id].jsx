@@ -40,6 +40,13 @@ async function fetchBuoyAndTideData(context) {
     };
   } catch (error) {
     console.error('Error fetching data:', error);
+    return {
+      props: {
+        buoyData: {},
+        tideData: {},
+        location,
+      },
+    };
   }
 }
 

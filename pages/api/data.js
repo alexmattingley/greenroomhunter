@@ -5,7 +5,6 @@ import redis from '../../lib/redis';
 
 export default async function handler(req, res) {
   const buoyReqInfo = req.body.buoys;
-  console.log('Redis URL is:', process.env.REDIS_URL);
   const { tideStationId, location } = req.body;
   let buoyData;
   let tideData;
@@ -15,7 +14,6 @@ export default async function handler(req, res) {
 
   const cached = await redis.get(cacheKey);
   if (cached) {
-    console.log('Recent data in redis cache, return cached data');
     return res.status(200).json(JSON.parse(cached));
   }
 
