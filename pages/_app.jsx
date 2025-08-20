@@ -1,7 +1,7 @@
 import React from 'react';
 import NextApp from 'next/app';
 import Script from 'next/script';
-import CssBaseline from '@material-ui/core/CssBaseline';
+import CssBaseline from '@mui/material/CssBaseline';
 
 export default class App extends NextApp {
   componentDidMount() {
