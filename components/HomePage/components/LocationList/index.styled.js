@@ -75,10 +75,7 @@ export const LocationImage = styled.div`
   }
 `;
 
-// TODO: Make the whole div clickable, not the just the link
-// NOTES: This is difficult because you can't nest multiple children into nextjs Link element
-// SEE: https://nextjs.org/docs/messages/link-multiple-children
-export const LocationName = styled.a`
+export const LocationName = styled.span`
   ${generateStylesForSize('t4', 'mobile')}
   color: ${colors.almostWhite};
   display: block;

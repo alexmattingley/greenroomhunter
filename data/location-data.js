@@ -1,13 +1,7 @@
-import jettyImg from 'images/jetty.jpg';
-import littleRinconImg from 'images/little-rincon.jpg';
-import sandspitImg from 'images/sandspit.jpg';
-import lowersImg from 'images/lowers.jpg';
-import zumaImg from 'images/zuma.jpg';
-
 export default {
   'santa-barbara': {
     name: 'Santa Barbara',
-    locationThumbImg: sandspitImg,
+    locationThumbImg: '/images/sandspit.jpg',
     CDIP7DayBuoyStnNum: '071',
     buoys: {
       'Harvest Buoy': 46218,
@@ -40,7 +34,7 @@ export default {
   },
   ventura: {
     name: 'Ventura',
-    locationThumbImg: littleRinconImg,
+    locationThumbImg: '/images/little-rincon.jpg',
     CDIP7DayBuoyStnNum: '071',
     buoys: {
       'Harvest Buoy': 46218,
@@ -73,7 +67,7 @@ export default {
   },
   'los-angeles': {
     name: 'Los Angeles',
-    locationThumbImg: zumaImg,
+    locationThumbImg: '/images/zuma.jpg',
     CDIP7DayBuoyStnNum: '092',
     buoys: {
       'Harvest Buoy': 46218,
@@ -107,7 +101,7 @@ export default {
   },
   'orange-county': {
     name: 'Orange County',
-    locationThumbImg: lowersImg,
+    locationThumbImg: '/images/lowers.jpg',
     CDIP7DayBuoyStnNum: '045',
     buoys: {
       'Harvest Buoy': 46218,
@@ -145,7 +139,7 @@ export default {
   },
   'san-diego': {
     name: 'San Diego',
-    locationThumbImg: jettyImg,
+    locationThumbImg: '/images/jetty.jpg',
     CDIP7DayBuoyStnNum: '191',
     buoys: {
       'Harvest Buoy': 46218,

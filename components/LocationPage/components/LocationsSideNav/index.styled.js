@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import waves from 'images/waves.svg';
 import {
   colors, breakpts, generateStylesForSize,
 } from 'data/styles-data.js';
@@ -68,7 +67,7 @@ export const Icon = styled.span`
     `
     width: ${props.width || '25px'};
     height: ${props.height || '25px'};
-    background-image: url(${props.icon || waves});
+    background-image: url(${props.icon || '/images/waves.svg'});
     `
   )}
 `;
