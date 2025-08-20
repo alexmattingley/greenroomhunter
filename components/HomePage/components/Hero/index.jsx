@@ -3,10 +3,12 @@ import {
   HeroContainer, HeroTagLine,
 } from './index.styled.js';
 
-export default () => (
+const Hero = () => (
   <HeroContainer>
     <HeroTagLine>
       Buoy, Wind and Tide Data tailored for surfers
     </HeroTagLine>
   </HeroContainer>
 );
+
+export default Hero;

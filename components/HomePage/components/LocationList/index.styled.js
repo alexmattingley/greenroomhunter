@@ -40,6 +40,7 @@ export const LocationsLi = styled.li`
   padding: ${itmSpacing}px;
   list-style-type: none;
   transition: all 0.5s;
+  cursor: pointer;
 
   :hover {
     background-color: ${colors.lightGreen};

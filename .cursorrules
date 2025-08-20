@@ -1,0 +1,30 @@
+# Cursor Rules for GreenroomHunter Project
+
+# Enable ESLint integration
+eslint.enable: true
+eslint.validate: ["javascript", "javascriptreact", "jsx"]
+
+# Enable real-time linting
+eslint.run: "onType"
+
+# Show ESLint errors and warnings in the editor
+eslint.format.enable: true
+
+# Auto-fix on save
+editor.codeActionsOnSave: {
+  "source.fixAll.eslint": true
+}
+
+# Enable TypeScript-like features for JavaScript
+javascript.suggest.autoImports: true
+javascript.updateImportsOnFileMove.enabled: true
+
+# Enable React specific features
+emmet.includeLanguages: {
+  "javascript": "javascriptreact"
+}
+
+# File associations
+files.associations: {
+  "*.jsx": "javascriptreact"
+}
