@@ -1,8 +1,32 @@
 import React from 'react';
-import Chart from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  LineController,
+  Title,
+  Tooltip,
+  Legend,
+} from 'chart.js';
 import PropTypes from 'prop-types';
 import generateTideChartData from './generateTideData.js';
+import ChartjsPluginAnnotation from 'chartjs-plugin-annotation';
 import TideChartContainer from './index.styled.js';
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  LineController,
+  Title,
+  Tooltip,
+  Legend,
+  ChartjsPluginAnnotation,
+);
 
 class TideChart extends React.Component {
   constructor(props) {
@@ -14,7 +38,7 @@ class TideChart extends React.Component {
     const { tideData: { data } } = this.props;
     const ctx = this.tideChartRef.current.getContext('2d');
     // eslint-disable-next-line no-unused-vars
-    const chart = new Chart(ctx, generateTideChartData(data));
+    const chart = new ChartJS(ctx, generateTideChartData(data));
   }
 
   render() {

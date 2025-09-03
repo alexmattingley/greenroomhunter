@@ -1,4 +1,3 @@
-import ChartjsPluginAnnotation from 'chartjs-plugin-annotation';
 import { colors } from 'data/styles-data.js';
 
 function generateTideChartData(tideData) {
@@ -35,51 +34,72 @@ function generateTideChartData(tideData) {
     data: {
       datasets: [
         {
-          label: 'tide (ft)',
+          label: 'Tide (ft)',
           data: dataForChart.height,
           pointBackgroundColor: dataForChart.pointBgColor,
           pointRadius: dataForChart.borderWidth,
           backgroundColor: colors.almostTransparentGray,
+          borderColor: dataForChart.pointBgColor,
+          tension: 0.1,
+          fill: 'origin',
         },
       ],
       labels: dataForChart.time,
     },
-    plugins: [ChartjsPluginAnnotation],
     options: {
-      annotation: {
-        annotations: [
-          {
-            type: 'line',
-            mode: 'vertical',
-            scaleID: 'x-axis-0',
-            value: dataForChart.dayDividerVal,
-            borderColor: colors.wickedPink,
-            borderWidth: 2,
-            label: {
-              fontSize: 16,
-              fontColor: colors.almostWhite,
-              backgroundColor: colors.almostBlack,
-              content: dataForChart.dayDividerVal,
-              enabled: true,
-            },
+      responsive: true,
+      maintainAspectRatio: true,
+      plugins: {
+        annotation: {
+          annotations: {
+            dayDivider: {
+              type: 'line',
+              xMin: dataForChart.dayDividerVal,
+              xMax: dataForChart.dayDividerVal,
+              borderColor: colors.wickedPink,
+              borderWidth: 2,
+              label: {
+                display: true,
+                content: dataForChart.dayDividerVal,
+                borderColor: colors.almostBlack,
+                backgroundColor: colors.almostBlackTransparent,
+                borderWidth: 3,
+                color: colors.almostWhite,
+                font: {
+                  size: 16
+                }
+              }
+            }
+          }
+        },
+        legend: {
+          display: true,
+          labels: {
+            color: colors.almostWhite,
           },
-        ],
+        },
       },
       legend: {
         display: false,
       },
       scales: {
-        xAxes: [{
+        x: {
           ticks: {
             callback: () => '',
+            color: colors.almostWhite,
           },
-        }],
-        yAxes: [{
+          grid: {
+            color: colors.almostTransparentGray,
+          },
+        },
+        y: {
           ticks: {
-            fontColor: colors.almostWhite,
-
+            color: colors.almostWhite,
           },
-        }],
+          grid: {
+            color: colors.almostTransparentGray,
+          },
+        },
       },
     },
   };
