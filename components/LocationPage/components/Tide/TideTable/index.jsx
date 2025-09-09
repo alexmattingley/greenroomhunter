@@ -9,9 +9,9 @@ import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
 
 const ArrowIcon = ({tideDirection}) => {
   if (tideDirection === "rising") {
-    return (<ArrowUpwardRoundedIcon fontSize='large' />)
+    return (<ArrowUpwardRoundedIcon fontSize='medium' />)
   }
-  return (<ArrowDownwardRoundedIcon fontSize='large' />);
+  return (<ArrowDownwardRoundedIcon fontSize='medium' />);
 }
 
 
@@ -21,7 +21,7 @@ function TideTable(props) {
   const nextTideTimeOnly = nextTide.t.split(',')[1].trim();
   const tideRowArr = highAndLowTides.map((itm) => {
       return (
-        <TideTableRow key={itm.t} point={itm.point}>
+        <TideTableRow key={itm.t} nextTide={itm.nextTide}>
           <span>{itm.point === 'Low' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}</span>
           <span>{itm.v.toFixed(1)} ft</span> 
           <span>{itm.t}</span>

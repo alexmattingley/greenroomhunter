@@ -21,21 +21,24 @@ function parseTideData(rawData) {
     if (index !== 0 && index !== array.length - 1) {
       // True if value is low tide
       if (tideValue.v < array[index - 1].v && tideValue.v < array[index + 1].v) {
-        const lowTide = Object.assign({}, tideValue, { point: 'Low' });
-        highAndLowTides.push(lowTide);
+        let lowTide = Object.assign({}, tideValue, { point: 'Low' });
         if (findNextPoint) {
           findNextPoint = false;
+          lowTide = {...lowTide, nextTide: true };
           currentTide.nextTide = {...lowTide}
         }
+        highAndLowTides.push(lowTide);
       }
       // True is if its high tide
       if (tideValue.v > array[index - 1].v && tideValue.v > array[index + 1].v) {
-        const highTide = Object.assign({}, tideValue, { point: 'High' })
-        highAndLowTides.push(highTide);
+        let highTide = Object.assign({}, tideValue, { point: 'High' })
+        
         if (findNextPoint) {
           findNextPoint = false;
+          highTide = { ...highTide, nextTide: true };
           currentTide.nextTide = {...highTide}
         }
+        highAndLowTides.push(highTide);
       }
     }
   

@@ -1,6 +1,10 @@
 import { colors } from 'data/styles-data.js';
 
 function generateTideChartData(tideData) {
+  
+  // Check browser width and set maintainAspectRatio accordingly
+  const isWideScreen = typeof window !== 'undefined' && window.innerWidth > 2000;
+  
   const dataForChart = {
     time: [],
     height: [],
@@ -29,6 +33,7 @@ function generateTideChartData(tideData) {
     }
   });
 
+
   return {
     type: 'line',
     data: {
@@ -48,7 +53,7 @@ function generateTideChartData(tideData) {
     },
     options: {
       responsive: true,
-      maintainAspectRatio: true,
+      maintainAspectRatio: !isWideScreen,
       plugins: {
         annotation: {
           annotations: {

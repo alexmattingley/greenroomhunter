@@ -22,6 +22,7 @@ export const breakpts = {
   md: '992px',
   lg: '1200px',
   xl: '1600px',
+  xxl: '2000px'
 };
 
 export const typescales = {

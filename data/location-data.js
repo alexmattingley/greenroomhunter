@@ -148,8 +148,8 @@ export default {
       'Point Loma South Buoy': 46232,
     },
     tideStation: {
-      id: 9410230,
-      location: 'Scripps Pier',
+      id: 9410170,
+      location: 'San Diego Bay',
     },
     lon: -117.2545644,
     lat: 32.8634499,

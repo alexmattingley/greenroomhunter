@@ -5,6 +5,10 @@ import {
 
 export const CurrentTideCotainer = styled.div`
   margin-bottom: 20px;
+  padding: 20px;
+  background: ${colors.almostTransparentGray};
+  border-radius: 10px;
+  width: 100%;
 `;
 
 export const CurrentTideText = styled.div`
@@ -19,11 +23,22 @@ export const CurrentTideText = styled.div`
 `;
 
 export const HighAndLowTideContainer = styled.div`
-
+  margin-bottom: 20px;
+  padding: 20px;
+  background: ${colors.almostTransparentGray};
+  border-radius: 10px;
+  width: 100%;
+  @media only screen and (min-width: ${breakpts.xl}) {
+    margin-bottom: 0;
+  }
 `;
 
 export const NextTideDescription = styled.div`
   ${generateStylesForSize('t4', 'mobile')}
+
+  b {
+    color: ${colors.lightGreen};
+  }
 
   @media only screen and (min-width: ${breakpts.lg}) {
     ${generateStylesForSize('t4', 'desktop')}
@@ -52,8 +67,6 @@ export const TideTableTitle = styled.h3`
 `;
 
 export const TideTableContainer = styled.div`
-  padding: 20px 0;
-
   @media only screen and (min-width: ${breakpts.sm}) {
     padding: 0;
     min-width: 340px;
@@ -61,23 +74,28 @@ export const TideTableContainer = styled.div`
   }
 
   @media only screen and (min-width: ${breakpts.lg}) {
-    min-width: 415px;
+    display: flex;
+    gap: 20px;
+  }
+  @media only screen and (min-width: ${breakpts.xl}) {
+    display: block;
+    order: 1;
+    min-width: 30%;
   }
 `;
 
 export const TideTableRow = styled.div`
   ${generateStylesForSize('t5', 'mobile')}
   border-bottom: 1px solid ${colors.almostWhite};
-  margin: 10px 0;
+  padding: 10px 5px;
   display: grid;
   grid-template-columns: auto 1fr auto;
   gap: 16px;
   width: 100%;
   align-items: center;
   justify-items: center;
-  ${(props) => {
-    const { point } = props;
-    return point === 'High' ? `color: ${colors.gray}` : `color: ${colors.almostWhite};`;
+  ${({ nextTide }) => {
+    return nextTide ? `background-color: ${colors.almostBlack}; color: ${colors.lightGreen};` : `color: ${colors.almostWhite};`;
   }}
 
   @media only screen and (min-width: ${breakpts.lg}) {

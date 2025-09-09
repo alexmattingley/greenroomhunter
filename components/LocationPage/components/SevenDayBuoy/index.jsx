@@ -7,7 +7,7 @@ const CDIPBuoyImage = (props) => {
   return (
     <Container>
       <Title>CDIP WW3 6 day forecast</Title>
-      <Image src={`http://cdip.ucsd.edu/recent/forecast/buoy_ww3.gd?stn=${stationNum}&stream=p1&pub=public&tz=PDT&units=english`} aria-hidden />
+      <Image src={`https://cdip.ucsd.edu/themes/media/images/plots/buoy_ww3.gd?stn=${stationNum}&stream=p1&pub=public&tz=PDT&units=english`} aria-hidden />
     </Container>
   );
 };
