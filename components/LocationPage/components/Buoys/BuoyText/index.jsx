@@ -17,7 +17,7 @@ const BuoyText = (props) => {
     <ByContainer>
       <ByTextTitle>{stationName}</ByTextTitle>
       <ByDefaultP>{fullDate}</ByDefaultP>
-      <ByDefaultP>Wave Height(ft): {waveHeightFt}</ByDefaultP>
+      <ByDefaultP>Wave Height (ft): {waveHeightFt}</ByDefaultP>
       <ByDefaultP>Average Period: {avgPeriod} seconds</ByDefaultP>
       <ByDefaultP>Peak Period: {peakPeriod} seconds</ByDefaultP>
       <ByDefaultP>Dominant Direction: {meanWaveDir}&deg;</ByDefaultP>

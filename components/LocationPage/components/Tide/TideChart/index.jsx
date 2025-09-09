@@ -35,10 +35,10 @@ class TideChart extends React.Component {
   }
 
   componentDidMount() {
-    const { tideData: { data } } = this.props;
+    const { tideDataForChart  } = this.props;
     const ctx = this.tideChartRef.current.getContext('2d');
     // eslint-disable-next-line no-unused-vars
-    const chart = new ChartJS(ctx, generateTideChartData(data));
+    const chart = new ChartJS(ctx, generateTideChartData(tideDataForChart));
   }
 
   render() {

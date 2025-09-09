@@ -4,19 +4,27 @@ import { LoadingIcon, LoadingText, LoadingContainer } from 'components/LocationP
 import TideChart from '../TideChart';
 import TideTable from '../TideTable';
 import { TideTitle, TideBlockContainer, TideDataContainer } from './index.styled.js';
+import parseTideData from 'data/api-data/noaa/tides/parse-tide-data';
+
 
 function TideContainer(props) {
   const { tideData, locationData: { tideStation: { location } } } = props;
+  const { data, success } = tideData;
   // Render component if tide NOAA call is successful
-  if (tideData && tideData.success) {
+  if (data && success) {
+    const {
+      dataForChart,
+      highAndLowTides,
+      currentTide,
+    } = parseTideData(data);
     return (
       <TideBlockContainer>
         <TideTitle>
           Tides for today and tomorrow for {location}
         </TideTitle>
         <TideDataContainer>
-          <TideChart tideData={tideData} />
-          <TideTable tideData={tideData} />
+          <TideTable highAndLowTides={highAndLowTides} currentTide={currentTide} />
+          <TideChart tideDataForChart={dataForChart} />
         </TideDataContainer>
       </TideBlockContainer>
     );

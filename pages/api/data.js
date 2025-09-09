@@ -1,6 +1,5 @@
 import mapBuoyData from 'data/api-data/noaa/buoys/parse-buoy-data';
 import fetchTideData from 'data/api-data/noaa/tides/fetch-tide-data';
-import parseTideData from 'data/api-data/noaa/tides/parse-tide-data';
 import redis from '../../lib/redis';
 
 export default async function handler(req, res) {
@@ -33,7 +32,7 @@ export default async function handler(req, res) {
     const rawTideData = await fetchTideData(tideStationId);
     tideData = {
       success: true,
-      data: parseTideData(rawTideData),
+      data: rawTideData,
     };
   } catch (error) {
     tideData = {
@@ -46,6 +45,7 @@ export default async function handler(req, res) {
   const data = {
     buoyData, tideData,
   };
-  await redis.set(cacheKey, JSON.stringify(data), 'EX', 3600);
+  // Buoy information should be refreshed every 10 minutes
+  await redis.set(cacheKey, JSON.stringify(data), 'EX', 600);
   res.status(200).json(data);
 }

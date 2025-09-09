@@ -5,8 +5,8 @@ import {
   HomeLinkText,
   PageLinkContainer,
   PageLinkTxt,
-  Icon,
 } from './index.styled.js';
+import { Icon } from 'components/Icon/index.styled.jsx';
 
 export default function LocationSideNav() {
   return (
