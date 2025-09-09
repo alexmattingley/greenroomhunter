@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import waves from 'images/waves.svg';
 import {
   colors, breakpts, generateStylesForSize,
 } from 'data/styles-data.js';
@@ -57,18 +56,4 @@ export const PageLinkContainer = styled.a`
 
 export const PageLinkTxt = styled.span`
   ${commonLinkTxtStyles}
-`;
-
-export const Icon = styled.span`
-  display: inline-block;
-  background-size: cover;
-  background-position: center;
-  margin-bottom: 7px;
-  ${(props) => (
-    `
-    width: ${props.width || '25px'};
-    height: ${props.height || '25px'};
-    background-image: url(${props.icon || waves});
-    `
-  )}
 `;

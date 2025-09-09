@@ -1,8 +1,32 @@
 import React from 'react';
-import Chart from 'chart.js';
+import {
+  Chart as ChartJS,
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  LineController,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+} from 'chart.js';
 import PropTypes from 'prop-types';
 import { colors } from 'data/styles-data.js';
 import BuoyChartContainer from './index.styled.js';
+
+// Register Chart.js components
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  PointElement,
+  LineElement,
+  LineController,
+  Title,
+  Tooltip,
+  Legend,
+  Filler,
+);
 
 class BuoyChart extends React.Component {
   constructor(props) {
@@ -13,7 +37,7 @@ class BuoyChart extends React.Component {
   componentDidMount() {
     const waveHeightFill = colors.lightGreenFill;
     const waveHeightBorder = colors.lightGreen;
-    const peakPeriodFill = colors.almostTransparentGray;
+    const peakPeriodFill = colors.almostTransparentPink;
     const peakPeriodBorder = colors.wickedPink;
     const avgPeriodFill = colors.transparent;
     const avgPeriodBorder = colors.gray;
@@ -35,7 +59,7 @@ class BuoyChart extends React.Component {
     });
     const ctx = this.buoyChartRef.current.getContext('2d');
     // eslint-disable-next-line no-unused-vars
-    const chart = new Chart(ctx, {
+    const chart = new ChartJS(ctx, {
       type: 'line',
       data: {
         datasets: [
@@ -43,43 +67,58 @@ class BuoyChart extends React.Component {
             label: 'Average Period',
             data: dataForChart.avgPeriod,
             backgroundColor: avgPeriodFill,
-            // pointBackgroundColor: colors.almostWhite,
             borderColor: avgPeriodBorder,
+            tension: 0.2,
+            fill: 'origin',
           },
           {
             label: 'Peak Period',
             data: dataForChart.peakPeriod,
             backgroundColor: peakPeriodFill,
-            // pointBackgroundColor: colors.almostWhite,
             borderColor: peakPeriodBorder,
+            tension: 0.2,
+            fill: 'origin',
           },
           {
             label: 'Wave Height',
             data: dataForChart.waveHeightFt,
             backgroundColor: waveHeightFill,
             borderColor: waveHeightBorder,
+            tension: 0.2,
+            fill: 'origin',
           },
         ],
         labels: dataForChart.timeTaken,
       },
       options: {
+        responsive: true,
+        maintainAspectRatio: true,
         scales: {
-          yAxes: [{
+          y: {
+            beginAtZero: true,
             ticks: {
-              fontColor: colors.almostWhite,
-              suggestedMin: 0,
+              color: colors.almostWhite,
             },
-          }],
-          xAxes: [{
+            grid: {
+              color: colors.almostTransparentGray,
+            },
+          },
+          x: {
             ticks: {
               callback: () => '',
+              color: colors.almostWhite,
             },
-          }],
+            grid: {
+              color: colors.almostTransparentGray,
+            },
+          },
         },
-        legend: {
-          display: true,
-          labels: {
-            fontColor: colors.almostWhite,
+        plugins: {
+          legend: {
+            display: true,
+            labels: {
+              color: colors.almostWhite,
+            },
           },
         },
       },

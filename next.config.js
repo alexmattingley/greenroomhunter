@@ -1,12 +1,14 @@
-const withImages = require('next-images');
-
-module.exports = withImages({
-  fileExtensions: ['jpg', 'jpeg', 'png', 'gif', 'svg'],
-  esModule: true,
+/** @type {import('next').NextConfig} */
+const nextConfig = {
   images: {
-    disableStaticImages: true,
+    remotePatterns: [],
+  },
+  compiler: {
+    styledComponents: true,
   },
   webpack(config) {
     return config;
   },
-});
+};
+
+module.exports = nextConfig;

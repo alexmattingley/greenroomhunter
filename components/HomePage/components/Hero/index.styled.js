@@ -2,12 +2,11 @@ import styled from 'styled-components';
 import {
   colors, breakpts, generateStylesForSize, homePageSpacing,
 } from 'data/styles-data.js';
-import calafia from 'images/calafia.jpg';
 
 const { itmSpacing, leftMargin } = homePageSpacing;
 
 export const HeroContainer = styled.div`
-  background-image: url(${calafia});
+  background-image: url('/images/calafia.jpg');
   background-size: cover;
   height: 100vh;
   width: 100%;

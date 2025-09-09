@@ -16,8 +16,9 @@ export const TideTitle = styled.h3`
 `;
 
 export const TideDataContainer = styled.div`
-  @media only screen and (min-width: ${breakpts.sm}) {
+  @media only screen and (min-width: ${breakpts.xl}) {
     display: flex;
-    align-items: center;
+    align-items: stretch;
+    gap: 20px;
   }
 `;

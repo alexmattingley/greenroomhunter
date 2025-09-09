@@ -2,7 +2,6 @@ import styled from 'styled-components';
 import {
   breakpts, generateStylesForSize,
 } from 'data/styles-data.js';
-import loadingBars from 'images/loading-bars.svg';
 
 export const BuoyContainer = styled.div`
   @media only screen and (min-width: ${breakpts.sm}) {
@@ -31,6 +30,6 @@ export const LoadingIcon = styled.span`
   width: 80px;
   height: 80px;
   background-size: cover;
-  background-image: url(${loadingBars});
+  background-image: url('/images/loading-bars.svg');
   display: inline-block;
 `;

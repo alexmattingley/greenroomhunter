@@ -1,5 +1,6 @@
 export const colors = {
   almostBlack: '#17252a',
+  almostBlackTransparent: 'rgba(23,37,42,0.8)',
   darkGrey: '#273940',
   darkGreen: '#00453B',
   lightGreen: '#3aafa9',
@@ -8,8 +9,9 @@ export const colors = {
   almostWhiteMild: 'rgba(254,255,255,0.9)',
   lightGreenFill: 'rgba(58,175,169,0.8)',
   gray: '#A4B5BA',
-  almostTransparentGray: 'rgba(103,130,140,0.3)',
+  almostTransparentGray: 'rgba(103,130,140,0.2)',
   wickedPink: '#C04ABC',
+  almostTransparentPink: 'rgba(192,74,188,0.1)',
   transparent: 'transparent',
 };
 
@@ -20,6 +22,7 @@ export const breakpts = {
   md: '992px',
   lg: '1200px',
   xl: '1600px',
+  xxl: '2000px'
 };
 
 export const typescales = {
