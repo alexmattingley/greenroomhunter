@@ -41,9 +41,14 @@ export const LocationsLi = styled.li`
   list-style-type: none;
   transition: all 0.5s;
   cursor: pointer;
+  border-radius: 10px;
 
   :hover {
     background-color: ${colors.lightGreen};
+  }
+
+  a {
+    text-decoration: none;
   }
 
   @media only screen and (min-width: ${breakpts.xs}) {
