@@ -4,7 +4,7 @@ import redis from '../../lib/redis';
 
 export default async function handler(req, res) {
   const buoyReqInfo = req.body.buoys;
-  const { tideStationId, location } = req.body;
+  const { tideStationId, location, timeZone } = req.body;
   let buoyData;
   let tideData;
 
@@ -29,7 +29,7 @@ export default async function handler(req, res) {
     };
   }
   try {
-    const rawTideData = await fetchTideData(tideStationId);
+    const rawTideData = await fetchTideData(tideStationId, timeZone);
     tideData = {
       success: true,
       data: rawTideData,

@@ -1,9 +1,15 @@
-import moment from 'moment';
+import { DateTime } from 'luxon';
 
-function parseTideData(rawData) {
+function parseTideData(rawData, timeZone = 'America/Los_Angeles') {
   let currentTide;
   let highAndLowTides = [];
   let findNextPoint;
+  
+  // Validate that we have data to parse
+  if (!rawData || !Array.isArray(rawData) || rawData.length === 0) {
+    throw new Error('No tide data available to parse');
+  }
+  
   // Filter out any duplicates so we can calculate high and low tides
   const dataForChart = rawData.filter((elem, index, array) => {
     if (array[index + 1] && elem.v === array[index + 1].v) {
@@ -13,10 +19,19 @@ function parseTideData(rawData) {
   // Find high and lows of chart. Find the current tide
   }).map((elem, index, array) => {
     const tideValue = {...elem};
-    const tideTimeUnix = moment(tideValue.t).unix();
-    const currentTimeUnix = moment().unix();
-    // Cursor agent, this is the line
-    tideValue.t = moment(tideValue.t).format('MMM DD, LT');
+    // NOAA API returns timestamps in format like "2023-12-15 14:30:00" (SQL format)
+    // and they're in local time (lst_ldt) which should match the specified timezone
+    const tideTime = DateTime.fromSQL(tideValue.t, { zone: timeZone });
+    
+    // If the time format is not recognized, throw an error
+    if (!tideTime.isValid) {
+      throw new Error(`Unable to parse tide timestamp: "${tideValue.t}" at index ${index}. Expected format: YYYY-MM-DD HH:mm:ss`);
+    }
+    
+    const currentTime = DateTime.now().setZone(timeZone);
+    const tideTimeUnix = tideTime.toSeconds();
+    const currentTimeUnix = currentTime.toSeconds();
+    tideValue.t = tideTime.toFormat('MMM dd, h:mm a');
     // Don't do anything if its the first or the last reading
     if (index !== 0 && index !== array.length - 1) {
       // True if value is low tide

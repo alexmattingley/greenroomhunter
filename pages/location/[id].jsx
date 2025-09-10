@@ -8,7 +8,7 @@ import LocationInfo from 'data/location-data.js';
 async function fetchBuoyAndTideData(context) {
   const location = context.params.id;
   const locationObj = LocationInfo[location];
-  const { buoys, tideStation: { id } } = locationObj;
+  const { buoys, tideStation: { id }, timeZone } = locationObj;
 
   try {
     // Get the base URL for the current environment
@@ -23,6 +23,7 @@ async function fetchBuoyAndTideData(context) {
         buoys,
         tideStationId: id,
         location,
+        timeZone,
       }),
     });
 
