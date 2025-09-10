@@ -8,27 +8,38 @@ import parseTideData from 'data/api-data/noaa/tides/parse-tide-data';
 
 
 function TideContainer(props) {
-  const { tideData, locationData: { tideStation: { location } } } = props;
+  const { tideData, locationData: { tideStation: { location }, timeZone } } = props;
   const { data, success } = tideData;
+  
   // Render component if tide NOAA call is successful
   if (data && success) {
-    const {
-      dataForChart,
-      highAndLowTides,
-      currentTide,
-    } = parseTideData(data);
-    return (
-      <TideBlockContainer>
-        <TideTitle>
-          Tides for today and tomorrow for {location}
-        </TideTitle>
-        <TideDataContainer>
-          <TideTable highAndLowTides={highAndLowTides} currentTide={currentTide} />
-          <TideChart tideDataForChart={dataForChart} />
-        </TideDataContainer>
-      </TideBlockContainer>
-    );
+    try {
+      const {
+        dataForChart,
+        highAndLowTides,
+        currentTide,
+      } = parseTideData(data, timeZone);
+      return (
+        <TideBlockContainer>
+          <TideTitle>
+            Tides for today and tomorrow for {location}
+          </TideTitle>
+          <TideDataContainer>
+            <TideTable highAndLowTides={highAndLowTides} currentTide={currentTide} />
+            <TideChart tideDataForChart={dataForChart} />
+          </TideDataContainer>
+        </TideBlockContainer>
+      );
+    } catch (error) {
+      console.error('Error parsing tide data:', error);
+      return (
+        <div>
+          Whoops! It looks like we are having trouble getting the tide information
+        </div>
+      );
+    }
   }
+  
   // Handle failure if NOAA call fails
   if (tideData && !tideData.success) {
     return (

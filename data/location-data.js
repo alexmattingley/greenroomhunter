@@ -12,6 +12,7 @@ export default {
       id: 9411340,
       location: 'Santa Barbara Harbor',
     },
+    timeZone: 'America/Los_Angeles',
     lon: -119.722445,
     lat: 34.4152593,
     windLocations: [
@@ -45,6 +46,7 @@ export default {
       id: 9411189,
       location: 'Ventura Harbor',
     },
+    timeZone: 'America/Los_Angeles',
     lon: -119.3043655,
     lat: 34.2784187,
     windLocations: [
@@ -79,6 +81,7 @@ export default {
       id: 9410660,
       location: 'Los Angeles Harbor',
     },
+    timeZone: 'America/Los_Angeles',
     lon: -118.4188725,
     lat: 33.9045641,
     windLocations: [
@@ -112,6 +115,7 @@ export default {
       id: 9410580,
       location: 'Newport Bay Entrance',
     },
+    timeZone: 'America/Los_Angeles',
     lon: -117.6026907,
     lat: 33.3853246,
     windLocations: [
@@ -151,6 +155,7 @@ export default {
       id: 9410170,
       location: 'San Diego Bay',
     },
+    timeZone: 'America/Los_Angeles',
     lon: -117.2545644,
     lat: 32.8634499,
     windLocations: [
