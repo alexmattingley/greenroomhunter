@@ -1,6 +1,5 @@
 import React from 'react';
 import Link from 'next/link';
-import locationData from 'data/location-data.js';
 import {
   LocationsUl,
   LocationsLi,
@@ -10,6 +9,7 @@ import {
   LocationsHeader,
   LocationsBlock,
 } from './index.styled.js';
+import locationData from 'data/location-data.js';
 
 function generateList() {
   return Object.entries(locationData).map(([key, value]) => (

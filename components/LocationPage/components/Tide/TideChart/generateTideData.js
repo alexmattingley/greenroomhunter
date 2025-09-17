@@ -71,11 +71,11 @@ function generateTideChartData(tideData) {
                 borderWidth: 3,
                 color: colors.almostWhite,
                 font: {
-                  size: 16
-                }
-              }
-            }
-          }
+                  size: 16,
+                },
+              },
+            },
+          },
         },
         legend: {
           display: true,

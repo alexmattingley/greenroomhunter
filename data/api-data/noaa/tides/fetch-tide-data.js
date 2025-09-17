@@ -16,7 +16,7 @@ const fetchTideData = async (stationId, timeZone = 'America/Los_Angeles') => {
       (elem) => Object.assign(elem, { v: parseFloat(elem.v) }),
     );
   } catch (error) {
-    console.log('error fetching');
+    console.log({ error });
     throw new Error(error);
   }
 };

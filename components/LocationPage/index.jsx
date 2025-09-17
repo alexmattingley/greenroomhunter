@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import locationData from 'data/location-data.js';
 import { LocationContent, LocationHeader } from './index.styled.js';
 import WindyMap from './components/WindyMap';
 import BuoyBlock from './components/Buoys/BuoyContainer';
 import TideBlock from './components/Tide/TideContainer';
 import SevenDayBuoy from './components/SevenDayBuoy/index.jsx';
 import LocationSideNav from './components/LocationsSideNav/index.jsx';
+import locationData from 'data/location-data.js';
 
 function Location(props) {
   const { buoyData, tideData, location } = props;

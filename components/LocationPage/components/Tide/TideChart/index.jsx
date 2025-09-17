@@ -11,8 +11,8 @@ import {
   Legend,
 } from 'chart.js';
 import PropTypes from 'prop-types';
-import generateTideChartData from './generateTideData.js';
 import ChartjsPluginAnnotation from 'chartjs-plugin-annotation';
+import generateTideChartData from './generateTideData.js';
 import TideChartContainer from './index.styled.js';
 
 // Register Chart.js components

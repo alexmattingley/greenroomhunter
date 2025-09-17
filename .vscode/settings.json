@@ -7,9 +7,6 @@
   ],
   "eslint.run": "onType",
   "eslint.format.enable": true,
-  "editor.codeActionsOnSave": {
-    "source.fixAll.eslint": "explicit"
-  },
   "javascript.suggest.autoImports": true,
   "javascript.updateImportsOnFileMove.enabled": true,
   "emmet.includeLanguages": {
@@ -20,8 +17,7 @@
   },
   "editor.formatOnSave": true,
   "editor.defaultFormatter": "esbenp.prettier-vscode",
-  "eslint.workingDirectories": ["."],
-  "eslint.options": {
-    "extensions": [".js", ".jsx"]
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit"
   }
 }
