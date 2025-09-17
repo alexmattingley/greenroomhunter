@@ -12,8 +12,8 @@ import {
   Filler,
 } from 'chart.js';
 import PropTypes from 'prop-types';
-import { colors } from 'data/styles-data.js';
 import BuoyChartContainer from './index.styled.js';
+import { colors } from 'data/styles-data.js';
 
 // Register Chart.js components
 ChartJS.register(

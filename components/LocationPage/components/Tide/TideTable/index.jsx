@@ -1,18 +1,18 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { TideTableContainer, CurrentTideTitle, TideTableTitle, TideTableRow, CurrentTideCotainer, CurrentTideText, HighAndLowTideContainer, NextTideDescription } from './index.styled.js';
 import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
 import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
 import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
 import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
+import { TideTableContainer, CurrentTideTitle, TideTableTitle, TideTableRow, CurrentTideCotainer, CurrentTideText, HighAndLowTideContainer, NextTideDescription } from './index.styled.js';
 
 
 const ArrowIcon = ({tideDirection}) => {
   if (tideDirection === "rising") {
-    return (<ArrowUpwardRoundedIcon fontSize='medium' />)
+    return (<ArrowUpwardRoundedIcon fontSize='medium' />);
   }
   return (<ArrowDownwardRoundedIcon fontSize='medium' />);
-}
+};
 
 
 function TideTable(props) {

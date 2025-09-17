@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LoadingIcon, LoadingText, LoadingContainer } from 'components/LocationPage/components/Loading/index.styled.js';
-import { BuoyContainer } from './index.styled.js';
 import BuoyChart from '../BuoyChart/index.jsx';
 import BuoyText from '../BuoyText/index.jsx';
+import { BuoyContainer } from './index.styled.js';
+import { LoadingIcon, LoadingText, LoadingContainer } from 'components/LocationPage/components/Loading/index.styled.js';
 
 class BuoyBlock extends React.Component {
   render() {

@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { LoadingIcon, LoadingText, LoadingContainer } from 'components/LocationPage/components/Loading/index.styled.js';
 import TideChart from '../TideChart';
 import TideTable from '../TideTable';
 import { TideTitle, TideBlockContainer, TideDataContainer } from './index.styled.js';
+import { LoadingIcon, LoadingText, LoadingContainer } from 'components/LocationPage/components/Loading/index.styled.js';
 import parseTideData from 'data/api-data/noaa/tides/parse-tide-data';
 
 
