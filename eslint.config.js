@@ -1,17 +1,12 @@
-import path from 'path';
-import { fileURLToPath } from 'url';
-import { FlatCompat } from '@eslint/eslintrc';
-import js from '@eslint/js';
-
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const { FlatCompat } = require('@eslint/eslintrc');
+const js = require('@eslint/js');
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
   recommendedConfig: js.configs.recommended,
 });
 
-const lintRules = [
+module.exports = [
   ...compat.extends('next/core-web-vitals'),
   {
     languageOptions: {
@@ -39,5 +34,3 @@ const lintRules = [
     },
   },
 ];
-
-export default lintRules;
