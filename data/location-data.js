@@ -1,4 +1,4 @@
-export default {
+const locationData = {
   'santa-barbara': {
     name: 'Santa Barbara',
     locationThumbImg: '/images/sandspit.jpg',
@@ -187,3 +187,5 @@ export default {
     ],
   },
 };
+
+export default locationData;
