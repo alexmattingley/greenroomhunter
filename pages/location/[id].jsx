@@ -1,24 +1,28 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import Locationpage from 'components/LocationPage/index.jsx';
-import LocationInfo from 'data/location-data.js';
+import React from "react";
+import PropTypes from "prop-types";
+import Locationpage from "components/LocationPage/index.jsx";
+import LocationInfo from "data/location-data";
 
 // Entry point for fetch and parsing the buoy and the tide data from NOAA.
 // This triggers the fetching of the buoy and tide data
 async function fetchBuoyAndTideData(context) {
   const location = context.params.id;
   const locationObj = LocationInfo[location];
-  const { buoys, tideStation: { id }, timeZone } = locationObj;
+  const {
+    buoys,
+    tideStation: { id },
+    timeZone,
+  } = locationObj;
 
   try {
     // Get the base URL for the current environment
-    const protocol = process.env.NODE_ENV === 'production' ? 'https' : 'http';
-    const host = context?.req?.headers?.host || 'localhost:3000';
+    const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+    const host = context?.req?.headers?.host || "localhost:3000";
     const baseUrl = `${protocol}://${host}`;
 
     const res = await fetch(`${baseUrl}/api/data`, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         buoys,
         tideStationId: id,
@@ -40,7 +44,7 @@ async function fetchBuoyAndTideData(context) {
       },
     };
   } catch (error) {
-    console.error('Error fetching data:', error);
+    console.error("Error fetching data:", error);
     return {
       props: {
         buoyData: {},
@@ -59,7 +63,9 @@ export async function getServerSideProps(context) {
 
 function Location(props) {
   const { buoyData, tideData, location } = props;
-  return <Locationpage buoyData={buoyData} tideData={tideData} location={location} />;
+  return (
+    <Locationpage buoyData={buoyData} tideData={tideData} location={location} />
+  );
 }
 
 /* eslint-disable react/forbid-prop-types */

@@ -1,4 +1,37 @@
-export const buoyNumberToNameMap = {
+// Type definitions for location data
+export interface BuoyData {
+  [buoyName: string]: number;
+}
+
+export interface TideStation {
+  id: number;
+  location: string;
+}
+
+export interface WindLocation {
+  name: string;
+  lon: number;
+  lat: number;
+}
+
+export interface LocationData {
+  name: string;
+  locationThumbImg: string;
+  CDIP7DayBuoyStnNum: string;
+  buoys: BuoyData;
+  tideStation: TideStation;
+  timeZone: string;
+  lon: number;
+  lat: number;
+  windLocations: WindLocation[];
+}
+
+export interface LocationDataMap {
+  [key: string]: LocationData;
+}
+
+// Buoy number to name mapping
+export const buoyNumberToNameMap: Record<number, string> = {
   46218: "Harvest Buoy",
   46054: "West Santa Barbara Buoy",
   46222: "San Pedro Buoy",
@@ -8,7 +41,7 @@ export const buoyNumberToNameMap = {
   46232: "Point Loma South Buoy",
 };
 
-const locationData = {
+const locationData: LocationDataMap = {
   "santa-barbara": {
     name: "Santa Barbara",
     locationThumbImg: "/images/sandspit.jpg",
