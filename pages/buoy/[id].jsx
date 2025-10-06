@@ -1,0 +1,53 @@
+import { buoyNumberToNameMap } from "data/location-data";
+import BuoyPage from "components/BuoyPage";
+import { createContext } from "react";
+
+export const BuoyContext = createContext(null);
+
+const DetailedbuoyData = (props) => {
+  const { buoyNumber, nineBand, timestamp } = props;
+  const buoyName = buoyNumberToNameMap[buoyNumber];
+  return (
+    <BuoyContext value={{ buoyName, nineBand, timestamp }}>
+      <BuoyPage />
+    </BuoyContext>
+  );
+};
+
+const fetchIndivNineBandData = async (context) => {
+  try {
+    // Get the base URL for the current environment
+    const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
+    const host = context?.req?.headers?.host || "localhost:3000";
+    const baseUrl = `${protocol}://${host}`;
+    const buoyNumber = context.params.id;
+    const fetchURL = `${baseUrl}/api/buoyBreakdown`;
+
+    const res = await fetch(fetchURL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ buoyNumber }),
+    });
+
+    if (!res.ok) {
+      throw new Error(`API request failed: ${res.status} ${res.statusText}`);
+    }
+
+    const indivNineBandData = await res.json();
+    return indivNineBandData;
+  } catch (error) {
+    console.error("Error fetching data:", error);
+    return {};
+  }
+};
+
+export async function getServerSideProps(context) {
+  const indivNineBandData = await fetchIndivNineBandData(context);
+  console.log(indivNineBandData);
+  const { buoyNumber, nineBand, timestamp } = indivNineBandData;
+  return {
+    props: { buoyNumber, nineBand, timestamp },
+  };
+}
+
+export default DetailedbuoyData;
