@@ -2,18 +2,6 @@ import { buoyNumberToNameMap } from "data/location-data";
 import BuoyPage from "components/BuoyPage";
 import { createContext } from "react";
 
-export const BuoyContext = createContext(null);
-
-const DetailedbuoyData = (props) => {
-  const { buoyNumber, nineBand, timestamp } = props;
-  const buoyName = buoyNumberToNameMap[buoyNumber];
-  return (
-    <BuoyContext value={{ buoyName, nineBand, timestamp }}>
-      <BuoyPage />
-    </BuoyContext>
-  );
-};
-
 const fetchIndivNineBandData = async (context) => {
   try {
     // Get the base URL for the current environment
@@ -43,11 +31,32 @@ const fetchIndivNineBandData = async (context) => {
 
 export async function getServerSideProps(context) {
   const indivNineBandData = await fetchIndivNineBandData(context);
-  console.log(indivNineBandData);
   const { buoyNumber, nineBand, timestamp } = indivNineBandData;
+  const nineBandReverseArray = Object.keys(nineBand)
+    .reverse()
+    .map((period) => {
+      return {
+        period,
+        height: nineBand[period].height,
+        direction: nineBand[period].direction,
+      };
+    });
+
   return {
-    props: { buoyNumber, nineBand, timestamp },
+    props: { buoyNumber, nineBandData: nineBandReverseArray, timestamp },
   };
 }
+
+export const BuoyContext = createContext(null);
+
+const DetailedbuoyData = (props) => {
+  const { buoyNumber, nineBandData, timestamp } = props;
+  const buoyName = buoyNumberToNameMap[buoyNumber];
+  return (
+    <BuoyContext value={{ buoyName, nineBandData, timestamp }}>
+      <BuoyPage />
+    </BuoyContext>
+  );
+};
 
 export default DetailedbuoyData;
