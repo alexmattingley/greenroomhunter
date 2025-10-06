@@ -51,7 +51,7 @@ export const BuoyContext = createContext(null);
 
 const DetailedbuoyData = (props) => {
   const { buoyNumber, nineBandData, timestamp } = props;
-  const buoyName = buoyNumberToNameMap[buoyNumber];
+  const buoyName = buoyNumberToNameMap[buoyNumber] || buoyNumber;
   return (
     <BuoyContext value={{ buoyName, nineBandData, timestamp }}>
       <BuoyPage />

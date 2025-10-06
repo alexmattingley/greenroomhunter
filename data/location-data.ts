@@ -31,6 +31,9 @@ export interface LocationDataMap {
 }
 
 // Buoy number to name mapping
+// Right now I'm choosing to do this manually. We have a limited number of locations. However...
+// This data is available as an XML file which you can get by visiting the following page:
+// https://www.ndbc.noaa.gov/metadata/station_metadata.xml?station=46028
 export const buoyNumberToNameMap: Record<number, string> = {
   46218: "Harvest Buoy",
   46054: "West Santa Barbara Buoy",

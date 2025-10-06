@@ -10,6 +10,7 @@ import {
   Tooltip,
   Legend,
 } from "chart.js";
+import { colors } from "data/styles-data";
 
 // Register Chart.js components
 ChartJS.register(
@@ -51,9 +52,9 @@ const NineBandChart: React.FC = () => {
         {
           label: "Wave Height (ft)",
           data: heights,
-          backgroundColor: "rgba(54, 162, 235, 0.6)",
-          borderColor: "rgba(54, 162, 235, 1)",
-          borderWidth: 1,
+          backgroundColor: colors.lightGreenFill,
+          borderColor: colors.lightGreen,
+          borderWidth: 3,
         },
       ],
     };
@@ -64,20 +65,23 @@ const NineBandChart: React.FC = () => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        categoryPercentage: 1.0,
+        barPercentage: 0.99,
         plugins: {
           title: {
-            display: true,
-            text: "Wave Heights by Period Band",
+            display: false,
           },
           legend: {
             display: false,
           },
           tooltip: {
             callbacks: {
-              afterLabel: (context: any) => {
-                const direction = directions[context.dataIndex];
-                return `Direction: ${direction}°`;
-              },
+              title: () => "",
+              // Manually doing this just to get the information in there. There is a better way to do this
+              label: (context) => [
+                `Wave Height: ${heights[context.dataIndex]} (ft)`,
+                `Swell direction: ${directions[context.dataIndex]}°`,
+              ],
             },
           },
         },

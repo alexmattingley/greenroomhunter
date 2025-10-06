@@ -7,7 +7,7 @@ const BuoyPage = () => {
   const { buoyName } = useContext(BuoyContext);
   return (
     <PageContainer>
-      <h1>BuoyPage for {buoyName}</h1>
+      <h1>Wave height by period band for {buoyName}</h1>
       <NineBand />
     </PageContainer>
   );
