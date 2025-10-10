@@ -105,6 +105,7 @@ const NineBandChart: React.FC = () => {
 
     // Create new chart
     chartInstance.current = new ChartJS(chartRef.current, config);
+    console.log(chartInstance.current);
 
     // Cleanup function
     return () => {

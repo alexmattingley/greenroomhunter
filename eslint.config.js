@@ -1,5 +1,5 @@
-const { FlatCompat } = require('@eslint/eslintrc');
-const js = require('@eslint/js');
+const { FlatCompat } = require("@eslint/eslintrc");
+const js = require("@eslint/js");
 
 const compat = new FlatCompat({
   baseDirectory: __dirname,
@@ -7,30 +7,30 @@ const compat = new FlatCompat({
 });
 
 module.exports = [
-  ...compat.extends('next/core-web-vitals'),
+  ...compat.extends("next/core-web-vitals"),
   {
     languageOptions: {
       ecmaVersion: 2020,
-      sourceType: 'module',
+      sourceType: "module",
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
         },
       },
       globals: {
-        Atomics: 'readonly',
-        SharedArrayBuffer: 'readonly',
+        Atomics: "readonly",
+        SharedArrayBuffer: "readonly",
       },
     },
     rules: {
-      'import/extensions': ['off', 'always'],
-      'react/jsx-one-expression-per-line': 'off',
-      'comma-dangle': ['error', 'always-multiline'],
-      'semi': ['error', 'always'],
-      'eol-last': ['error', 'always'],
-      'prefer-destructuring': 'warn',
-      'consistent-return': 'warn',
-      'import/order': 'warn',
+      "import/extensions": ["off", "always"],
+      "react/jsx-one-expression-per-line": "off",
+      "comma-dangle": "off",
+      semi: ["error", "always"],
+      "eol-last": ["error", "always"],
+      "prefer-destructuring": "warn",
+      "consistent-return": "warn",
+      "import/order": "warn",
     },
   },
 ];
