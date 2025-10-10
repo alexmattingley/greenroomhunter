@@ -2,9 +2,10 @@ import React, { useContext } from "react";
 import { BuoyContext } from "pages/buoy/[id]";
 import NineBand from "./nineBand";
 import { PageContainer } from "./index.styled";
+import { convertToLocalTimezone } from "@/lib/utils/timezone-utils";
 
 // TODO Shorterm
-// 2. Convert the Time stamp to PDT
+// 2. ✅ Convert the Time stamp to user's local timezone
 // 3. Create a custom tooltip with the information, wave height, period and direction
 // 4. Come up with a design for mobile and desktop
 //    a. In mobile, make the wave height label take up less space so you can use the full width
@@ -29,7 +30,7 @@ const BuoyPage = () => {
   return (
     <PageContainer>
       <h1>Wave height by period band for {buoyName}</h1>
-      <>Timestamp (UTC): {timestamp}</>
+      <p>Last updated: {convertToLocalTimezone(timestamp)}</p>
       <NineBand />
     </PageContainer>
   );

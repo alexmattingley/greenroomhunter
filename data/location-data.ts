@@ -35,13 +35,13 @@ export interface LocationDataMap {
 // This data is available as an XML file which you can get by visiting the following page:
 // https://www.ndbc.noaa.gov/metadata/station_metadata.xml?station=46028
 export const buoyNumberToNameMap: Record<number, string> = {
-  46218: "Harvest Buoy",
-  46054: "West Santa Barbara Buoy",
-  46222: "San Pedro Buoy",
-  46224: "Oceanside Offshore Buoy",
-  46221: "Santa Monica Bay Buoy",
-  46258: "Mission Bay West Buoy",
-  46232: "Point Loma South Buoy",
+  46218: "Harvest",
+  46054: "West Santa Barbara",
+  46222: "San Pedro",
+  46224: "Oceanside Offshore",
+  46221: "Santa Monica Bay",
+  46258: "Mission Bay West",
+  46232: "Point Loma South",
 };
 
 const locationData: LocationDataMap = {
