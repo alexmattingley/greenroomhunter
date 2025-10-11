@@ -64,10 +64,11 @@ This project is still under active development. You can see the current iteratio
 
 ### Features in Development
 
-- Enhanced buoy data visualization
+- Enhance buoy data visualization with swell breakdown
 - Improved mobile responsiveness
-- User preferences and favorites
-- Swell log for Historical data
+- Improved user experience
+- Improved performance and page load times
+- Personal surf log accounts for logging historical surf sessions
 
 ## 📁 Project Structure
 
