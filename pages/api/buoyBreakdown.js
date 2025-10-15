@@ -18,7 +18,6 @@ export default async function handler(req, res) {
     }
 
     const data = JSON.parse(stdout);
-    console.log(data);
     return res.status(200).json(data);
   } catch (error) {
     // This catches execution errors (command not found, etc.)
