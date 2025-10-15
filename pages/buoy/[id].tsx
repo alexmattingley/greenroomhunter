@@ -77,23 +77,11 @@ export async function getServerSideProps(context: Context) {
       },
     };
   }
-  const dataToParse = allBands;
-  const cleanAllBandArray = Object.keys(dataToParse).reduce(
-    (accumulator, period) => {
-      const height = dataToParse[period].height;
-      // Remove any bands that don't have more than a half a foot of swell
-      // Remove any bands that are less than 4 seconds
-      if (height > 0.5 && Number(period) >= 4) {
-        accumulator.push({
-          period,
-          height: dataToParse[period].height,
-          direction: dataToParse[period].direction,
-        });
-      }
-      return accumulator;
-    },
-    []
-  );
+  const cleanAllBandArray = allBands.filter((band) => {
+    const { period, height } = band;
+    const superLongPeriodNoise = period > 20 && height < 0.5;
+    return period >= 4 && !superLongPeriodNoise;
+  });
 
   return {
     props: { buoyNumber, allBandData: cleanAllBandArray, timestamp },

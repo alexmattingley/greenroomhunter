@@ -26,264 +26,322 @@ async function httpDataSpec(buoy, dataType = "data_spec") {
 
 /**
  * Parses raw data dump into list of tuples for each frequency band
- * @param {string} datas - Raw data from httpDataSpec
+ * @param {string} rawData - Raw data from httpDataSpec
  * @returns {Array} Array of objects with energy, frequency, and bandwidth
  */
-function dataSpec(datas) {
-  const errlog = [];
-  const l = [];
+function dataSpec(rawData) {
+  const errorLog = [];
+  const spectrumData = [];
 
   // Semi-hacky way of determining if data is energy or direction
-  let dstart;
-  if (datas.indexOf("(") > 23) {
-    dstart = 23;
+  let dataStartIndex;
+  if (rawData.indexOf("(") > 23) {
+    dataStartIndex = 23;
   } else {
-    dstart = 16;
+    dataStartIndex = 16;
   }
 
-  const dataParts = datas.substring(dstart).split(") ");
-  let i = 0;
+  const dataParts = rawData.substring(dataStartIndex).split(") ");
+  let partIndex = 0;
 
-  while (i < dataParts.length) {
-    if (dataParts[i]) {
-      const t = dataParts[i].split(/\s+/);
-      const e = parseFloat(t[0]);
-      const f = parseFloat(t[1].replace(/[()]/g, ""));
+  while (partIndex < dataParts.length) {
+    if (dataParts[partIndex]) {
+      const tokens = dataParts[partIndex].split(/\s+/);
+      const energy = parseFloat(tokens[0]);
+      const frequency = parseFloat(tokens[1].replace(/[()]/g, ""));
 
-      let b;
-      if (i === 0) {
-        b = 0.005;
+      let bandwidth;
+      if (partIndex === 0) {
+        bandwidth = 0.005;
       } else {
-        b = f - l[i - 1].f;
+        bandwidth = frequency - spectrumData[partIndex - 1].frequency;
         // Adjust the bandwidth where bandwidth transitions from .005 to .01 and .02
         if (
-          0.0058 < Math.round(b * 1000) / 1000 &&
-          Math.round(b * 1000) / 1000 < 0.008
+          0.0058 < Math.round(bandwidth * 1000) / 1000 &&
+          Math.round(bandwidth * 1000) / 1000 < 0.008
         ) {
-          b = 0.0075;
+          bandwidth = 0.0075;
         } else if (
-          0.012 < Math.round(b * 1000) / 1000 &&
-          Math.round(b * 1000) / 1000 < 0.018
+          0.012 < Math.round(bandwidth * 1000) / 1000 &&
+          Math.round(bandwidth * 1000) / 1000 < 0.018
         ) {
-          b = 0.015;
+          bandwidth = 0.015;
         }
-        errlog.push(b);
+        errorLog.push(bandwidth);
       }
 
-      l.push({ e, f, b });
+      spectrumData.push({
+        energy,
+        frequency,
+        bandwidth,
+      });
     }
-    i++;
+    partIndex++;
   }
 
-  return l;
+  return spectrumData;
 }
 
 /**
  * Calculates mean degree from angles and energy values
- * @param {Array} angles - Array of degrees for each frequency in the band
- * @param {Array} e - Array of energy values corresponding to the angles
+ * @param {Array} directionAngles - Array of degrees for each frequency in the band
+ * @param {Array} energyValues - Array of energy values corresponding to the angles
  * @returns {number|null} The mean of the frequency degrees, or null if no valid data
  */
-function meanDegree(angles, e) {
+function meanDegree(directionAngles, energyValues) {
   // Filter out invalid angles and low energy values, then convert to radians
-  const validAngles = [];
-  for (let i = 0; i < angles.length; i++) {
-    if (angles[i] !== 999 && e[i] > 0.005) {
-      validAngles.push((angles[i] * Math.PI) / 180); // Convert to radians
+  const validAnglesInRadians = [];
+  for (let angleIndex = 0; angleIndex < directionAngles.length; angleIndex++) {
+    if (
+      directionAngles[angleIndex] !== 999 &&
+      energyValues[angleIndex] > 0.005
+    ) {
+      validAnglesInRadians.push((directionAngles[angleIndex] * Math.PI) / 180); // Convert to radians
     }
   }
 
-  if (validAngles.length < 1) {
+  if (validAnglesInRadians.length < 1) {
     return null;
   }
 
-  let s = 0,
-    c = 0;
-  for (let i = 0; i < validAngles.length; i++) {
-    s += Math.sin(validAngles[i]);
-    c += Math.cos(validAngles[i]);
+  let sineSum = 0;
+  let cosineSum = 0;
+  for (
+    let angleIndex = 0;
+    angleIndex < validAnglesInRadians.length;
+    angleIndex++
+  ) {
+    sineSum += Math.sin(validAnglesInRadians[angleIndex]);
+    cosineSum += Math.cos(validAnglesInRadians[angleIndex]);
   }
 
-  const sbar = s / validAngles.length;
-  const cbar = c / validAngles.length;
-  let abar = (Math.atan(sbar / cbar) * 180) / Math.PI; // Convert back to degrees
+  const averageSine = sineSum / validAnglesInRadians.length;
+  const averageCosine = cosineSum / validAnglesInRadians.length;
+  let meanAngleInDegrees =
+    (Math.atan(averageSine / averageCosine) * 180) / Math.PI; // Convert back to degrees
 
-  if (cbar < 0) {
-    abar += 180;
-  } else if (sbar < 0) {
-    abar += 360;
+  if (averageCosine < 0) {
+    meanAngleInDegrees += 180;
+  } else if (averageSine < 0) {
+    meanAngleInDegrees += 360;
   }
 
-  return Math.round(abar * 10) / 10; // Round to 1 decimal place
+  return Math.round(meanAngleInDegrees * 10) / 10; // Round to 1 decimal place
 }
 
 /**
  * Calculates energy and direction for a specific frequency band
- * @param {Array} spec - Array of spectrum objects
- * @param {Array} fences - Tuple containing high and low frequency for band
+ * @param {Array} spectrumData - Array of spectrum objects
+ * @param {Array} frequencyFences - Tuple containing high and low frequency for band
  * @returns {Array} [energy, meanDirection]
  */
-function band(spec, fences) {
-  const errlog = [];
-  errlog.push(
-    `high / low freq fences: ${Math.round((1.0 / fences[1]) * 10) / 10}(${
-      Math.round(fences[1] * 1000000) / 1000000
-    }) ${Math.round((1.0 / fences[0]) * 10) / 10}(${
-      Math.round(fences[0] * 1000000) / 1000000
+function band(spectrumData, frequencyFences) {
+  const errorLog = [];
+  const [lowFreqFence, highFreqFence] = frequencyFences;
+
+  errorLog.push(
+    `high / low freq fences: ${Math.round((1.0 / highFreqFence) * 10) / 10}(${
+      Math.round(highFreqFence * 1000000) / 1000000
+    }) ${Math.round((1.0 / lowFreqFence) * 10) / 10}(${
+      Math.round(lowFreqFence * 1000000) / 1000000
     })`
   );
 
-  const e = spec.map((s) => s.e);
-  const f = spec.map((s) => s.f);
-  const b = spec.map((s) => s.b);
-  const d = spec.map((s) => s.md);
+  const energyValues = spectrumData.map((spectrum) => spectrum.energy);
+  const frequencyValues = spectrumData.map((spectrum) => spectrum.frequency);
+  const bandwidthValues = spectrumData.map((spectrum) => spectrum.bandwidth);
+  const directionValues = spectrumData.map(
+    (spectrum) => spectrum.meanDirection
+  );
 
-  let i = 0;
-  let partial1percent;
-  let fend;
+  // Calculate high frequency end of band
+  let highFreqIndex = 0;
+  let highFreqPartialPercent;
+  let highFreqEnd;
 
-  if (fences[1] === f[f.length - 1]) {
+  if (highFreqFence === frequencyValues[frequencyValues.length - 1]) {
     // This is the shortest frequency so gonna use all of it
-    partial1percent = 1;
-    i = f.length - 1;
+    highFreqPartialPercent = 1;
+    highFreqIndex = frequencyValues.length - 1;
   } else {
-    while (i < f.length) {
-      fend = f[i] + 0.5 * b[i]; // Get high frequency / low period end of frequency band
-      if (Math.round(fend * 1000) / 1000 > fences[1]) {
+    while (highFreqIndex < frequencyValues.length) {
+      highFreqEnd =
+        frequencyValues[highFreqIndex] + 0.5 * bandwidthValues[highFreqIndex]; // Get high frequency / low period end of frequency band
+      if (Math.round(highFreqEnd * 1000) / 1000 > highFreqFence) {
         break;
-      } else if (Math.round(fend * 1000) / 1000 === fences[1]) {
-        i++;
-        break; // i is index of last full band now
+      } else if (Math.round(highFreqEnd * 1000) / 1000 === highFreqFence) {
+        highFreqIndex++;
+        break; // highFreqIndex is index of last full band now
       }
-      i++;
+      highFreqIndex++;
     }
-    const partial1 = Math.abs(fend - fences[1]); // partial1 is band of spectra between low end of freq band and the high freq side of the fence
-    partial1percent = 1 - partial1 / b[i]; // find how much of the partial band we are taking, then multiply the energy by it
+    const highFreqPartial = Math.abs(highFreqEnd - highFreqFence); // partial is band of spectra between low end of freq band and the high freq side of the fence
+    highFreqPartialPercent =
+      1 - highFreqPartial / bandwidthValues[highFreqIndex]; // find how much of the partial band we are taking, then multiply the energy by it
   }
 
-  const partial1e = e[i] * partial1percent;
-  const partial1eb = partial1e * b[i];
-  errlog.push(
-    `high freq fenced frequency band ${Math.round((1.0 / f[i]) * 10) / 10}(${
-      Math.round(f[i] * 10000) / 10000
-    }) is ${Math.round(partial1percent * 100 * 10) / 10}%`
+  const highFreqPartialEnergy =
+    energyValues[highFreqIndex] * highFreqPartialPercent;
+  const highFreqPartialEnergyBandwidth =
+    highFreqPartialEnergy * bandwidthValues[highFreqIndex];
+  errorLog.push(
+    `high freq fenced frequency band ${
+      Math.round((1.0 / frequencyValues[highFreqIndex]) * 10) / 10
+    }(${Math.round(frequencyValues[highFreqIndex] * 10000) / 10000}) is ${
+      Math.round(highFreqPartialPercent * 100 * 10) / 10
+    }%`
   );
 
-  // Same as above for opposite end of fence
-  let j = 0;
-  let partial2percent;
-  let fbegin;
+  // Calculate low frequency end of band
+  let lowFreqIndex = 0;
+  let lowFreqPartialPercent;
+  let lowFreqBegin;
 
-  if (fences[0] === 1.0 / 40) {
-    partial2percent = 1;
+  if (lowFreqFence === 1.0 / 40) {
+    lowFreqPartialPercent = 1;
   } else {
-    while (j < f.length) {
-      fbegin = f[j] + 0.5 * b[j]; // Get low frequency / high period end of frequency band
-      if (Math.round(fbegin * 1000) / 1000 > fences[0]) {
+    while (lowFreqIndex < frequencyValues.length) {
+      lowFreqBegin =
+        frequencyValues[lowFreqIndex] + 0.5 * bandwidthValues[lowFreqIndex]; // Get low frequency / high period end of frequency band
+      if (Math.round(lowFreqBegin * 1000) / 1000 > lowFreqFence) {
         break;
-      } else if (Math.round(fbegin * 1000) / 1000 === fences[0]) {
-        j++;
-        break; // j is index of last full band now
+      } else if (Math.round(lowFreqBegin * 1000) / 1000 === lowFreqFence) {
+        lowFreqIndex++;
+        break; // lowFreqIndex is index of last full band now
       }
-      j++;
+      lowFreqIndex++;
     }
-    const partial2 = fbegin - fences[0];
-    partial2percent = Math.abs(partial2 / b[j]);
+    const lowFreqPartial = lowFreqBegin - lowFreqFence;
+    lowFreqPartialPercent = Math.abs(
+      lowFreqPartial / bandwidthValues[lowFreqIndex]
+    );
   }
 
-  const partial2e = e[j] * partial2percent;
-  const partial2eb = partial2e * b[j];
-  errlog.push(
-    `low freq fenced frequency band ${Math.round((1.0 / f[j]) * 10) / 10} (${
-      Math.round(f[j] * 10000) / 10000
-    }) is ${Math.round(partial2percent * 100 * 10) / 10}%`
+  const lowFreqPartialEnergy =
+    energyValues[lowFreqIndex] * lowFreqPartialPercent;
+  const lowFreqPartialEnergyBandwidth =
+    lowFreqPartialEnergy * bandwidthValues[lowFreqIndex];
+  errorLog.push(
+    `low freq fenced frequency band ${
+      Math.round((1.0 / frequencyValues[lowFreqIndex]) * 10) / 10
+    } (${Math.round(frequencyValues[lowFreqIndex] * 10000) / 10000}) is ${
+      Math.round(lowFreqPartialPercent * 100 * 10) / 10
+    }%`
   );
 
-  const mide = e
-    .slice(j + 1, i)
-    .reduce((sum, energy, k) => sum + energy * b[j + 1 + k], 0);
-  const fullBands = f.slice(j + 1, i);
-  const printFullBands = fullBands
-    .filter((fb) => fb > 0)
+  // Calculate middle bands energy
+  const middleBandsEnergy = energyValues
+    .slice(lowFreqIndex + 1, highFreqIndex)
+    .reduce(
+      (sum, energy, bandIndex) =>
+        sum + energy * bandwidthValues[lowFreqIndex + 1 + bandIndex],
+      0
+    );
+  const fullFrequencyBands = frequencyValues.slice(
+    lowFreqIndex + 1,
+    highFreqIndex
+  );
+  const fullBandsDescription = fullFrequencyBands
+    .filter((frequency) => frequency > 0)
     .map(
-      (fb) =>
-        `${Math.round((1.0 / fb) * 10000) / 10000} (${
-          Math.round(fb * 10000) / 10000
+      (frequency) =>
+        `${Math.round((1.0 / frequency) * 10000) / 10000} (${
+          Math.round(frequency * 10000) / 10000
         })`
     )
     .join("\n");
-  errlog.push(`middle, full frequency bands: \n${printFullBands}`);
+  errorLog.push(`middle, full frequency bands: \n${fullBandsDescription}`);
 
-  const bande = (partial2eb + mide + partial1eb) * 10000;
+  const totalBandEnergy =
+    (lowFreqPartialEnergyBandwidth +
+      middleBandsEnergy +
+      highFreqPartialEnergyBandwidth) *
+    10000;
 
-  // Provisional direction data
-  const meanDirection = meanDegree(d.slice(j, i), e.slice(j, i));
-  errlog.push(
-    `mean direction: ${meanDirection}, # of values: ${d.slice(j, i).length}`
+  // Calculate mean direction for this band
+  const meanDirection = meanDegree(
+    directionValues.slice(lowFreqIndex, highFreqIndex),
+    energyValues.slice(lowFreqIndex, highFreqIndex)
+  );
+  errorLog.push(
+    `mean direction: ${meanDirection}, # of values: ${
+      directionValues.slice(lowFreqIndex, highFreqIndex).length
+    }`
   );
 
-  return [bande, meanDirection];
+  return [totalBandEnergy, meanDirection];
 }
 
 /**
  * Main class for processing NDBC buoy spectra data
  */
 class NdbcSpectra {
-  constructor(buoy = "46232", datasource = "http", e = [], options = {}) {
-    this.buoy = buoy;
-    this.nineHeights = [];
-    this.nineEnergy = [];
-    this.nineDirections = [];
+  constructor(buoyId = "46232", options = {}) {
+    this.buoyId = buoyId;
+    this.nineBandHeights = [];
+    this.nineBandEnergy = [];
+    this.nineBandDirections = [];
 
     const units = options.units || "ft"; // default is to convert m to ft
     if (["m", "metric", "meters"].includes(units)) {
-      this.units = 1;
+      this.unitConversionFactor = 1;
     } else {
-      this.units = 3.28;
+      this.unitConversionFactor = 3.28;
     }
   }
 
   async initialize() {
     try {
       // Fetch data from NOAA
-      this.data = await httpDataSpec(this.buoy);
-      this.dataPDirection = await httpDataSpec(this.buoy, "swdir2");
-      this.dataMDirection = await httpDataSpec(this.buoy, "swdir");
+      this.rawEnergyData = await httpDataSpec(this.buoyId);
+      this.rawPeakDirectionData = await httpDataSpec(this.buoyId, "swdir2");
+      this.rawMeanDirectionData = await httpDataSpec(this.buoyId, "swdir");
 
       // Parse timestamp
-      const td = this.data.substring(0, 23).split(/\s+/);
+      const timestampTokens = this.rawEnergyData.substring(0, 23).split(/\s+/);
       this.timestamp = new Date(
         Date.UTC(
-          parseInt(td[0]), // year
-          parseInt(td[1]) - 1, // month (0-indexed)
-          parseInt(td[2]), // day
-          parseInt(td[3]), // hour
-          parseInt(td[4]) // minute
+          parseInt(timestampTokens[0]), // year
+          parseInt(timestampTokens[1]) - 1, // month (0-indexed)
+          parseInt(timestampTokens[2]), // day
+          parseInt(timestampTokens[3]), // hour
+          parseInt(timestampTokens[4]) // minute
         )
       );
 
       // Parse spectra data
-      const ds = dataSpec(this.data);
-      const pd_data = dataSpec(this.dataPDirection);
-      const md_data = dataSpec(this.dataMDirection);
+      const energySpectrumData = dataSpec(this.rawEnergyData);
+      const peakDirectionData = dataSpec(this.rawPeakDirectionData);
+      const meanDirectionData = dataSpec(this.rawMeanDirectionData);
 
       this.spectra = [];
-      for (let i = 0; i < ds.length; i++) {
+      for (
+        let spectrumIndex = 0;
+        spectrumIndex < energySpectrumData.length;
+        spectrumIndex++
+      ) {
         this.spectra.push({
-          e: ds[i].e, // energy
-          f: ds[i].f, // frequency
-          b: ds[i].b, // bandwidth
-          pd: i < pd_data.length ? Math.round(pd_data[i].e) : 999, // peak direction
-          md: i < md_data.length ? Math.round(md_data[i].e) : 999, // mean direction
+          energy: energySpectrumData[spectrumIndex].energy,
+          frequency: energySpectrumData[spectrumIndex].frequency,
+          bandwidth: energySpectrumData[spectrumIndex].bandwidth,
+          peakDirection:
+            spectrumIndex < peakDirectionData.length
+              ? Math.round(peakDirectionData[spectrumIndex].energy)
+              : 999,
+          meanDirection:
+            spectrumIndex < meanDirectionData.length
+              ? Math.round(meanDirectionData[spectrumIndex].energy)
+              : 999,
         });
       }
 
       // Calculate significant wave height
-      const total_energy = this.spectra.reduce(
-        (sum, spectrum) => sum + spectrum.e * spectrum.b,
+      const totalEnergy = this.spectra.reduce(
+        (sum, spectrum) => sum + spectrum.energy * spectrum.bandwidth,
         0
       );
-      this.Hs = this.units * 4.01 * Math.sqrt(total_energy);
+      this.significantWaveHeight =
+        this.unitConversionFactor * 4.01 * Math.sqrt(totalEnergy);
     } catch (error) {
       console.error("Error initializing NdbcSpectra:", error);
       throw error;
@@ -294,27 +352,32 @@ class NdbcSpectra {
    * Returns all individual period bands with their heights and directions
    */
   allBands() {
-    const allHeights = [];
-    const allDirections = [];
-    const allPeriods = [];
+    const allBandHeights = [];
+    const allBandDirections = [];
+    const allBandPeriods = [];
 
     for (const spectrum of this.spectra) {
       // Calculate height using the same formula as nineBand
       // Need to multiply by 10000 to match the scaling used in the band() function
-      const energy_times_bandwidth = spectrum.e * spectrum.b * 10000;
-      const height =
+      const energyTimesBandwidth = spectrum.energy * spectrum.bandwidth * 10000;
+      const waveHeight =
         Math.round(
-          2 * 4 * this.units * 0.01 * Math.sqrt(energy_times_bandwidth) * 100
+          2 *
+            4 *
+            this.unitConversionFactor *
+            0.01 *
+            Math.sqrt(energyTimesBandwidth) *
+            100
         ) / 100;
-      const period = Math.round((1.0 / spectrum.f) * 10) / 10; // Round to 1 decimal place
-      const direction = spectrum.md; // Use mean direction
+      const wavePeriod = Math.round((1.0 / spectrum.frequency) * 10) / 10; // Round to 1 decimal place
+      const waveDirection = spectrum.meanDirection; // Use mean direction
 
-      allHeights.push(height);
-      allDirections.push(direction);
-      allPeriods.push(period);
+      allBandHeights.push(waveHeight);
+      allBandDirections.push(waveDirection);
+      allBandPeriods.push(wavePeriod);
     }
 
-    return [allHeights, allDirections, allPeriods];
+    return [allBandHeights, allBandDirections, allBandPeriods];
   }
 
   /**
@@ -322,118 +385,128 @@ class NdbcSpectra {
    */
   nineBand() {
     const { spectra } = this;
-    const o = 1.0;
-    let endBand = o / 2;
-    if (spectra[spectra.length - 1].f < endBand) {
-      endBand = spectra[spectra.length - 1].f;
+    const oneSecond = 1.0;
+    let endFrequencyBand = oneSecond / 2;
+    if (spectra[spectra.length - 1].frequency < endFrequencyBand) {
+      endFrequencyBand = spectra[spectra.length - 1].frequency;
     }
-    const nineBands = [
-      o / 40,
-      o / 22,
-      o / 18,
-      o / 16,
-      o / 14,
-      o / 12,
-      o / 10,
-      o / 8,
-      o / 6,
-      endBand,
+    const nineBandFrequencies = [
+      oneSecond / 40,
+      oneSecond / 22,
+      oneSecond / 18,
+      oneSecond / 16,
+      oneSecond / 14,
+      oneSecond / 12,
+      oneSecond / 10,
+      oneSecond / 8,
+      oneSecond / 6,
+      endFrequencyBand,
     ];
 
-    this.nineEnergy = [];
-    for (let fence = 0; fence < 9; fence++) {
-      this.nineEnergy.push(
-        band(spectra, [nineBands[fence], nineBands[fence + 1]])
+    this.nineBandEnergy = [];
+    for (let bandIndex = 0; bandIndex < 9; bandIndex++) {
+      this.nineBandEnergy.push(
+        band(spectra, [
+          nineBandFrequencies[bandIndex],
+          nineBandFrequencies[bandIndex + 1],
+        ])
       );
     }
 
-    this.nineHeights = this.nineEnergy.map(
-      (v) =>
+    this.nineBandHeights = this.nineBandEnergy.map(
+      (bandResult) =>
         Math.round(
-          2 * 4 * this.units * 0.01 * Math.sqrt(Math.floor(v[0])) * 100
+          2 *
+            4 *
+            this.unitConversionFactor *
+            0.01 *
+            Math.sqrt(Math.floor(bandResult[0])) *
+            100
         ) / 100
     );
-    this.nineDirections = this.nineEnergy.map((v) => v[1]);
+    this.nineBandDirections = this.nineBandEnergy.map(
+      (bandResult) => bandResult[1]
+    );
 
-    return [this.nineHeights, this.nineDirections];
+    return [this.nineBandHeights, this.nineBandDirections];
   }
 
   /**
    * Returns JSON representation of the data
    */
   jsonify(dataType = "spectra") {
-    const js = {
+    const jsonResponse = {
       timestamp: this.timestamp
         .toISOString()
         .replace("T", " ")
         .substring(0, 19),
-      buoyNumber: this.buoy,
+      buoyNumber: this.buoyId,
       disclaimer:
         "Data in this object has not been validated and should be considered a placeholder",
     };
 
-    let jsList = [];
-    const digits = 3;
+    let jsonDataList = [];
+    const decimalPlaces = 3;
 
     if (dataType === "spectra") {
-      const keys = [
-        "energy density",
-        "frequency",
-        "bandwidth",
-        "period",
-        "peak direction",
-        "mean direction",
-      ];
       for (const spectrum of this.spectra) {
-        const period = 1.0 / spectrum.f;
-        const dip = {
+        const wavePeriod = 1.0 / spectrum.frequency;
+        const spectrumData = {
           "energy density":
-            Math.round(spectrum.e * Math.pow(10, digits)) /
-            Math.pow(10, digits),
+            Math.round(spectrum.energy * Math.pow(10, decimalPlaces)) /
+            Math.pow(10, decimalPlaces),
           frequency:
-            Math.round(spectrum.f * Math.pow(10, digits)) /
-            Math.pow(10, digits),
+            Math.round(spectrum.frequency * Math.pow(10, decimalPlaces)) /
+            Math.pow(10, decimalPlaces),
           bandwidth:
-            Math.round(spectrum.b * Math.pow(10, digits)) /
-            Math.pow(10, digits),
+            Math.round(spectrum.bandwidth * Math.pow(10, decimalPlaces)) /
+            Math.pow(10, decimalPlaces),
           period:
-            Math.round(period * Math.pow(10, digits)) / Math.pow(10, digits),
+            Math.round(wavePeriod * Math.pow(10, decimalPlaces)) /
+            Math.pow(10, decimalPlaces),
           "peak direction":
-            Math.round(spectrum.pd * Math.pow(10, digits)) /
-            Math.pow(10, digits),
+            Math.round(spectrum.peakDirection * Math.pow(10, decimalPlaces)) /
+            Math.pow(10, decimalPlaces),
           "mean direction":
-            Math.round(spectrum.md * Math.pow(10, digits)) /
-            Math.pow(10, digits),
+            Math.round(spectrum.meanDirection * Math.pow(10, decimalPlaces)) /
+            Math.pow(10, decimalPlaces),
         };
-        jsList.push(dip);
+        jsonDataList.push(spectrumData);
       }
     } else if (dataType === "nineBand") {
-      const b = this.nineBand();
-      const keys = ["22+", "20", "17", "15", "13", "11", "9", "7", "4"];
-      jsList = {};
-      for (let i = 0; i < keys.length; i++) {
-        const [heights, directions] = b;
-        jsList[keys[i]] = {
-          height: heights[i],
-          direction: directions[i],
-        };
-      }
+      const nineBandResults = this.nineBand();
+      const [heights, directions] = nineBandResults;
+      const periodKeys = ["22+", "20", "17", "15", "13", "11", "9", "7", "4"];
+
+      // Create an array of objects with period, height, and direction
+      const bandData = periodKeys.map((period, index) => ({
+        period: period,
+        height: heights[index],
+        direction: directions[index],
+      }));
+
+      // Return as array instead of object for consistency
+      jsonDataList = bandData;
     } else if (dataType === "allBands") {
-      const b = this.allBands();
-      // Create keys from periods (e.g., "22.0", "20.5", etc.)
-      const keys = b[2].map((p) => p.toString()); // b[2] contains the periods
-      jsList = {};
-      for (let i = 0; i < keys.length; i++) {
-        const [heights, directions] = b;
-        jsList[keys[i]] = {
-          height: heights[i],
-          direction: directions[i],
-        };
-      }
+      const allBandsResults = this.allBands();
+      const [heights, directions, periods] = allBandsResults;
+
+      // Create an array of objects with period, height, and direction
+      const bandData = periods.map((period, index) => ({
+        period: period,
+        height: heights[index],
+        direction: directions[index],
+      }));
+
+      // Sort by period in descending order (highest periods first)
+      bandData.sort((a, b) => b.period - a.period);
+
+      // Return as array instead of object to maintain proper ordering
+      jsonDataList = bandData;
     }
 
-    js[dataType] = jsList;
-    return JSON.stringify(js);
+    jsonResponse[dataType] = jsonDataList;
+    return JSON.stringify(jsonResponse);
   }
 }
 
@@ -441,23 +514,25 @@ class NdbcSpectra {
  * Main function to process buoy data
  */
 async function processBuoyData(
-  buoyNumber,
-  dataType = "allBands",
-  units = "ft"
+  buoyId,
+  outputDataType = "allBands",
+  measurementUnits = "ft"
 ) {
   try {
-    const bs = new NdbcSpectra(buoyNumber, "http", [], { units });
-    await bs.initialize();
+    const buoySpectra = new NdbcSpectra(buoyId, {
+      units: measurementUnits,
+    });
+    await buoySpectra.initialize();
 
-    if (dataType === "spectra") {
-      return bs.jsonify("spectra");
-    } else if (dataType === "nineBand") {
-      return bs.jsonify("nineBand");
-    } else if (dataType === "allBands") {
-      return bs.jsonify("allBands");
+    if (outputDataType === "spectra") {
+      return buoySpectra.jsonify("spectra");
+    } else if (outputDataType === "nineBand") {
+      return buoySpectra.jsonify("nineBand");
+    } else if (outputDataType === "allBands") {
+      return buoySpectra.jsonify("allBands");
     }
 
-    return bs.jsonify("allBands"); // default
+    return buoySpectra.jsonify("allBands"); // default
   } catch (error) {
     console.error("Error processing buoy data:", error);
     throw error;
@@ -468,15 +543,15 @@ async function processBuoyData(
 export { processBuoyData, NdbcSpectra };
 
 // API handler for Next.js
-export default async function handler(req, res) {
-  const { buoyNumber, dataType = "allBands", units = "ft" } = req.body;
+export default async function handler(request, response) {
+  const { buoyNumber, dataType = "allBands", units = "ft" } = request.body;
 
   try {
-    const data = await processBuoyData(buoyNumber, dataType, units);
-    const parsedData = JSON.parse(data);
-    return res.status(200).json(parsedData);
+    const jsonData = await processBuoyData(buoyNumber, dataType, units);
+    const parsedData = JSON.parse(jsonData);
+    return response.status(200).json(parsedData);
   } catch (error) {
     console.error("API Error:", error);
-    return res.status(500).json({ error: error.message });
+    return response.status(500).json({ error: error.message });
   }
 }
