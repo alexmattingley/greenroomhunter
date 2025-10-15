@@ -11,19 +11,16 @@ interface Context {
 
 type BuoyNumber = string;
 type TimeStamp = string;
-type AllBand =
-  | {
-      [key: string]: {
-        height: number;
-        direction: number;
-      };
-    }
-  | Record<string, never>;
+interface AllBand {
+  period: number;
+  height: number;
+  direction: string;
+}
 
 interface AllBandData {
   buoyNumber: BuoyNumber;
   timestamp: TimeStamp;
-  allBands: AllBand;
+  allBands: AllBand[];
   error?: {
     message: string;
   };
@@ -55,7 +52,7 @@ const fetchIndivAllBandData = async (
     const buoyNumber = context?.params?.id || "";
     const errorObject = {
       buoyNumber,
-      allBands: {},
+      allBands: [],
       timestamp: "",
       error,
     };
