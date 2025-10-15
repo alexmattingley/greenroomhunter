@@ -23,13 +23,13 @@ ChartJS.register(
   Legend
 );
 
-const NineBandChart: React.FC = () => {
+const AllBandChart: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<ChartJS | null>(null);
-  const { nineBandData } = useContext(BuoyContext);
+  const { allBandData } = useContext(BuoyContext);
 
   useEffect(() => {
-    if (!chartRef.current || !nineBandData) return;
+    if (!chartRef.current || !allBandData) return;
 
     // Destroy existing chart if it exists
     if (chartInstance.current) {
@@ -40,7 +40,7 @@ const NineBandChart: React.FC = () => {
     let heights = [];
     let directions = [];
 
-    nineBandData.forEach((element) => {
+    allBandData.forEach((element) => {
       periods.push(element.period);
       heights.push(element.height);
       directions.push(element.direction);
@@ -113,9 +113,9 @@ const NineBandChart: React.FC = () => {
         chartInstance.current.destroy();
       }
     };
-  }, [nineBandData]);
+  }, [allBandData]);
 
-  if (!nineBandData) {
+  if (!allBandData) {
     return <div>Buoy Breakdown Chart Loading...</div>;
   }
 
@@ -126,4 +126,4 @@ const NineBandChart: React.FC = () => {
   );
 };
 
-export default NineBandChart;
+export default AllBandChart;

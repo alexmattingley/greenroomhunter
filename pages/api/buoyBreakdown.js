@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const { buoyNumber } = req.body;
   try {
     const { stdout, stderr } = await execAsync(
-      `python3 pages/api/buoyBreakDown.py --json --buoy ${buoyNumber} --datatype nineBand`
+      `python3 pages/api/buoyBreakDown.py --json --buoy ${buoyNumber} --datatype allBands`
     );
 
     // Check if Python script wrote to stderr (warnings, errors)
@@ -18,6 +18,7 @@ export default async function handler(req, res) {
     }
 
     const data = JSON.parse(stdout);
+    console.log(data);
     return res.status(200).json(data);
   } catch (error) {
     // This catches execution errors (command not found, etc.)

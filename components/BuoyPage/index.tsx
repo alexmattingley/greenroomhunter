@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { BuoyContext } from "pages/buoy/[id]";
-import NineBand from "./nineBand";
+import PeriodBandChart from "./periodBandChart";
 import { PageContainer } from "./index.styled";
 import { convertToLocalTimezone } from "@/lib/utils/timezone-utils";
 
@@ -12,8 +12,9 @@ import { convertToLocalTimezone } from "@/lib/utils/timezone-utils";
 //    b. Should we create a text version for mobile instead of the chart? Is that more usable?
 //    c. We need to fix the colors so we can see the cross bars in the graph
 // Wishlist?
-// 1. Change the python script to return every period so the graph is a little more continuous looking instead of buckets?
-// 2. Should we also try to create a spectral graph?
+// 1. ✅  Really we should fix the data calcuations. The nine band calculations aren't always correct and I don't know why.
+// 2. ✅ Change the python script to return every period so the graph is a little more continuous looking instead of buckets?
+// 3. Should we also try to create a spectral graph?
 
 const BuoyPage = () => {
   const { buoyName, timestamp, error } = useContext(BuoyContext);
@@ -31,7 +32,7 @@ const BuoyPage = () => {
     <PageContainer>
       <h1>Wave height by period band for {buoyName}</h1>
       <p>Last updated: {convertToLocalTimezone(timestamp)}</p>
-      <NineBand />
+      <PeriodBandChart />
     </PageContainer>
   );
 };

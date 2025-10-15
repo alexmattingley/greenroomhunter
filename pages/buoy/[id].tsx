@@ -11,7 +11,7 @@ interface Context {
 
 type BuoyNumber = string;
 type TimeStamp = string;
-type NineBand =
+type AllBand =
   | {
       [key: string]: {
         height: number;
@@ -20,18 +20,18 @@ type NineBand =
     }
   | Record<string, never>;
 
-interface NineBandData {
+interface AllBandData {
   buoyNumber: BuoyNumber;
   timestamp: TimeStamp;
-  nineBand: NineBand;
+  allBands: AllBand;
   error?: {
     message: string;
   };
 }
 
-const fetchIndivNineBandData = async (
+const fetchIndivAllBandData = async (
   context: Context
-): Promise<NineBandData> => {
+): Promise<AllBandData> => {
   try {
     const protocol = process.env.NODE_ENV === "production" ? "https" : "http";
     const host = context?.req?.headers?.host || "localhost:3000";
@@ -49,13 +49,13 @@ const fetchIndivNineBandData = async (
       throw new Error(`API request failed: ${res.status} ${res.statusText}`);
     }
 
-    const indivNineBandData = await res.json();
-    return indivNineBandData;
+    const indivAllBandData = await res.json();
+    return indivAllBandData;
   } catch (error) {
     const buoyNumber = context?.params?.id || "";
     const errorObject = {
       buoyNumber,
-      nineBand: {},
+      allBands: {},
       timestamp: "",
       error,
     };
@@ -65,30 +65,38 @@ const fetchIndivNineBandData = async (
 };
 
 export async function getServerSideProps(context: Context) {
-  const indivNineBandData = await fetchIndivNineBandData(context);
-  const { buoyNumber, nineBand, timestamp, error } = indivNineBandData;
+  const indivAllBandData = await fetchIndivAllBandData(context);
+  const { buoyNumber, allBands, timestamp, error } = indivAllBandData;
   if (!!error) {
     return {
       props: {
         buoyNumber,
-        nineBandData: nineBand,
+        allBandData: allBands,
         timestamp,
         error: error.message,
       },
     };
   }
-  const nineBandReverseArray = Object.keys(nineBand)
-    .reverse()
-    .map((period) => {
-      return {
-        period,
-        height: nineBand[period].height,
-        direction: nineBand[period].direction,
-      };
-    });
+  const dataToParse = allBands;
+  const cleanAllBandArray = Object.keys(dataToParse).reduce(
+    (accumulator, period) => {
+      const height = dataToParse[period].height;
+      // Remove any bands that don't have more than a half a foot of swell
+      // Remove any bands that are less than 4 seconds
+      if (height > 0.5 && Number(period) >= 4) {
+        accumulator.push({
+          period,
+          height: dataToParse[period].height,
+          direction: dataToParse[period].direction,
+        });
+      }
+      return accumulator;
+    },
+    []
+  );
 
   return {
-    props: { buoyNumber, nineBandData: nineBandReverseArray, timestamp },
+    props: { buoyNumber, allBandData: cleanAllBandArray, timestamp },
   };
 }
 
@@ -96,14 +104,14 @@ export const BuoyContext = createContext(null);
 
 const DetailedbuoyData = (props: {
   buoyNumber: BuoyNumber;
-  nineBandData: NineBand;
+  allBandData: AllBand;
   timestamp: TimeStamp;
   error?: string;
 }) => {
-  const { buoyNumber, nineBandData, timestamp, error = "" } = props;
+  const { buoyNumber, allBandData, timestamp, error = "" } = props;
   const buoyName = buoyNumberToNameMap?.[buoyNumber] || buoyNumber;
   return (
-    <BuoyContext value={{ buoyName, nineBandData, timestamp, error }}>
+    <BuoyContext value={{ buoyName, allBandData, timestamp, error }}>
       <BuoyPage />
     </BuoyContext>
   );

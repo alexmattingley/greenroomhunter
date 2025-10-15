@@ -273,6 +273,11 @@ class ndbcSpectra(object):
             b = self.nineBand()
             keys = ['22+','20','17','15','13','11','9','7','4']
             jsList = {k:{'height':v,'direction':v2} for k,v,v2 in zip(keys,b[0],b[1])}
+        elif dataType == 'allBands':
+            b = self.allBands()
+            # Create keys from periods (e.g., "22.0", "20.5", etc.)
+            keys = [str(p) for p in b[2]]  # b[2] contains the periods
+            jsList = {k:{'height':v,'direction':v2} for k,v,v2 in zip(keys,b[0],b[1])}
         elif dataType in ['hp', 'heightPeriod', 'heightPeriodDirection', 'HeightPeriodDirections']:
             b = self.heightPeriodDirections()
             jsList = {round(float(p),digits):{'height':round(float(h),digits),'peak direction':round(int(pd),0),'mean direction':round(int(md),0)} for h,p,pd,md in b}
@@ -316,12 +321,40 @@ class ndbcSpectra(object):
             print('Hs: ', self.Hs)
         return self.nineHeights, self.nineDirections
 
+    def allBands(self):
+        """returns all individual period bands with their heights and directions
+        similar to nineBand but returns every spectral band instead of grouping them"""
+        spectra = self.spectra
+        allHeights = []
+        allDirections = []
+        allPeriods = []
+        
+        for spectrum in spectra:
+            # Calculate height using the same formula as nineBand
+            # Need to multiply by 10000 to match the scaling used in the band() function
+            energy_times_bandwidth = spectrum['e'] * spectrum['b'] * 10000
+            height = round(2*4*self.units*.01*sqrt(energy_times_bandwidth), 2)
+            period = round(1.0 / spectrum['f'], 1)  # Round to 1 decimal place for cleaner output
+            direction = spectrum['md']  # Use mean direction
+
+            allHeights.append(height)
+            allDirections.append(direction)
+            allPeriods.append(period)
+        
+        if __name__ != "__main__":
+            print('buoy: ', self.buoy)
+            print('time: ', self.timestamp.isoformat())
+            print('all-bands heights: ', allHeights)
+            print('all-bands periods: ', allPeriods)
+            print('all-bands directions: ', allDirections)
+        return allHeights, allDirections, allPeriods
+
 def main():
     parser = argparse.ArgumentParser(description='Process data from National Data Buoy Center (ndbc) buoys')
     parser.add_argument('--buoy', '-b', default='46232', help='Enter the buoy you want to access')
     parser.add_argument('--datasource', '-ds', default='http', choices=['http', 'local'], help='use http or local for remote / local data file')
     parser.add_argument('--json', action='store_true', help='return json data')
-    parser.add_argument('--datatype', '-dt', choices=['spectra', 'nineBand', 'hp'], help='returns raw buoy spectra, wave heights in 9 bands of wave periods, or wave heights and corresponding period')
+    parser.add_argument('--datatype', '-dt', choices=['spectra', 'nineBand', 'allBands', 'hp'], help='returns raw buoy spectra, wave heights in 9 bands of wave periods, all individual period bands, or wave heights and corresponding period')
     parser.add_argument('--units', '-u', choices=['m','metric','meters','feet','english','ft'], default='feet', help='Choose the units of measurement for wave heights')
 
     args = vars(parser.parse_args())
@@ -334,6 +367,8 @@ def main():
             print(bs.json)
         elif args['datatype'] == 'nineBand':
             print(bs.jsonify('nineBand'))
+        elif args['datatype'] == 'allBands':
+            print(bs.jsonify('allBands'))
         elif args['datatype'] == 'hp':
             print(bs.jsonify('hp'))
         else:
@@ -342,6 +377,8 @@ def main():
             data =  bs.spectra
         elif args['datatype'] == 'nineBand':
             data = bs.nineBand()
+        elif args['datatype'] == 'allBands':
+            data = bs.allBands()
         elif args['datatype'] == 'hp':
             data = bs.heightPeriodDirections()
         return data
