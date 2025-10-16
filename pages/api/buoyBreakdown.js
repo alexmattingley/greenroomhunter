@@ -1,12 +1,10 @@
-// pages/api/buoyBreakDown.js
-// Converted from Python buoyBreakDown.py
-
 /**
  * Fetches most recent buoy spectra observation from NDBC
  * @param {string} buoy - The buoy ID
  * @param {string} dataType - Can be 'data_spec', 'swdir', or 'swdir2' for energy, mean wave direction, or primary wave direction respectively
  * @returns {Promise<string>} The data line from the buoy
  */
+
 async function httpDataSpec(buoy, dataType = "data_spec") {
   const dataUrl = `http://www.ndbc.noaa.gov/data/realtime2/${buoy}.${dataType}`;
 
@@ -29,56 +27,46 @@ async function httpDataSpec(buoy, dataType = "data_spec") {
  * @param {string} rawData - Raw data from httpDataSpec
  * @returns {Array} Array of objects with energy, frequency, and bandwidth
  */
-function dataSpec(rawData) {
-  const errorLog = [];
+export function dataSpec(rawData) {
   const spectrumData = [];
+  // Split in array by spaces
+  const everyEntry = rawData.trim().split(" ");
+  // Find the first frequency value index
+  const firstParenentheses = everyEntry.findIndex((itm) => itm.includes("("));
+  // Go back one index to find the first energy value index
+  const startingIndex = firstParenentheses - 1;
+  // Remove all data before the first energy value
+  const cleanArray = everyEntry.slice(startingIndex);
 
-  // Semi-hacky way of determining if data is energy or direction
-  let dataStartIndex;
-  if (rawData.indexOf("(") > 23) {
-    dataStartIndex = 23;
-  } else {
-    dataStartIndex = 16;
-  }
-
-  const dataParts = rawData.substring(dataStartIndex).split(") ");
-  let partIndex = 0;
-
-  while (partIndex < dataParts.length) {
-    if (dataParts[partIndex]) {
-      const tokens = dataParts[partIndex].split(/\s+/);
-      const energy = parseFloat(tokens[0]);
-      const frequency = parseFloat(tokens[1].replace(/[()]/g, ""));
-
-      let bandwidth;
-      if (partIndex === 0) {
-        bandwidth = 0.005;
-      } else {
-        bandwidth = frequency - spectrumData[partIndex - 1].frequency;
-        // Adjust the bandwidth where bandwidth transitions from .005 to .01 and .02
-        if (
-          0.0058 < Math.round(bandwidth * 1000) / 1000 &&
-          Math.round(bandwidth * 1000) / 1000 < 0.008
-        ) {
-          bandwidth = 0.0075;
-        } else if (
-          0.012 < Math.round(bandwidth * 1000) / 1000 &&
-          Math.round(bandwidth * 1000) / 1000 < 0.018
-        ) {
-          bandwidth = 0.015;
-        }
-        errorLog.push(bandwidth);
+  for (let i = 0; i < cleanArray.length; i = i + 2) {
+    const energy = parseFloat(cleanArray[i]);
+    const frequency = parseFloat(cleanArray[i + 1].replace(/[()]/g, ""));
+    let bandwidth;
+    // For the first element we want bandwidth to .005
+    if (i === 0) {
+      bandwidth = 0.005;
+    } else {
+      // In order to calculate the bandwidth, we need to find the difference between the current frequency the previous frequency
+      bandwidth = frequency - spectrumData[spectrumData.length - 1].frequency;
+      // Adjust the bandwidth where bandwidth transitions from .005 to .01 and .02
+      if (
+        0.0058 < Math.round(bandwidth * 1000) / 1000 &&
+        Math.round(bandwidth * 1000) / 1000 < 0.008
+      ) {
+        bandwidth = 0.0075;
+      } else if (
+        0.012 < Math.round(bandwidth * 1000) / 1000 &&
+        Math.round(bandwidth * 1000) / 1000 < 0.018
+      ) {
+        bandwidth = 0.015;
       }
-
-      spectrumData.push({
-        energy,
-        frequency,
-        bandwidth,
-      });
     }
-    partIndex++;
+    spectrumData.push({
+      energy,
+      frequency,
+      bandwidth,
+    });
   }
-
   return spectrumData;
 }
 
@@ -381,6 +369,30 @@ class NdbcSpectra {
   }
 
   /**
+   * Returns height, period, peak direction, and mean direction for each spectral band
+   */
+  heightPeriodDirections() {
+    const result = [];
+
+    for (const spectrum of this.spectra) {
+      const height =
+        this.unitConversionFactor *
+        4 *
+        2 *
+        Math.sqrt(spectrum.energy * spectrum.bandwidth);
+      const period = 1.0 / spectrum.frequency;
+      result.push([
+        height,
+        period,
+        spectrum.peakDirection,
+        spectrum.meanDirection,
+      ]);
+    }
+
+    return result;
+  }
+
+  /**
    * Returns wave heights in 9 bands of wave periods
    */
   nineBand() {
@@ -503,6 +515,19 @@ class NdbcSpectra {
 
       // Return as array instead of object to maintain proper ordering
       jsonDataList = bandData;
+    } else if (dataType === "hp") {
+      const hpResults = this.heightPeriodDirections();
+
+      // Create an object with period as keys and height/directions as values
+      jsonDataList = {};
+      for (const [height, period, peakDirection, meanDirection] of hpResults) {
+        const roundedPeriod = Math.round(period * 1000) / 1000; // Round to 3 decimal places
+        jsonDataList[roundedPeriod] = {
+          height: Math.round(height * 1000) / 1000, // Round to 3 decimal places
+          "peak direction": Math.round(peakDirection),
+          "mean direction": Math.round(meanDirection),
+        };
+      }
     }
 
     jsonResponse[dataType] = jsonDataList;
@@ -530,6 +555,8 @@ async function processBuoyData(
       return buoySpectra.jsonify("nineBand");
     } else if (outputDataType === "allBands") {
       return buoySpectra.jsonify("allBands");
+    } else if (outputDataType === "hp") {
+      return buoySpectra.jsonify("hp");
     }
 
     return buoySpectra.jsonify("allBands"); // default
@@ -539,8 +566,8 @@ async function processBuoyData(
   }
 }
 
-// Export for use in API handler
-export { processBuoyData, NdbcSpectra };
+// Export for use in API handler and tests
+export { processBuoyData, NdbcSpectra, httpDataSpec };
 
 // API handler for Next.js
 export default async function handler(request, response) {
