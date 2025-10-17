@@ -11,6 +11,7 @@ import { convertToLocalTimezone } from "@/lib/utils/timezone-utils";
 //    a. In mobile, make the wave height label take up less space so you can use the full width
 //    b. Should we create a text version for mobile instead of the chart? Is that more usable?
 //    c. We need to fix the colors so we can see the cross bars in the graph
+// 5. Finish code migration from python to JS (see todo) in buoyBreakdown.js
 // Wishlist?
 // 1. ✅  Really we should fix the data calcuations. The nine band calculations aren't always correct and I don't know why.
 // 2. ✅ Change the python script to return every period so the graph is a little more continuous looking instead of buckets?

@@ -96,9 +96,9 @@ const DetailedbuoyData = (props: {
   const { buoyNumber, allBandData, timestamp, error = "" } = props;
   const buoyName = buoyNumberToNameMap?.[buoyNumber] || buoyNumber;
   return (
-    <BuoyContext value={{ buoyName, allBandData, timestamp, error }}>
+    <BuoyContext.Provider value={{ buoyName, allBandData, timestamp, error }}>
       <BuoyPage />
-    </BuoyContext>
+    </BuoyContext.Provider>
   );
 };
 

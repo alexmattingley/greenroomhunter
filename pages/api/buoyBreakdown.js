@@ -1,4 +1,14 @@
 /**
+ * TODO: Finish function clean up and unit testing.
+ * The original migration was done by Cursor directly from the python script
+ * You still need to refactor:
+ * - meanDegree
+ * - band
+ * - NdbcSpectra class (I don't like this archictecture style and want to refactor)
+ * - processBuoyData
+ * You also need to verify that we didn't lose any functionality from the original migration
+ */
+/**
  * Fetches most recent buoy spectra observation from NDBC
  * @param {string} buoy - The buoy ID
  * @param {string} dataType - Can be 'data_spec', 'swdir', or 'swdir2' for energy, mean wave direction, or primary wave direction respectively
