@@ -14,7 +14,8 @@ import locationData from 'data/location-data.js';
 function generateList() {
   return Object.entries(locationData).map(([key, value]) => (
       <LocationsLi key={key}>
-        <Link href={`/location/${key}`} passHref>
+        {/* I'm going to leave the prefetch in for now, but there may be an issue wtih costs */}
+        <Link href={`/location/${key}`} passHref prefetch>
           <LocationImage locationThumbImg={value.locationThumbImg} />
           <LocationName>
             {value.name}
