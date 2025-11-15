@@ -4,11 +4,13 @@ import {
   Chart as ChartJS,
   CategoryScale,
   LinearScale,
-  BarElement,
-  BarController,
+  LineElement,
+  LineController,
+  PointElement,
   Title,
   Tooltip,
   Legend,
+  Filler,
 } from "chart.js";
 import { colors } from "data/styles-data";
 
@@ -16,11 +18,13 @@ import { colors } from "data/styles-data";
 ChartJS.register(
   CategoryScale,
   LinearScale,
-  BarElement,
-  BarController,
+  LineElement,
+  LineController,
+  PointElement,
   Title,
   Tooltip,
-  Legend
+  Legend,
+  Filler
 );
 
 const AllBandChart: React.FC = () => {
@@ -52,21 +56,23 @@ const AllBandChart: React.FC = () => {
         {
           label: "Wave Height (ft)",
           data: heights,
-          backgroundColor: colors.lightGreenFill,
+          backgroundColor: colors.almostTransparentGray,
           borderColor: colors.lightGreen,
           borderWidth: 3,
+          fill: "origin",
+          tension: 0.5,
+          pointRadius: 3,
+          pointHoverRadius: 6,
         },
       ],
     };
 
     const config = {
-      type: "bar" as const,
+      type: "line" as const,
       data: chartData,
       options: {
         responsive: true,
         maintainAspectRatio: false,
-        categoryPercentage: 1.0,
-        barPercentage: 0.99,
         plugins: {
           title: {
             display: false,
@@ -105,7 +111,6 @@ const AllBandChart: React.FC = () => {
 
     // Create new chart
     chartInstance.current = new ChartJS(chartRef.current, config);
-    console.log(chartInstance.current);
 
     // Cleanup function
     return () => {
