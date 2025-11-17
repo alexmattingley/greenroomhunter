@@ -60,9 +60,9 @@ const AllBandChart: React.FC = () => {
           borderColor: colors.lightGreen,
           borderWidth: 2,
           fill: "origin",
-          tension: 0.2,
-          pointRadius: 4,
-          pointHoverRadius: 6,
+          tension: 0.3,
+          pointRadius: 2,
+          pointHoverRadius: 4,
         },
       ],
     };
