@@ -73,6 +73,7 @@ const AllBandChart: React.FC = () => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        // @ts-ignore
         interaction: {
           mode: "index",
           intersect: false,
@@ -114,6 +115,7 @@ const AllBandChart: React.FC = () => {
     };
 
     // Create new chart
+    // @ts-ignore
     chartInstance.current = new ChartJS(chartRef.current, config);
 
     // Cleanup function
