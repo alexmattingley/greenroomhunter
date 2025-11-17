@@ -73,6 +73,10 @@ const AllBandChart: React.FC = () => {
       options: {
         responsive: true,
         maintainAspectRatio: false,
+        interaction: {
+          mode: "index",
+          intersect: false,
+        },
         plugins: {
           title: {
             display: false,
