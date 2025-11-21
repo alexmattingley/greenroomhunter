@@ -150,7 +150,14 @@ const PeriodBandChart: React.FC = () => {
     return <LoadingContainer>Buoy Breakdown Chart Loading...</LoadingContainer>;
   }
 
-  return <div>very basic thing</div>;
+  return (
+    <ChartContainer>
+      <ChartHeading>All Energy Bands (above 4 secs)</ChartHeading>
+      <ChartWrapper>
+        <ChartCanvas ref={chartRef} />
+      </ChartWrapper>
+    </ChartContainer>
+  );
 };
 
 export default PeriodBandChart;
