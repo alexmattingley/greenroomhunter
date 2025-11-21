@@ -13,6 +13,13 @@ import {
   Filler,
 } from "chart.js";
 import { colors } from "data/styles-data";
+import {
+  ChartContainer,
+  ChartWrapper,
+  ChartHeading,
+  ChartCanvas,
+  LoadingContainer,
+} from "./index.styled";
 
 // Register Chart.js components
 ChartJS.register(
@@ -86,13 +93,18 @@ const AllBandChart: React.FC = () => {
             display: false,
           },
           tooltip: {
+            displayColors: false,
+            yAlign: "bottom",
+            bodyFont: {
+              size: 14,
+            },
             callbacks: {
               title: () => "",
               // Manually doing this just to get the information in there. There is a better way to do this
-              label: (context) => [
-                `Wave Height: ${heights[context.dataIndex]} (ft)`,
-                `Swell direction: ${directions[context.dataIndex]}°`,
-              ],
+              label: (context) =>
+                ` ${heights[context.dataIndex]}ft @ ${
+                  periods[context.dataIndex]
+                }s from ${directions[context.dataIndex]}°`,
             },
           },
         },
@@ -100,13 +112,21 @@ const AllBandChart: React.FC = () => {
           x: {
             title: {
               display: true,
+              color: colors.almostWhite,
               text: "Period Band (seconds)",
+            },
+            ticks: {
+              color: colors.almostWhite,
             },
           },
           y: {
             title: {
               display: true,
+              color: colors.almostWhite,
               text: "Wave Height (ft)",
+            },
+            ticks: {
+              color: colors.almostWhite,
             },
             beginAtZero: true,
           },
@@ -127,13 +147,16 @@ const AllBandChart: React.FC = () => {
   }, [allBandData]);
 
   if (!allBandData) {
-    return <div>Buoy Breakdown Chart Loading...</div>;
+    return <LoadingContainer>Buoy Breakdown Chart Loading...</LoadingContainer>;
   }
 
   return (
-    <div style={{ width: "100%", height: "400px" }}>
-      <canvas ref={chartRef} />
-    </div>
+    <ChartContainer>
+      <ChartHeading>All Energy Bands (above 4 secs)</ChartHeading>
+      <ChartWrapper>
+        <ChartCanvas ref={chartRef} />
+      </ChartWrapper>
+    </ChartContainer>
   );
 };
 

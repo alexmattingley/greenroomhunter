@@ -1,39 +1,69 @@
 import React, { useContext } from "react";
 import { BuoyContext } from "pages/buoy/[id]";
-import PeriodBandChart from "./periodBandChart";
-import { PageContainer } from "./index.styled";
-import { convertToLocalTimezone } from "@/lib/utils/timezone-utils";
+import PeriodBandChart from "./PeriodBandChart";
+import NotableBandPeaks from "./NotableBands";
+import LastUpdated from "./LastUpdated";
+import { PageContainer, BandContainer, ContentContainer } from "./index.styled";
+import Alert from "@/components/Shared/Alert";
+import { colors } from "@/data/styles-data";
 
-// TODO Shorterm
-// 2. ✅ Convert the Time stamp to user's local timezone
-// 3. Create a custom tooltip with the information, wave height, period and direction
-// 4. Come up with a design for mobile and desktop
-//    a. In mobile, make the wave height label take up less space so you can use the full width
-//    b. Should we create a text version for mobile instead of the chart? Is that more usable?
-//    c. We need to fix the colors so we can see the cross bars in the graph
-// 5. Finish code migration from python to JS (see todo) in buoyBreakdown.js
-// Wishlist?
-// 1. ✅  Really we should fix the data calcuations. The nine band calculations aren't always correct and I don't know why.
-// 2. ✅ Change the python script to return every period so the graph is a little more continuous looking instead of buckets?
-// 3. Should we also try to create a spectral graph?
+const Title = () => {
+  const { buoyName } = useContext(BuoyContext);
+  return <h1>Wave height by period band for {buoyName}</h1>;
+};
 
-const BuoyPage = () => {
-  const { buoyName, timestamp, error } = useContext(BuoyContext);
-  if (!!error) {
-    console.log(error);
+const CustomErrorMessage = () => {
+  const { buoyName, errorStatus, errorMessage } = useContext(BuoyContext);
+  if (errorStatus === 404) {
     return (
       <PageContainer>
-        <h1>Wave height by period band for {buoyName}</h1>
-        <p>Failed to load buoy breakdown:</p>
-        <p>{error}</p>
+        <ContentContainer>
+          <Title />
+          <Alert>
+            Failed to load buoy data for {buoyName}. Are you sure that buoy
+            exists?{" "}
+            <a
+              style={{ color: colors.almostWhite }}
+              target="_blank"
+              href="https://www.ndbc.noaa.gov/to_station.shtml"
+            >
+              See list of existing NOAA buoys
+            </a>
+            .
+          </Alert>
+        </ContentContainer>
+      </PageContainer>
+    );
+  } else {
+    return (
+      <PageContainer>
+        <ContentContainer>
+          <Title />
+          <Alert>Failed to load buoy data for {buoyName}</Alert>
+          <p>
+            Error Code: {errorStatus} Error Message: {errorMessage}
+          </p>
+        </ContentContainer>
       </PageContainer>
     );
   }
+};
+
+const BuoyPage = () => {
+  const { errorStatus } = useContext(BuoyContext);
+  if (!!errorStatus) {
+    return <CustomErrorMessage />;
+  }
   return (
     <PageContainer>
-      <h1>Wave height by period band for {buoyName}</h1>
-      <p>Last updated: {convertToLocalTimezone(timestamp)}</p>
-      <PeriodBandChart />
+      <ContentContainer>
+        <Title />
+        <LastUpdated />
+        <BandContainer>
+          <NotableBandPeaks />
+          <PeriodBandChart />
+        </BandContainer>
+      </ContentContainer>
     </PageContainer>
   );
 };

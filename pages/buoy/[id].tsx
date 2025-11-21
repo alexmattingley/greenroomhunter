@@ -22,7 +22,8 @@ interface AllBandData {
   timestamp: TimeStamp;
   allBands: AllBand[];
   error?: {
-    message: string;
+    statusText: string;
+    status: number;
   };
 }
 
@@ -43,7 +44,10 @@ const fetchIndivAllBandData = async (
     });
 
     if (!res.ok) {
-      throw new Error(`API request failed: ${res.status} ${res.statusText}`);
+      throw {
+        statusText: res.statusText,
+        status: res.status,
+      };
     }
 
     const indivAllBandData = await res.json();
@@ -70,7 +74,8 @@ export async function getServerSideProps(context: Context) {
         buoyNumber,
         allBandData: allBands,
         timestamp,
-        error: error.message,
+        errorMessage: error.statusText,
+        errorStatus: error.status,
       },
     };
   }
@@ -91,12 +96,16 @@ const DetailedbuoyData = (props: {
   buoyNumber: BuoyNumber;
   allBandData: AllBand;
   timestamp: TimeStamp;
-  error?: string;
+  errorStatus?: number;
+  errorMessage?: string;
 }) => {
-  const { buoyNumber, allBandData, timestamp, error = "" } = props;
+  const { buoyNumber, allBandData, timestamp, errorStatus, errorMessage } =
+    props;
   const buoyName = buoyNumberToNameMap?.[buoyNumber] || buoyNumber;
   return (
-    <BuoyContext.Provider value={{ buoyName, allBandData, timestamp, error }}>
+    <BuoyContext.Provider
+      value={{ buoyName, allBandData, timestamp, errorStatus, errorMessage }}
+    >
       <BuoyPage />
     </BuoyContext.Provider>
   );

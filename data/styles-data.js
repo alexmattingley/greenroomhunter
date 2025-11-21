@@ -10,8 +10,10 @@ export const colors = {
   lightGreenFill: "rgba(58,175,169,0.8)",
   gray: "#A4B5BA",
   almostTransparentGray: "rgba(103,130,140,0.2)",
+  almostTransparentWhite: "rgba(254,255,255,0.4)",
   wickedPink: "#C04ABC",
   almostTransparentPink: "rgba(192,74,188,0.1)",
+  errorRed: "#FF6B6B",
   transparent: "transparent",
 };
 

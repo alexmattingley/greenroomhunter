@@ -1,14 +1,11 @@
-import styled from 'styled-components';
-import {
-  colors, breakpts, generateStylesForSize,
-} from 'data/styles-data.js';
+import styled from "styled-components";
+import { colors, breakpts, generateStylesForSize } from "data/styles-data.js";
+import { CardContainer } from "components/Shared/Card/index.styled";
 
-export const CurrentTideCotainer = styled.div`
-  margin-bottom: 20px;
-  padding: 20px;
-  background: ${colors.almostTransparentGray};
-  border-radius: 10px;
-  width: 100%;
+export const HighAndLowTideCard = styled(CardContainer)`
+  @media only screen and (min-width: ${breakpts.xl}) {
+    margin-bottom: 0;
+  }
 `;
 
 export const CurrentTideText = styled.div`
@@ -16,53 +13,41 @@ export const CurrentTideText = styled.div`
   align-items: center;
   margin-bottom: 20px;
   font-weight: bold;
-  ${generateStylesForSize('t2', 'mobile')}
+  ${generateStylesForSize("t2", "mobile")}
   @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize('t2', 'desktop')}
-  }
-`;
-
-export const HighAndLowTideContainer = styled.div`
-  margin-bottom: 20px;
-  padding: 20px;
-  background: ${colors.almostTransparentGray};
-  border-radius: 10px;
-  width: 100%;
-  @media only screen and (min-width: ${breakpts.xl}) {
-    margin-bottom: 0;
+    ${generateStylesForSize("t2", "desktop")}
   }
 `;
 
 export const NextTideDescription = styled.div`
-  ${generateStylesForSize('t4', 'mobile')}
+  ${generateStylesForSize("t4", "mobile")}
 
   b {
     color: ${colors.lightGreen};
   }
 
   @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize('t4', 'desktop')}
+    ${generateStylesForSize("t4", "desktop")}
   }
 `;
-
 
 export const CurrentTideTitle = styled.h3`
   margin-top: 0;
   margin-bottom: 20px;
-  ${generateStylesForSize('t2', 'mobile')}
+  ${generateStylesForSize("t2", "mobile")}
 
   @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize('t2', 'desktop')}
+    ${generateStylesForSize("t2", "desktop")}
   }
 `;
 
 export const TideTableTitle = styled.h3`
   margin-top: 0;
   margin-bottom: 20px;
-  ${generateStylesForSize('t2', 'mobile')}
+  ${generateStylesForSize("t2", "mobile")}
 
   @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize('t2', 'desktop')}
+    ${generateStylesForSize("t2", "desktop")}
   }
 `;
 
@@ -85,7 +70,7 @@ export const TideTableContainer = styled.div`
 `;
 
 export const TideTableRow = styled.div`
-  ${generateStylesForSize('t5', 'mobile')}
+  ${generateStylesForSize("t5", "mobile")}
   border-bottom: 1px solid ${colors.almostWhite};
   padding: 10px 5px;
   display: grid;
@@ -95,10 +80,12 @@ export const TideTableRow = styled.div`
   align-items: center;
   justify-items: center;
   ${({ nextTide }) => {
-    return nextTide ? `background-color: ${colors.almostBlack}; color: ${colors.lightGreen};` : `color: ${colors.almostWhite};`;
+    return nextTide
+      ? `background-color: ${colors.almostBlack}; color: ${colors.lightGreen};`
+      : `color: ${colors.almostWhite};`;
   }}
 
   @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize('t5', 'desktop')}
+    ${generateStylesForSize("t5", "desktop")}
   }
 `;

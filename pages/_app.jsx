@@ -1,12 +1,13 @@
-import React from 'react';
-import NextApp from 'next/app';
-import Script from 'next/script';
-import CssBaseline from '@mui/material/CssBaseline';
+import React from "react";
+import NextApp from "next/app";
+import Script from "next/script";
+import CssBaseline from "@mui/material/CssBaseline";
+import "../styles/globals.css";
 
 export default class App extends NextApp {
   componentDidMount() {
     // Remove service side styles
-    const jssStyles = document.querySelector('#jss-server-side');
+    const jssStyles = document.querySelector("#jss-server-side");
     if (jssStyles && jssStyles.parentNode) {
       jssStyles.parentNode.removeChild(jssStyles);
     }
@@ -16,8 +17,14 @@ export default class App extends NextApp {
     const { Component, pageProps } = this.props;
     return (
       <>
-        <Script strategy="beforeInteractive" src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js" />
-        <Script strategy="beforeInteractive" src="https://api.windy.com/assets/map-forecast/libBoot.js" />
+        <Script
+          strategy="beforeInteractive"
+          src="https://unpkg.com/leaflet@1.4.0/dist/leaflet.js"
+        />
+        <Script
+          strategy="beforeInteractive"
+          src="https://api.windy.com/assets/map-forecast/libBoot.js"
+        />
         <CssBaseline />
         {/* eslint-disable-next-line react/jsx-props-no-spreading */}
         <Component {...pageProps} />

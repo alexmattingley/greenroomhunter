@@ -21,14 +21,16 @@ async function httpDataSpec(buoy, dataType = "data_spec") {
   try {
     const response = await fetch(dataUrl);
     if (!response.ok) {
-      throw new Error(`HTTP error! status: ${response.status}`);
+      const error = new Error(`HTTP error! status: ${response.status}`);
+      error.status = response.status; // Preserve status code
+      throw error;
     }
     const data = await response.text();
     const lines = data.split("\n");
-    return lines[1]; // Return the second line (index 1)
+    return lines[1];
   } catch (error) {
     console.error("Error fetching buoy data:", error);
-    throw error;
+    throw error; // Re-throw to preserve status if it exists
   }
 }
 
@@ -588,7 +590,12 @@ export default async function handler(request, response) {
     const parsedData = JSON.parse(jsonData);
     return response.status(200).json(parsedData);
   } catch (error) {
-    console.error("API Error:", error);
-    return response.status(500).json({ error: error.message });
+    // If error has a status code (from HTTP error), use it
+    // Otherwise default to 500 for server errors
+    const statusCode = error?.status || 500;
+    return response.status(statusCode).json({
+      error: error.message,
+      ...(error.status && { originalStatus: error.status }),
+    });
   }
 }

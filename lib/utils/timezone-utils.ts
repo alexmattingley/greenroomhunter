@@ -105,3 +105,16 @@ export function formatTimestamp(
     return utcTimestamp;
   }
 }
+
+/**
+ * Checks if a timestamp is more than 2 hours old
+ * @param timestamp - Timestamp string to check
+ * @returns true if timestamp is more than 2 hours old, false otherwise
+ */
+export function checkIfStale(timestamp: string | null | undefined): boolean {
+  if (!timestamp) return false;
+  const timestampDate = new Date(timestamp);
+  const now = new Date();
+  const twoHoursInMs = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
+  return now.getTime() - timestampDate.getTime() > twoHoursInMs;
+}
