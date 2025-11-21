@@ -1,11 +1,11 @@
 import React, { useContext } from "react";
-import { BuoyContext } from "pages/buoy/[id]";
 import PeriodBandChart from "./PeriodBandChart";
 import NotableBandPeaks from "./NotableBands";
 import LastUpdated from "./LastUpdated";
 import { PageContainer, BandContainer, ContentContainer } from "./index.styled";
 import Alert from "@/components/Shared/Alert";
 import { colors } from "@/data/styles-data";
+import { BuoyContext } from "pages/buoy/[id]";
 
 const Title = () => {
   const { buoyName } = useContext(BuoyContext);

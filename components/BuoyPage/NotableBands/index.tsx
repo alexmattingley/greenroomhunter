@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { BuoyContext } from "pages/buoy/[id]";
 import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
 import {
   NBandContainer,
@@ -9,6 +8,7 @@ import {
   NBandDirectionSpan,
   NBandDirectionArrow,
 } from "./index.styled";
+import { BuoyContext } from "pages/buoy/[id]";
 
 interface DirectionArrowIconProps {
   degree: number;

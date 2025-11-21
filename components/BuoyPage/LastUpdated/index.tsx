@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import { BuoyContext } from "pages/buoy/[id]";
 import {
   convertToLocalTimezone,
   checkIfStale,
@@ -10,6 +9,7 @@ import {
   LastUpdatedContainer,
 } from "./index.styled";
 import Alert from "@/components/Shared/Alert";
+import { BuoyContext } from "pages/buoy/[id]";
 
 const LastUpdated = () => {
   const { timestamp } = useContext(BuoyContext);
