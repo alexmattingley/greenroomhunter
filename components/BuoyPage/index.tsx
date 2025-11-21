@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
-import PeriodBandChart from "./PeriodBandChart";
 import NotableBandPeaks from "./NotableBands";
+import PeriodBandChart from "./PeriodBandChart";
 import LastUpdated from "./LastUpdated";
 import { PageContainer, BandContainer, ContentContainer } from "./index.styled";
 import Alert from "@/components/Shared/Alert";
