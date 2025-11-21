@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import NotableBandPeaks from "./NotableBands";
-// import PeriodBandChart from "./PeriodBandChart";
+import PeriodBandChart from "./PeriodBandChart";
 import LastUpdated from "./LastUpdated";
 import { PageContainer, BandContainer, ContentContainer } from "./index.styled";
 import Alert from "@/components/Shared/Alert";
@@ -61,7 +61,7 @@ const BuoyPage = () => {
         <LastUpdated />
         <BandContainer>
           <NotableBandPeaks />
-          {/* <PeriodBandChart /> */}
+          <PeriodBandChart />
         </BandContainer>
       </ContentContainer>
     </PageContainer>
