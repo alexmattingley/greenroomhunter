@@ -1,4 +1,3 @@
-import { BuoyContext } from "pages/buoy/[id]";
 import React, { useEffect, useRef, useContext } from "react";
 import {
   Chart as ChartJS,
@@ -12,7 +11,6 @@ import {
   Legend,
   Filler,
 } from "chart.js";
-import { colors } from "data/styles-data";
 import {
   ChartContainer,
   ChartWrapper,
@@ -20,6 +18,8 @@ import {
   ChartCanvas,
   LoadingContainer,
 } from "./index.styled";
+import { colors } from "data/styles-data";
+import { BuoyContext } from "pages/buoy/[id]";
 
 // Register Chart.js components
 ChartJS.register(
@@ -34,7 +34,7 @@ ChartJS.register(
   Filler
 );
 
-const AllBandChart: React.FC = () => {
+const PeriodBandChart: React.FC = () => {
   const chartRef = useRef<HTMLCanvasElement>(null);
   const chartInstance = useRef<ChartJS | null>(null);
   const { allBandData } = useContext(BuoyContext);
@@ -139,7 +139,7 @@ const AllBandChart: React.FC = () => {
     chartInstance.current = new ChartJS(chartRef.current, config);
 
     // Cleanup function
-    return () => {
+    return (): void => {
       if (chartInstance.current) {
         chartInstance.current.destroy();
       }
@@ -150,14 +150,7 @@ const AllBandChart: React.FC = () => {
     return <LoadingContainer>Buoy Breakdown Chart Loading...</LoadingContainer>;
   }
 
-  return (
-    <ChartContainer>
-      <ChartHeading>All Energy Bands (above 4 secs)</ChartHeading>
-      <ChartWrapper>
-        <ChartCanvas ref={chartRef} />
-      </ChartWrapper>
-    </ChartContainer>
-  );
+  return <div>very basic thing</div>;
 };
 
-export default AllBandChart;
+export default PeriodBandChart;
