@@ -7,6 +7,7 @@ import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
 import Card from "components/Shared/Card";
 import {
   TideTableContainer,
+  CardTextContainer,
   CurrentTideTitle,
   TideTableTitle,
   TideTableRow,
@@ -43,7 +44,7 @@ function TideTable(props) {
   });
   return (
     <TideTableContainer>
-      <Card>
+      <CardTextContainer>
         <CurrentTideTitle>Current Tide</CurrentTideTitle>
         <CurrentTideText>
           <ArrowIcon tideDirection={currentTide.tideDirection} />
@@ -53,7 +54,7 @@ function TideTable(props) {
           The next <b>{nextTide.point.toLowerCase()} tide</b> will be{" "}
           <b>{nextTide.v.toFixed(1)}ft</b> at <b>{nextTideTimeOnly}</b>
         </NextTideDescription>
-      </Card>
+      </CardTextContainer>
       <HighAndLowTideCard>
         <TideTableTitle>Tide Table</TideTableTitle>
         {tideRowArr}

@@ -2,7 +2,12 @@ import styled from "styled-components";
 import { colors, breakpts, generateStylesForSize } from "data/styles-data.js";
 import { CardContainer } from "components/Shared/Card/index.styled";
 
+export const CardTextContainer = styled(CardContainer)`
+  margin-bottom: 20px;
+`;
+
 export const HighAndLowTideCard = styled(CardContainer)`
+  margin-bottom: 20px;
   @media only screen and (min-width: ${breakpts.xl}) {
     margin-bottom: 0;
   }

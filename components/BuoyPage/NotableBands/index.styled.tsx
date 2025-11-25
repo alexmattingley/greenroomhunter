@@ -3,7 +3,9 @@ import { CardContainer } from "components/Shared/Card/index.styled";
 import { colors, breakpts } from "@/data/styles-data";
 
 export const NBandContainer = styled(CardContainer)`
+  margin-bottom: 20px;
   @media only screen and (min-width: ${breakpts.lg}) {
+    margin-bottom: 0;
     width: 30%;
   }
 `;

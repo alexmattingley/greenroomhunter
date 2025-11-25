@@ -36,6 +36,11 @@ const NotableBandPeaks = () => {
     const currentDirection = band.direction;
     const bandAfterHeight = allBandData?.[idx + 1]?.height;
     const notableEnergy = currentBandHeight > 1 || currentPeriod > 6;
+    // This currently intentionally excludes "peaks" if they are at the edges of the array or period bands.
+    // I'm doing this for two reasons:
+    // Typically super long period or super short period swells are often "noise" and not real indications of ridable waves.
+    // The graph below the notableBands section lists all peaks, this section just exists to highlight notable energy bands.
+    // Right now, this section often has too much information, and I don't need it showing even more noise by including edges.
     if (
       bandBeforeHeight < currentBandHeight &&
       bandAfterHeight < currentBandHeight &&

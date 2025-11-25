@@ -100,7 +100,6 @@ const PeriodBandChart: React.FC = () => {
             },
             callbacks: {
               title: () => "",
-              // Manually doing this just to get the information in there. There is a better way to do this
               label: (context) =>
                 ` ${heights[context.dataIndex]}ft @ ${
                   periods[context.dataIndex]
