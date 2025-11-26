@@ -1,44 +1,64 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import ArrowUpwardRoundedIcon from '@mui/icons-material/ArrowUpwardRounded';
-import ArrowDownwardRoundedIcon from '@mui/icons-material/ArrowDownwardRounded';
-import KeyboardArrowDownIcon from '@mui/icons-material/KeyboardArrowDown';
-import KeyboardArrowUpIcon from '@mui/icons-material/KeyboardArrowUp';
-import { TideTableContainer, CurrentTideTitle, TideTableTitle, TideTableRow, CurrentTideCotainer, CurrentTideText, HighAndLowTideContainer, NextTideDescription } from './index.styled.js';
+import React from "react";
+import PropTypes from "prop-types";
+import ArrowUpwardRoundedIcon from "@mui/icons-material/ArrowUpwardRounded";
+import ArrowDownwardRoundedIcon from "@mui/icons-material/ArrowDownwardRounded";
+import KeyboardArrowDownIcon from "@mui/icons-material/KeyboardArrowDown";
+import KeyboardArrowUpIcon from "@mui/icons-material/KeyboardArrowUp";
+import Card from "components/Shared/Card";
+import {
+  TideTableContainer,
+  CardTextContainer,
+  CurrentTideTitle,
+  TideTableTitle,
+  TideTableRow,
+  CurrentTideText,
+  NextTideDescription,
+  HighAndLowTideCard,
+} from "./index.styled.js";
 
-
-const ArrowIcon = ({tideDirection}) => {
+const ArrowIcon = ({ tideDirection }) => {
   if (tideDirection === "rising") {
-    return (<ArrowUpwardRoundedIcon fontSize='medium' />);
+    return <ArrowUpwardRoundedIcon fontSize="medium" />;
   }
-  return (<ArrowDownwardRoundedIcon fontSize='medium' />);
+  return <ArrowDownwardRoundedIcon fontSize="medium" />;
 };
-
 
 function TideTable(props) {
   const { highAndLowTides, currentTide } = props;
   const { nextTide } = currentTide;
-  const nextTideTimeOnly = nextTide.t.split(',')[1].trim();
+  const nextTideTimeOnly = nextTide.t.split(",")[1].trim();
   const tideRowArr = highAndLowTides.map((itm) => {
-      return (
-        <TideTableRow key={itm.t} nextTide={itm.nextTide}>
-          <span>{itm.point === 'Low' ? <KeyboardArrowDownIcon /> : <KeyboardArrowUpIcon />}</span>
-          <span>{itm.v.toFixed(1)} ft</span> 
-          <span>{itm.t}</span>
-        </TideTableRow>
-      );
+    return (
+      <TideTableRow key={itm.t} nextTide={itm.nextTide}>
+        <span>
+          {itm.point === "Low" ? (
+            <KeyboardArrowDownIcon />
+          ) : (
+            <KeyboardArrowUpIcon />
+          )}
+        </span>
+        <span>{itm.v.toFixed(1)} ft</span>
+        <span>{itm.t}</span>
+      </TideTableRow>
+    );
   });
   return (
     <TideTableContainer>
-      <CurrentTideCotainer>
+      <CardTextContainer>
         <CurrentTideTitle>Current Tide</CurrentTideTitle>
-        <CurrentTideText><ArrowIcon tideDirection={currentTide.tideDirection}/>{currentTide.v.toFixed(1)} ft</CurrentTideText>
-        <NextTideDescription>The next <b>{nextTide.point.toLowerCase()} tide</b> will be <b>{nextTide.v.toFixed(1)}ft</b> at <b>{nextTideTimeOnly}</b></NextTideDescription>
-      </CurrentTideCotainer>
-      <HighAndLowTideContainer>
+        <CurrentTideText>
+          <ArrowIcon tideDirection={currentTide.tideDirection} />
+          {currentTide.v.toFixed(1)} ft
+        </CurrentTideText>
+        <NextTideDescription>
+          The next <b>{nextTide.point.toLowerCase()} tide</b> will be{" "}
+          <b>{nextTide.v.toFixed(1)}ft</b> at <b>{nextTideTimeOnly}</b>
+        </NextTideDescription>
+      </CardTextContainer>
+      <HighAndLowTideCard>
         <TideTableTitle>Tide Table</TideTableTitle>
         {tideRowArr}
-      </HighAndLowTideContainer>
+      </HighAndLowTideCard>
     </TideTableContainer>
   );
 }
