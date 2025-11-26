@@ -113,7 +113,8 @@ export function formatTimestamp(
  */
 export function checkIfStale(timestamp: string | null | undefined): boolean {
   if (!timestamp) return false;
-  const timestampDate = new Date(timestamp);
+  // IMPORTANT: You need the 'Z' at the end of the timestamp so it compares UTC times.
+  const timestampDate = new Date(`${timestamp}Z`);
   const now = new Date();
   const twoHoursInMs = 2 * 60 * 60 * 1000; // 2 hours in milliseconds
   return now.getTime() - timestampDate.getTime() > twoHoursInMs;
