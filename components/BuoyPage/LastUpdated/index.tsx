@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   convertToLocalTimezone,
   checkIfStale,
@@ -14,6 +14,15 @@ import { BuoyContext } from "pages/buoy/[id]";
 const LastUpdated = () => {
   const { timestamp } = useContext(BuoyContext);
   const isStale = checkIfStale(timestamp);
+  const [isClient, setIsClient] = useState(false);
+  useEffect(() => setIsClient(true), []);
+  if (!isClient) {
+    return (
+      <LastUpdatedContainer>
+        <LastUpdatedText>Last updated:</LastUpdatedText>
+      </LastUpdatedContainer>
+    );
+  }
   return (
     <LastUpdatedContainer>
       <LastUpdatedText>
