@@ -2,7 +2,6 @@ import styled from "@emotion/styled";
 import { colors, breakpts } from "data/styles-data";
 
 export const PageContainer = styled.div`
-  height: 100%;
   background-color: ${colors.almostBlack};
   color: ${colors.almostWhite};
   padding: 20px;
