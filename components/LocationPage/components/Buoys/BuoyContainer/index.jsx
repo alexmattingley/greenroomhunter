@@ -1,9 +1,17 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import BuoyChart from '../BuoyChart/index.jsx';
-import BuoyText from '../BuoyText/index.jsx';
-import { BuoyContainer } from './index.styled.js';
-import { LoadingIcon, LoadingText, LoadingContainer } from 'components/LocationPage/components/Loading/index.styled.js';
+import React from "react";
+import PropTypes from "prop-types";
+import BuoyChart from "../BuoyChart/index.jsx";
+import BuoyText from "../BuoyText/index.jsx";
+import {
+  BuoyContainer,
+  ByStationName,
+  TextAndChartContainer,
+} from "./index.styled.js";
+import {
+  LoadingIcon,
+  LoadingText,
+  LoadingContainer,
+} from "components/LocationPage/components/Loading/index.styled.js";
 
 class BuoyBlock extends React.Component {
   render() {
@@ -12,16 +20,19 @@ class BuoyBlock extends React.Component {
     if (buoyData && buoyData.data && buoyData.success) {
       return buoyData.data.reduce((acc, curr) => {
         const { stationId, indivBuoyData, stationName } = curr;
-        const minArrLength = 10;
         // If our array has less than ten readings, don't render it
         // there is most likely an issue with the data
+        const minArrLength = 10;
         if (indivBuoyData.length > minArrLength) {
-          acc.push((
+          acc.push(
             <BuoyContainer key={stationId}>
-              <BuoyText buoyData={indivBuoyData} stationName={stationName} />
-              <BuoyChart buoyData={indivBuoyData} />
+              <ByStationName>{stationName}</ByStationName>
+              <TextAndChartContainer>
+                <BuoyText buoyData={indivBuoyData} />
+                <BuoyChart buoyData={indivBuoyData} />
+              </TextAndChartContainer>
             </BuoyContainer>
-          ));
+          );
         }
         return acc;
       }, []);
@@ -30,7 +41,8 @@ class BuoyBlock extends React.Component {
     if (buoyData && !buoyData.success) {
       return (
         <div>
-          Whoops! It looks like we are having trouble getting the buoy information
+          Whoops! It looks like we are having trouble getting the buoy
+          information
         </div>
       );
     }

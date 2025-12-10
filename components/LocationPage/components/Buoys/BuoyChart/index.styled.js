@@ -1,12 +1,12 @@
-import styled from 'styled-components';
-import { breakpts } from 'data/styles-data.js';
+import styled from "styled-components";
+import { breakpts } from "data/styles-data.js";
 
-const BuoyChartContainer = styled.div`
-
+export const BuoyChartContainer = styled.div`
   @media only screen and (min-width: ${breakpts.sm}) {
-    padding: 20px;
     flex-grow: 1;
   }
 `;
-
-export default BuoyChartContainer;
+export const ChartWrapper = styled.div`
+  width: 100%;
+  height: 300px;
+`;

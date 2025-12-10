@@ -192,10 +192,10 @@ const locationData: LocationDataMap = {
     locationThumbImg: "/images/jetty.jpg",
     CDIP7DayBuoyStnNum: "191",
     buoys: {
-      "Harvest Buoy": 46218,
-      "Oceanside Offshore Buoy": 46224,
-      "Mission Bay West Buoy": 46258,
       "Point Loma South Buoy": 46232,
+      "Mission Bay West Buoy": 46258,
+      "Oceanside Offshore Buoy": 46224,
+      "Harvest Buoy": 46218,
     },
     tideStation: {
       id: 9410170,

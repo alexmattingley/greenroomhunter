@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,10 +10,11 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from 'chart.js';
-import PropTypes from 'prop-types';
-import BuoyChartContainer from './index.styled.js';
-import { colors } from 'data/styles-data.js';
+} from "chart.js";
+import PropTypes from "prop-types";
+import { BuoyChartContainer, ChartWrapper } from "./index.styled.js";
+import { colors } from "data/styles-data.js";
+import Card from "@/components/Shared/Card";
 
 // Register Chart.js components
 ChartJS.register(
@@ -25,7 +26,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler,
+  Filler
 );
 
 class BuoyChart extends React.Component {
@@ -57,42 +58,42 @@ class BuoyChart extends React.Component {
       dataForChart.waveHeightFt.push(itm.waveHeightFt);
       dataForChart.timeTaken.push(itm.fullDate);
     });
-    const ctx = this.buoyChartRef.current.getContext('2d');
+    const ctx = this.buoyChartRef.current.getContext("2d");
     // eslint-disable-next-line no-unused-vars
     const chart = new ChartJS(ctx, {
-      type: 'line',
+      type: "line",
       data: {
         datasets: [
           {
-            label: 'Average Period',
+            label: "Average Period",
             data: dataForChart.avgPeriod,
             backgroundColor: avgPeriodFill,
             borderColor: avgPeriodBorder,
             tension: 0.2,
-            fill: 'origin',
+            fill: "origin",
           },
           {
-            label: 'Peak Period',
+            label: "Peak Period",
             data: dataForChart.peakPeriod,
             backgroundColor: peakPeriodFill,
             borderColor: peakPeriodBorder,
             tension: 0.2,
-            fill: 'origin',
+            fill: "origin",
           },
           {
-            label: 'Wave Height',
+            label: "Wave Height",
             data: dataForChart.waveHeightFt,
             backgroundColor: waveHeightFill,
             borderColor: waveHeightBorder,
             tension: 0.2,
-            fill: 'origin',
+            fill: "origin",
           },
         ],
         labels: dataForChart.timeTaken,
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
         scales: {
           y: {
             beginAtZero: true,
@@ -105,7 +106,7 @@ class BuoyChart extends React.Component {
           },
           x: {
             ticks: {
-              callback: () => '',
+              callback: () => "",
               color: colors.almostWhite,
             },
             grid: {
@@ -128,7 +129,11 @@ class BuoyChart extends React.Component {
   render() {
     return (
       <BuoyChartContainer>
-        <canvas ref={this.buoyChartRef} />
+        <Card>
+          <ChartWrapper>
+            <canvas ref={this.buoyChartRef} />
+          </ChartWrapper>
+        </Card>
       </BuoyChartContainer>
     );
   }
