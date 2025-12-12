@@ -4,6 +4,7 @@ export const colors = {
   darkGrey: "#273940",
   darkGreen: "#00453B",
   lightGreen: "#3aafa9",
+  greenTintedWhite: "#b8e8e4",
   lightblue: "#def2f1",
   almostWhite: "#feffff",
   almostWhiteMild: "rgba(254,255,255,0.9)",
@@ -48,6 +49,16 @@ export const typescales = {
       "line-height": "34px",
     },
   },
+  "t2.5": {
+    mobile: {
+      "font-size": "25px",
+      "line-height": "29px",
+    },
+    desktop: {
+      "font-size": "25px",
+      "line-height": "29px",
+    },
+  },
   t3: {
     mobile: {
       "font-size": "16px",
@@ -89,6 +100,13 @@ export const typescales = {
       "line-height": "28px",
     },
   },
+};
+
+export const borderRadius = {
+  xs: "4px",
+  sm: "8px",
+  md: "12px",
+  lg: "16px",
 };
 
 // Helper function for generating font styles.

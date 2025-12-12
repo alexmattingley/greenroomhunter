@@ -2,7 +2,9 @@ import styled from "styled-components";
 import { breakpts, generateStylesForSize } from "data/styles-data.js";
 import Card from "@/components/Shared/Card";
 
-export const BuoyContainer = styled.div``;
+export const BuoyContainer = styled.div`
+  margin-bottom: 20px;
+`;
 
 export const TextAndChartContainer = styled.div`
   @media only screen and (min-width: ${breakpts.sm}) {
@@ -13,10 +15,10 @@ export const TextAndChartContainer = styled.div`
 
 export const ByStationName = styled.h2`
   margin-top: 0;
-  ${generateStylesForSize("t2", "mobile")}
+  ${generateStylesForSize("t2.5", "mobile")}
 
   @media only screen and (min-width: ${breakpts.md}) {
-    ${generateStylesForSize("t2", "desktop")}
+    ${generateStylesForSize("t2.5", "desktop")}
   }
 `;
 
@@ -28,12 +30,12 @@ export const LoadingContainer = styled.div`
 
 export const LoadingText = styled.span`
   text-align: center;
-  ${generateStylesForSize("t2", "mobile")}
+  ${generateStylesForSize("t2.5", "mobile")}
   margin-left: 15px;
   margin-right: 15px;
 
   @media only screen and (min-width: ${breakpts.md}) {
-    ${generateStylesForSize("t2", "desktop")}
+    ${generateStylesForSize("t2.5", "desktop")}
   }
 `;
 

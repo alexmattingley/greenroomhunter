@@ -18,7 +18,7 @@ class BuoyBlock extends React.Component {
     const { buoyData } = this.props;
     // If our data fetch succeeded and returned data
     if (buoyData && buoyData.data && buoyData.success) {
-      return buoyData.data.reduce((acc, curr) => {
+      const BuoyBlocks = buoyData.data.reduce((acc, curr) => {
         const { stationId, indivBuoyData, stationName } = curr;
         // If our array has less than ten readings, don't render it
         // there is most likely an issue with the data
@@ -28,7 +28,7 @@ class BuoyBlock extends React.Component {
             <BuoyContainer key={stationId}>
               <ByStationName>{stationName}</ByStationName>
               <TextAndChartContainer>
-                <BuoyText buoyData={indivBuoyData} />
+                <BuoyText buoyData={indivBuoyData} stationId={stationId} />
                 <BuoyChart buoyData={indivBuoyData} />
               </TextAndChartContainer>
             </BuoyContainer>
@@ -36,6 +36,12 @@ class BuoyBlock extends React.Component {
         }
         return acc;
       }, []);
+      return (
+        <div>
+          <h4>Aggregate Buoy Readings</h4>
+          {BuoyBlocks}
+        </div>
+      );
     }
     // Some Data was returned but the call was actually a failure
     if (buoyData && !buoyData.success) {

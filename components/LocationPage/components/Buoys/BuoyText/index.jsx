@@ -1,10 +1,17 @@
 import React from "react";
 import PropTypes from "prop-types";
-import { ByContainer, ByDefaultP } from "./index.styled.js";
+import Link from "next/link";
+import {
+  ByContainer,
+  ByDefaultP,
+  LastUpdated,
+  ByDefaultH4,
+  SwellSpectraBtn,
+} from "./index.styled.js";
 import Card from "@/components/Shared/Card";
 
 const BuoyText = (props) => {
-  const { buoyData } = props;
+  const { buoyData, stationId } = props;
   const {
     fullDate,
     avgPeriod,
@@ -17,20 +24,19 @@ const BuoyText = (props) => {
   return (
     <ByContainer>
       <Card>
-        <div>
-          <ByDefaultP>Last Updated: </ByDefaultP>
-          <ByDefaultP>
-            <b>{fullDate}</b>
-          </ByDefaultP>
-        </div>
+        <LastUpdated>
+          <ByDefaultH4>Last Updated</ByDefaultH4>
+          <ByDefaultP>{fullDate}</ByDefaultP>
+        </LastUpdated>
+        <ByDefaultH4>Current Aggregate Reading</ByDefaultH4>
         <ByDefaultP>
           Wave Height: <b>{waveHeightFt} ft</b>
         </ByDefaultP>
         <ByDefaultP>
-          Average Period: <b>{avgPeriod}</b> seconds
+          Average Period: <b>{avgPeriod} seconds</b>
         </ByDefaultP>
         <ByDefaultP>
-          Peak Period: <b>{peakPeriod}</b> seconds
+          Peak Period: <b>{peakPeriod} seconds</b>
         </ByDefaultP>
         <ByDefaultP>
           Dominant Direction: <b>{meanWaveDir}</b>&deg;
@@ -38,6 +44,9 @@ const BuoyText = (props) => {
         <ByDefaultP>
           Water Temp: <b>{waterTemp}</b> &deg;F
         </ByDefaultP>
+        <SwellSpectraBtn as={Link} href={`/buoy/${stationId}`}>
+          See All Wave Heights by Period
+        </SwellSpectraBtn>
       </Card>
     </ByContainer>
   );
