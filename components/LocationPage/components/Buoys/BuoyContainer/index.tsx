@@ -73,12 +73,6 @@ const BuoyBlock: React.FC<BuoyBlockProps> = ({ buoyData }) => {
             ariaLabelby="buoy-help-modal"
             ariaDescribedBy="buoy-help-modal-description"
           />
-          <CustomModal
-            Trigger={<HelpIconButton>something else</HelpIconButton>}
-            ModalContent={() => <>I like turtles</>}
-            ariaLabelby="buoy-help-modal"
-            ariaDescribedBy="buoy-help-modal-description"
-          />
         </BuoyContainerTitle>
         {BuoyBlocks}
       </div>
