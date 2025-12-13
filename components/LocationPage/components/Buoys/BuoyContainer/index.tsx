@@ -1,6 +1,6 @@
-import React, { useState } from "react";
+import React from "react";
 import CustomModal from "@/components/Shared/Modal";
-import BuoyHelpModalContent from "@/components/Shared/ModalContent/BuoyHelp";
+import BuoyHelpModalContent from "@/components/Shared/ModalContent/AggregateBuoyHelp";
 import BuoyChart from "../BuoyChart/index.jsx";
 import BuoyText from "../BuoyText/index.jsx";
 import {
@@ -42,16 +42,6 @@ interface BuoyBlockProps {
 }
 
 const BuoyBlock: React.FC<BuoyBlockProps> = ({ buoyData }) => {
-  const [modalOpen, setModalOpen] = useState(false);
-
-  const handleOpenModal = () => {
-    setModalOpen(true);
-  };
-
-  const handleCloseModal = () => {
-    setModalOpen(false);
-  };
-
   // If our data fetch succeeded and returned data
   if (buoyData && buoyData.data && buoyData.success) {
     const BuoyBlocks = buoyData.data.reduce((acc, curr) => {
@@ -77,15 +67,19 @@ const BuoyBlock: React.FC<BuoyBlockProps> = ({ buoyData }) => {
       <div>
         <BuoyContainerTitle>
           <span>Aggregate Buoy Readings </span>
-          <HelpIconButton onClick={handleOpenModal}>?</HelpIconButton>
+          <CustomModal
+            Trigger={<HelpIconButton>?</HelpIconButton>}
+            ModalContent={BuoyHelpModalContent}
+            ariaLabelby="buoy-help-modal"
+            ariaDescribedBy="buoy-help-modal-description"
+          />
+          <CustomModal
+            Trigger={<HelpIconButton>something else</HelpIconButton>}
+            ModalContent={() => <>I like turtles</>}
+            ariaLabelby="buoy-help-modal"
+            ariaDescribedBy="buoy-help-modal-description"
+          />
         </BuoyContainerTitle>
-        <CustomModal
-          open={modalOpen}
-          onClose={handleCloseModal}
-          ModalContent={BuoyHelpModalContent}
-          ariaLabelby="buoy-help-modal"
-          ariaDescribedBy="buoy-help-modal-description"
-        />
         {BuoyBlocks}
       </div>
     );

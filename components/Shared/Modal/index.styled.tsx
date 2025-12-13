@@ -12,7 +12,6 @@ export const ModalContentContainer = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
   background: ${colors.almostBlack};
-  border: 1px solid ${colors.almostWhite};
   border-radius: ${borderRadius.sm};
   padding: 24px;
   color: ${colors.almostWhite};
