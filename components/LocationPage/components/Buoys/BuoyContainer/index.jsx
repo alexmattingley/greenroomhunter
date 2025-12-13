@@ -6,6 +6,7 @@ import {
   BuoyContainer,
   ByStationName,
   TextAndChartContainer,
+  BuoyContainerTitle,
 } from "./index.styled.js";
 import {
   LoadingIcon,
@@ -38,7 +39,7 @@ class BuoyBlock extends React.Component {
       }, []);
       return (
         <div>
-          <h4>Aggregate Buoy Readings</h4>
+          <BuoyContainerTitle>Aggregate Buoy Readings</BuoyContainerTitle>
           {BuoyBlocks}
         </div>
       );

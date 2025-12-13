@@ -51,12 +51,12 @@ export const typescales = {
   },
   "t2.5": {
     mobile: {
-      "font-size": "25px",
-      "line-height": "29px",
+      "font-size": "22px",
+      "line-height": "24px",
     },
     desktop: {
-      "font-size": "25px",
-      "line-height": "29px",
+      "font-size": "22px",
+      "line-height": "24px",
     },
   },
   t3: {

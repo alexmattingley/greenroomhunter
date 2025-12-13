@@ -1,9 +1,17 @@
 import styled from "styled-components";
-import { breakpts, generateStylesForSize } from "data/styles-data.js";
+import { color } from "chart.js/helpers";
+import { breakpts, colors, generateStylesForSize } from "data/styles-data.js";
 import Card from "@/components/Shared/Card";
 
 export const BuoyContainer = styled.div`
-  margin-bottom: 20px;
+  margin-bottom: 40px;
+`;
+
+export const BuoyContainerTitle = styled.h2`
+  ${generateStylesForSize("t2")}
+  @media only screen and (min-width: ${breakpts.md}) {
+    ${generateStylesForSize("t2", "desktop")}
+  }
 `;
 
 export const TextAndChartContainer = styled.div`
@@ -15,8 +23,8 @@ export const TextAndChartContainer = styled.div`
 
 export const ByStationName = styled.h2`
   margin-top: 0;
+  color: ${colors.greenTintedWhite};
   ${generateStylesForSize("t2.5", "mobile")}
-
   @media only screen and (min-width: ${breakpts.md}) {
     ${generateStylesForSize("t2.5", "desktop")}
   }
