@@ -1,4 +1,4 @@
-import React from 'react';
+import React from "react";
 import {
   Chart as ChartJS,
   CategoryScale,
@@ -10,10 +10,15 @@ import {
   Tooltip,
   Legend,
   Filler,
-} from 'chart.js';
-import PropTypes from 'prop-types';
-import BuoyChartContainer from './index.styled.js';
-import { colors } from 'data/styles-data.js';
+} from "chart.js";
+import PropTypes from "prop-types";
+import {
+  BuoyChartContainer,
+  ChartTitle,
+  ChartWrapper,
+} from "./index.styled.js";
+import { colors } from "data/styles-data.js";
+import Card from "@/components/Shared/Card";
 
 // Register Chart.js components
 ChartJS.register(
@@ -25,7 +30,7 @@ ChartJS.register(
   Title,
   Tooltip,
   Legend,
-  Filler,
+  Filler
 );
 
 class BuoyChart extends React.Component {
@@ -57,56 +62,88 @@ class BuoyChart extends React.Component {
       dataForChart.waveHeightFt.push(itm.waveHeightFt);
       dataForChart.timeTaken.push(itm.fullDate);
     });
-    const ctx = this.buoyChartRef.current.getContext('2d');
+    const ctx = this.buoyChartRef.current.getContext("2d");
     // eslint-disable-next-line no-unused-vars
     const chart = new ChartJS(ctx, {
-      type: 'line',
+      type: "line",
       data: {
         datasets: [
           {
-            label: 'Average Period',
+            label: "Average Period",
             data: dataForChart.avgPeriod,
             backgroundColor: avgPeriodFill,
             borderColor: avgPeriodBorder,
             tension: 0.2,
-            fill: 'origin',
+            fill: "origin",
           },
           {
-            label: 'Peak Period',
+            label: "Peak Period",
             data: dataForChart.peakPeriod,
             backgroundColor: peakPeriodFill,
             borderColor: peakPeriodBorder,
             tension: 0.2,
-            fill: 'origin',
+            fill: "origin",
           },
           {
-            label: 'Wave Height',
+            label: "Wave Height",
             data: dataForChart.waveHeightFt,
             backgroundColor: waveHeightFill,
             borderColor: waveHeightBorder,
             tension: 0.2,
-            fill: 'origin',
+            fill: "origin",
           },
         ],
         labels: dataForChart.timeTaken,
       },
       options: {
         responsive: true,
-        maintainAspectRatio: true,
+        maintainAspectRatio: false,
+        interaction: {
+          mode: "index",
+          intersect: false,
+        },
         scales: {
           y: {
             beginAtZero: true,
             ticks: {
               color: colors.almostWhite,
             },
+            title: {
+              display: true,
+              color: colors.almostWhite,
+              text: "Wave Height or Period",
+            },
             grid: {
               color: colors.almostTransparentGray,
             },
           },
           x: {
-            ticks: {
-              callback: () => '',
+            title: {
+              display: true,
               color: colors.almostWhite,
+              text: "Time & Date of Reading",
+            },
+            ticks: {
+              color: colors.almostWhite,
+              callback: (index) => {
+                const label = dataForChart.timeTaken[index];
+                if (!label) return "";
+
+                // Parse the date string (e.g., "Dec 11, 2025, 1:56am")
+                const date = new Date(label);
+
+                // Check if date is valid
+                if (isNaN(date.getTime())) return label;
+
+                const hours = date.getHours();
+                const minutes = date.getMinutes();
+                const ampm = hours >= 12 ? "pm" : "am";
+                const displayHours = hours % 12 || 12; // Convert to 12-hour format
+                const displayMinutes = minutes.toString().padStart(2, "0");
+                const timeString = `${displayHours}:${displayMinutes}${ampm}`;
+
+                return timeString;
+              },
             },
             grid: {
               color: colors.almostTransparentGray,
@@ -115,9 +152,30 @@ class BuoyChart extends React.Component {
         },
         plugins: {
           legend: {
-            display: true,
-            labels: {
-              color: colors.almostWhite,
+            display: false,
+          },
+          tooltip: {
+            displayColors: true,
+            yAlign: "bottom",
+            bodyFont: {
+              size: 14,
+            },
+            titleFont: {
+              size: 14,
+            },
+            callbacks: {
+              labelColor: (context) => {
+                const borderColors = [
+                  avgPeriodBorder, // Average Period
+                  peakPeriodBorder, // Peak Period
+                  waveHeightBorder, // Wave Height
+                ];
+                const borderColor = borderColors[context.datasetIndex];
+                return {
+                  borderColor: "transparent",
+                  backgroundColor: borderColor,
+                };
+              },
             },
           },
         },
@@ -128,7 +186,14 @@ class BuoyChart extends React.Component {
   render() {
     return (
       <BuoyChartContainer>
-        <canvas ref={this.buoyChartRef} />
+        <Card>
+          <div style={{ textAlign: "center" }}>
+            <ChartTitle>12hr Wave Height & Period Trends</ChartTitle>
+          </div>
+          <ChartWrapper>
+            <canvas ref={this.buoyChartRef} />
+          </ChartWrapper>
+        </Card>
       </BuoyChartContainer>
     );
   }

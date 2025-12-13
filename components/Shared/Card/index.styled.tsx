@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { colors } from "data/styles-data";
+import { colors, borderRadius } from "data/styles-data";
 
 export const CardContainer = styled.div`
   padding: 20px;
   background: ${colors.almostTransparentGray};
-  border-radius: 10px;
+  border-radius: ${borderRadius.sm};
   width: 100%;
 `;
