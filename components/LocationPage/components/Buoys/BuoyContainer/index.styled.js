@@ -1,7 +1,5 @@
 import styled from "styled-components";
-import { color } from "chart.js/helpers";
 import { breakpts, colors, generateStylesForSize } from "data/styles-data.js";
-import Card from "@/components/Shared/Card";
 
 export const BuoyContainer = styled.div`
   margin-bottom: 40px;
@@ -53,4 +51,26 @@ export const LoadingIcon = styled.span`
   background-size: cover;
   background-image: url("/images/loading-bars.svg");
   display: inline-block;
+`;
+
+export const HelpIconButton = styled.button`
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 1px solid ${colors.almostWhite};
+  background: transparent;
+  color: ${colors.almostWhite};
+  cursor: pointer;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: bold;
+  padding: 0;
+  transition: all 0.2s ease;
+  transform: translateY(-4px);
+
+  &:hover {
+    background: ${colors.almostBlack};
+    color: ${colors.lightGreen};
+    border-color: ${colors.lightGreen};
+  }
 `;
