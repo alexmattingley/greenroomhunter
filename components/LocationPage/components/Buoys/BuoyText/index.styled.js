@@ -42,7 +42,9 @@ export const ByDefaultH4 = styled.h4`
 `;
 
 export const SwellSpectraBtn = styled.button`
-  display: inline-block;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
   margin-top: 20px;
   border: 1px solid ${colors.almostWhite};
   border-radius: ${borderRadius.xs};
