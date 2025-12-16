@@ -54,8 +54,8 @@ export const LoadingIcon = styled.span`
 `;
 
 export const HelpIconButton = styled.button`
-  width: 22px;
-  height: 22px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
   border: 1px solid ${colors.almostWhite};
   background: transparent;
@@ -66,7 +66,7 @@ export const HelpIconButton = styled.button`
   font-weight: bold;
   padding: 0;
   transition: all 0.2s ease;
-  transform: translateY(-4px);
+  transform: translateY(-3px);
 
   &:hover {
     background: ${colors.almostBlack};
