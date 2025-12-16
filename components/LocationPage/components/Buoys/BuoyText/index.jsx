@@ -82,7 +82,7 @@ BuoyText.propTypes = {
       meanWaveDir: PropTypes.number.isRequired,
     })
   ).isRequired,
-  stationName: PropTypes.string.isRequired,
+  stationId: PropTypes.string.isRequired,
 };
 
 export default BuoyText;

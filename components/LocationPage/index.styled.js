@@ -19,7 +19,7 @@ export const LocationHeader = styled.h1`
   margin-top: 0;
   margin-bottom: 20px;
   ${generateStylesForSize("t1", "mobile")}
-  background ${colors.almostTransparentGray};
+  background: ${colors.almostTransparentGray};
   margin: 0 -20px;
   padding: 60px 20px 40px 20px;
 `;

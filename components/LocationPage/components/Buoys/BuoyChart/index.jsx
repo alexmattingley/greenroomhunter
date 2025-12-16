@@ -125,9 +125,8 @@ class BuoyChart extends React.Component {
             },
             ticks: {
               color: colors.almostWhite,
-              callback: (value) => {
-                // For category scales, Chart.js passes the label value directly
-                const label = value;
+              callback: (index) => {
+                const label = dataForChart.timeTaken[index];
                 if (!label) return "";
 
                 // Parse the date string (e.g., "Dec 11, 2025, 1:56am")
