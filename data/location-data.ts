@@ -50,9 +50,9 @@ const locationData: LocationDataMap = {
     locationThumbImg: "/images/sandspit.jpg",
     CDIP7DayBuoyStnNum: "071",
     buoys: {
-      "Harvest Buoy": 46218,
-      "West Santa Barbara Buoy": 46054,
-      "San Pedro Buoy": 46222,
+      Harvest: 46218,
+      "West Santa Barbara": 46054,
+      "San Pedro": 46222,
     },
     tideStation: {
       id: 9411340,
@@ -84,9 +84,9 @@ const locationData: LocationDataMap = {
     locationThumbImg: "/images/little-rincon.jpg",
     CDIP7DayBuoyStnNum: "071",
     buoys: {
-      "Harvest Buoy": 46218,
-      "West Santa Barbara Buoy": 46054,
-      "San Pedro Buoy": 46222,
+      Harvest: 46218,
+      "West Santa Barbara": 46054,
+      "San Pedro": 46222,
     },
     tideStation: {
       id: 9411189,
@@ -118,10 +118,10 @@ const locationData: LocationDataMap = {
     locationThumbImg: "/images/zuma.jpg",
     CDIP7DayBuoyStnNum: "092",
     buoys: {
-      "Harvest Buoy": 46218,
-      "West Santa Barbara Buoy": 46054,
-      "Santa Monica Bay Buoy": 46221,
-      "San Pedro Buoy": 46222,
+      Harvest: 46218,
+      "West Santa Barbara": 46054,
+      "Santa Monica Bay": 46221,
+      "San Pedro": 46222,
     },
     tideStation: {
       id: 9410660,
@@ -153,9 +153,9 @@ const locationData: LocationDataMap = {
     locationThumbImg: "/images/lowers.jpg",
     CDIP7DayBuoyStnNum: "045",
     buoys: {
-      "Harvest Buoy": 46218,
-      "San Pedro Buoy": 46222,
-      "Oceanside Offshore Buoy": 46224,
+      Harvest: 46218,
+      "San Pedro": 46222,
+      "Oceanside Offshore": 46224,
     },
     tideStation: {
       id: 9410580,
@@ -192,10 +192,10 @@ const locationData: LocationDataMap = {
     locationThumbImg: "/images/jetty.jpg",
     CDIP7DayBuoyStnNum: "191",
     buoys: {
-      "Harvest Buoy": 46218,
-      "Oceanside Offshore Buoy": 46224,
-      "Mission Bay West Buoy": 46258,
-      "Point Loma South Buoy": 46232,
+      "Point Loma South": 46232,
+      "Mission Bay West": 46258,
+      "Oceanside Offshore": 46224,
+      Harvest: 46218,
     },
     tideStation: {
       id: 9410170,
