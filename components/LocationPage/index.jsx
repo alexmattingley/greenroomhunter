@@ -16,7 +16,7 @@ function Location(props) {
     <>
       <LocationSideNav />
       <LocationContent>
-        <LocationHeader>{name} Surf Data</LocationHeader>
+        <LocationHeader>{name}</LocationHeader>
         <div id="buoy_block">
           <BuoyBlock locationData={locationObject} buoyData={buoyData} />
         </div>

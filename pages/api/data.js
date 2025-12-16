@@ -1,6 +1,6 @@
-import mapBuoyData from 'data/api-data/noaa/buoys/parse-buoy-data';
-import fetchTideData from 'data/api-data/noaa/tides/fetch-tide-data';
-import redis from '../../lib/redis';
+import redis from "../../lib/redis";
+import mapBuoyData from "data/api-data/noaa/buoys/parse-buoy-data";
+import fetchTideData from "data/api-data/noaa/tides/fetch-tide-data";
 
 export default async function handler(req, res) {
   const buoyReqInfo = req.body.buoys;
@@ -43,9 +43,10 @@ export default async function handler(req, res) {
   }
 
   const data = {
-    buoyData, tideData,
+    buoyData,
+    tideData,
   };
   // Buoy information should be refreshed every 10 minutes
-  await redis.set(cacheKey, JSON.stringify(data), 'EX', 600);
+  await redis.set(cacheKey, JSON.stringify(data), "EX", 600);
   res.status(200).json(data);
 }

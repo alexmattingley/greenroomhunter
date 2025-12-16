@@ -39,7 +39,7 @@ export const typescales = {
       "line-height": "58px",
     },
   },
-  t2: {
+  "t1.5": {
     mobile: {
       "font-size": "29px",
       "line-height": "34px",
@@ -47,6 +47,16 @@ export const typescales = {
     desktop: {
       "font-size": "29px",
       "line-height": "34px",
+    },
+  },
+  t2: {
+    mobile: {
+      "font-size": "25px",
+      "line-height": "29px",
+    },
+    desktop: {
+      "font-size": "25px",
+      "line-height": "29px",
     },
   },
   "t2.5": {
