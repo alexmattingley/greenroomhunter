@@ -28,6 +28,10 @@ yarn-error.log*
 .env.test.local
 .env.production.local
 
+# private / sensitive notes (not committed)
+private.local.md
+*.local.md
+
 # vercel
 .vercel
 

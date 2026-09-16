@@ -1,0 +1,11 @@
+---
+description: Project coding conventions
+alwaysApply: true
+---
+
+Follow the coding standards and conventions documented in
+[agent/conventions.md](mdc:agent/conventions.md).
+
+Key rule: **never use `!important` in CSS** — increase specificity instead
+(e.g. the double-ampersand `&&` pattern in styled-components). See the
+conventions doc for full details and examples.
