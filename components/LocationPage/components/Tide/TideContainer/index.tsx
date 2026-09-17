@@ -1,7 +1,13 @@
 import React, { useState } from "react";
 import TideCarousel, { TideViewMode } from "../TideCarousel";
 import TideCurrent from "../TideCurrent";
-import { TideTitle, TideBlockContainer } from "./index.styled.js";
+import {
+  TideTitle,
+  TideBlockContainer,
+  TideLayout,
+  TideCurrentCol,
+  TideCarouselCol,
+} from "./index.styled.js";
 import parseTideData from "data/api-data/noaa/tides/parse-tide-data";
 import { TideDay } from "data/api-data/noaa/tides/types";
 import {
@@ -45,14 +51,22 @@ const TideView: React.FC<{ days: TideDay[]; location: string }> = ({
   return (
     <TideBlockContainer>
       <TideTitle>Tides for the next {days.length} days for {location}</TideTitle>
-      {currentTide && <TideCurrent currentTide={currentTide} />}
-      <TideCarousel
-        days={days}
-        selectedIndex={selectedIndex}
-        onSelect={setSelectedIndex}
-        viewMode={viewMode}
-        onViewModeChange={setViewMode}
-      />
+      <TideLayout>
+        {currentTide && (
+          <TideCurrentCol>
+            <TideCurrent currentTide={currentTide} />
+          </TideCurrentCol>
+        )}
+        <TideCarouselCol>
+          <TideCarousel
+            days={days}
+            selectedIndex={selectedIndex}
+            onSelect={setSelectedIndex}
+            viewMode={viewMode}
+            onViewModeChange={setViewMode}
+          />
+        </TideCarouselCol>
+      </TideLayout>
     </TideBlockContainer>
   );
 };

@@ -4,6 +4,14 @@ import { CardContainer } from "components/Shared/Card/index.styled";
 
 export const CardTextContainer = styled(CardContainer)`
   margin-bottom: 20px;
+
+  @media only screen and (min-width: ${breakpts.md}) {
+    /* Match the carousel card's height and center the content within it. */
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 `;
 
 export const CurrentTideTitle = styled.h3`

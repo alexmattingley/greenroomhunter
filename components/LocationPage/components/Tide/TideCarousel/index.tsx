@@ -50,6 +50,9 @@ const TideCarousel: React.FC<TideCarouselProps> = ({
   const [emblaRef, emblaApi] = useEmblaCarousel({
     startIndex: selectedIndex,
     align: "center",
+    // Dragging the chart to scrub kept changing days by accident; days are
+    // changed via the arrows/dots instead.
+    watchDrag: false,
   });
   const [canScrollPrev, setCanScrollPrev] = useState(false);
   const [canScrollNext, setCanScrollNext] = useState(false);
