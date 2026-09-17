@@ -9,6 +9,7 @@ and priorities.
 - [Tech Stack](agent/tech-stack.md) — frameworks, data sources, architecture, and caching
 - [Road Map](agent/road-map.md) — planned work with priority and complexity ratings
 - [Conventions](agent/conventions.md) — coding standards (notably: never use `!important` — increase specificity instead)
+- [Spec Process](agent/spec-process.md) — how we plan a feature before building it (see `specs/`)
 
 ## Notes
 - Account-specific/sensitive details live in the git-ignored `private.local.md` (not committed).
