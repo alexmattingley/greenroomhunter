@@ -1,77 +1,8 @@
 import styled from "styled-components";
 import { colors, breakpts, generateStylesForSize } from "data/styles-data.js";
-import { CardContainer } from "components/Shared/Card/index.styled";
 
-export const CardTextContainer = styled(CardContainer)`
-  margin-bottom: 20px;
-`;
-
-export const HighAndLowTideCard = styled(CardContainer)`
-  margin-bottom: 20px;
-  @media only screen and (min-width: ${breakpts.xl}) {
-    margin-bottom: 0;
-  }
-`;
-
-export const CurrentTideText = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 20px;
-  font-weight: bold;
-  ${generateStylesForSize("t2", "mobile")}
-  @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize("t2", "desktop")}
-  }
-`;
-
-export const NextTideDescription = styled.div`
-  ${generateStylesForSize("t4", "mobile")}
-
-  b {
-    color: ${colors.lightGreen};
-  }
-
-  @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize("t4", "desktop")}
-  }
-`;
-
-export const CurrentTideTitle = styled.h3`
-  margin-top: 0;
-  margin-bottom: 20px;
-  ${generateStylesForSize("t2", "mobile")}
-
-  @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize("t2", "desktop")}
-  }
-`;
-
-export const TideTableTitle = styled.h3`
-  margin-top: 0;
-  margin-bottom: 20px;
-  ${generateStylesForSize("t2", "mobile")}
-
-  @media only screen and (min-width: ${breakpts.lg}) {
-    ${generateStylesForSize("t2", "desktop")}
-  }
-`;
-
-export const TideTableContainer = styled.div`
-  @media only screen and (min-width: ${breakpts.sm}) {
-    padding: 0;
-    min-width: 340px;
-    order: 2;
-  }
-
-  @media only screen and (min-width: ${breakpts.lg}) {
-    display: flex;
-    gap: 20px;
-  }
-  @media only screen and (min-width: ${breakpts.xl}) {
-    display: block;
-    order: 1;
-    min-width: 30%;
-  }
+export const TideTableWrapper = styled.div`
+  width: 100%;
 `;
 
 export const TideTableRow = styled.div`

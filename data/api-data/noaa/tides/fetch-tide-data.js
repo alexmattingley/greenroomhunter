@@ -7,7 +7,9 @@ const fetchTideData = async (stationId, timeZone = 'America/Los_Angeles') => {
     // Use specified timezone to ensure consistent date calculation regardless of server location
     const localTime = DateTime.now().setZone(timeZone);
     const beginDate = localTime.toISODate().split('-').join('');
-    const endDate = localTime.plus({days: 1}).toISODate().split('-').join('');
+    // Cover today + the next 4 days (5-day window) so the tide carousel can show a
+    // chart per day. See specs/tide-mobile-carousel.
+    const endDate = localTime.plus({days: 4}).toISODate().split('-').join('');
     const tideURL = `https://api.tidesandcurrents.noaa.gov/api/prod/datagetter?begin_date=${beginDate}&end_date=${endDate}&product=predictions&station=${stationId}&datum=MLLW&units=english&time_zone=lst_ldt&application=Web_Services&format=json`;
     const response = await fetch(tideURL);
     const json = await response.json();
